@@ -55,18 +55,18 @@ function clickInputRadio(item, index, answer) {
           <form>
 
             <div class="radio">
-              <input class="input" type="radio" :name="index" @click="() => clickInputRadio(item, index, 'yes')" />
-              <label for="yes">Да</label>
+              <input class="input" type="radio" :id="index + 'yes'" :name="index" @click="() => clickInputRadio(item, index, 'yes')" />
+              <label :for="index + 'yes'">Да</label>
             </div>
 
             <div class="radio">
-              <input class="input" type="radio" :name="index" @click="() => clickInputRadio(item, index, 'maybe')" />
-              <label for="maybe">Может быть</label>
+              <input class="input" type="radio" :id="index + 'maybe'" :name="index" @click="() => clickInputRadio(item, index, 'maybe')" />
+              <label :for="index + 'maybe'">Может быть</label>
             </div>
 
             <div class="radio">
-              <input class="input" type="radio" :name="index" @click="() => clickInputRadio(item, index, 'no')" />
-              <label for="no">Нет</label>
+              <input class="input" type="radio" :id="index + 'no'" :name="index" @click="() => clickInputRadio(item, index, 'no')" />
+              <label :for="index + 'no'">Нет</label>
             </div>
 
           </form>
