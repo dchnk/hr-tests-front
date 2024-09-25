@@ -1,11 +1,11 @@
 <script setup>
-import TestForm from './components/TestForm.vue';
+import Test from "./pages/Test.vue";
 
 </script>
 
 <template>
   <div class="page">
-    <TestForm />
+    <Test />
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import TestForm from './components/TestForm.vue';
 @import url("./vendor/fonts.css");
 
 .page {
-  font-family: 'Inter', 'Comfortaa', Arial, sans-serif;
+  font-family: 'Manrope', Arial, sans-serif;
   font-weight: normal;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
@@ -25,6 +25,7 @@ import TestForm from './components/TestForm.vue';
   flex-direction: column;
   min-height: 100vh;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
+  background-color: #F8F8F8;
 }
 </style>

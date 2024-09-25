@@ -1,8 +1,9 @@
 <script setup>
-import { test } from '../constants/test-list';
-import { reactive, toRefs } from 'vue';
+import {test} from '../../constants/test-list.js';
+import {reactive, toRefs, watch, ref} from 'vue';
 
-const answered = reactive({});
+// let answered = ref({});
+let answered = reactive({});
 const result = reactive({
   a: 0,
   b: 0,
@@ -18,17 +19,48 @@ const result = reactive({
 
 const resultRefs = toRefs(result);
 
-function clickInputRadio(item, index, answer) {
-  if (answered[index]) {
-    resultRefs[item.type.toLowerCase()].value += (answered[`${index}`].value * -1);
+watch([], (newValue, oldValue) => {
+  console.log(newValue, oldValue)
+},)
 
-    answered[`${index}`].value = item.answer[answer];
-    resultRefs[item.type.toLowerCase()].value += item.answer[answer];
-    return;
+watch(answered, (newValue, oldValue) => {
+  console.log(newValue, oldValue)
+},)
+
+
+function clickInputRadio(item, index, answer) {
+
+  // if (answered[index]) {
+  //   resultRefs[item.type.toLowerCase()].value += (answered[index].value * -1);
+  //
+  //   answered[index].value = item.answer[answer];
+  //   resultRefs[item.type.toLowerCase()].value += item.answer[answer];
+  //   return;
+  // }
+  //
+  // answered[`${index}`] = {value: item.answer[answer]};
+  // resultRefs[item.type.toLowerCase()].value += item.answer[answer];
+
+  // if (answered.value[index]) {
+  //   console.log('old', answered.value[index].value)
+  //   resultRefs[item.type.toLowerCase()].value -= answered.value[index].value;
+  //
+  //   answered.value[index].value = item.answer[answer];
+  // }
+  //
+  // answered.value = {...answered.value, [index]: {value: item.answer[answer]}};
+  // resultRefs[item.type.toLowerCase()].value += answered.value[index].value;
+  //
+  // console.log('new', answered.value[index].value);
+
+  if (answered.value[index]) {
+    // resultRefs[item.type.toLowerCase()].value -= answered.value[index].value;
+
+    answered.value[index].value = item.answer[answer];
   }
 
-  answered[`${index}`] = {value: item.answer[answer]};
-  resultRefs[item.type.toLowerCase()].value += item.answer[answer];
+  answered.value = {...answered.value, [index]: {value: item.answer[answer]}};
+  // resultRefs[item.type.toLowerCase()].value += answered.value[index].value;
 }
 
 </script>
@@ -51,21 +83,24 @@ function clickInputRadio(item, index, answer) {
       <div class="form">
         <div class="question" :class="answered[index] && 'answered'" v-for="(item, index) in test.list">
           <div class="text">{{ item.question }}</div>
-          
+
           <form>
 
             <div class="radio">
-              <input class="input" type="radio" :id="index + 'yes'" :name="index" @click="() => clickInputRadio(item, index, 'yes')" />
+              <input class="input" type="radio" :id="index + 'yes'" :name="index"
+                     @click="() => clickInputRadio(item, index, 'yes')"/>
               <label :for="index + 'yes'">Да</label>
             </div>
 
             <div class="radio">
-              <input class="input" type="radio" :id="index + 'maybe'" :name="index" @click="() => clickInputRadio(item, index, 'maybe')" />
+              <input class="input" type="radio" :id="index + 'maybe'" :name="index"
+                     @click="() => clickInputRadio(item, index, 'maybe')"/>
               <label :for="index + 'maybe'">Может быть</label>
             </div>
 
             <div class="radio">
-              <input class="input" type="radio" :id="index + 'no'" :name="index" @click="() => clickInputRadio(item, index, 'no')" />
+              <input class="input" type="radio" :id="index + 'no'" :name="index"
+                     @click="() => clickInputRadio(item, index, 'no')"/>
               <label :for="index + 'no'">Нет</label>
             </div>
 
@@ -129,7 +164,7 @@ function clickInputRadio(item, index, answer) {
         border-radius: 1em;
         margin-bottom: 1em;
 
-        &.answered{
+        &.answered {
           box-shadow: 0 0 .5em #0fd423;
         }
 
