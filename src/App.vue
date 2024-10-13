@@ -1,11 +1,13 @@
 <script setup>
 import Test from "./pages/Test.vue";
+import Auth from "./pages/Auth.vue";
 
 </script>
 
 <template>
   <div class="page">
-    <Test />
+<!--    <Test />-->
+    <Auth />
   </div>
 </template>
 
@@ -27,5 +29,9 @@ import Test from "./pages/Test.vue";
   justify-content: space-between;
   align-items: center;
   background-color: #F8F8F8;
+
+  @media screen and (max-width: 820px) {
+    background-color: #FFFFFF;
+  }
 }
 </style>
