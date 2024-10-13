@@ -134,7 +134,7 @@
 
       .icon {
         margin: auto;
-        background-image: url("./img/passed.png");
+        background-image: url("../../img/passed.png");
         width: 42.5px;
         height: 42.5px;
         background-position: center center;

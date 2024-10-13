@@ -1,13 +1,15 @@
 <script setup>
 import Test from "./pages/Test.vue";
 import Auth from "./pages/Auth.vue";
+import Admin from "./pages/Admin.vue"
 
 </script>
 
 <template>
   <div class="page">
-<!--    <Test />-->
-    <Auth />
+    <Admin />
+   <!-- <Test /> -->
+    <!-- <Auth /> -->
   </div>
 </template>
 

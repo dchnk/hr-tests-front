@@ -48,7 +48,7 @@
 <style lang="scss" scoped>
 .container {
   display: flex;
-  margin: 4.4% auto auto;
+  margin: 4.4% auto;
   flex-direction: column;
   max-width: 60em;
   width: 100%;
@@ -59,7 +59,7 @@
 
   @media screen and (max-width: 820px) {
     border-radius: 0px;
-    margin: 0 auto auto;
+    margin: 0 auto auto;  
     border: none;
   }
 
