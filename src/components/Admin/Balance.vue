@@ -31,15 +31,21 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   max-height: 138px;
+
+  @media screen and (max-width: 820px) {
+    padding: 24px 20px;
+  }
 
   .wallet {
     display: flex;
     align-items: center;
     margin-right: 70px;
+    max-width: 50%;
 
     @media screen and (max-width: 820px) {
-      display: none;
+      margin-right: 10px;
     }
 
     .img {
@@ -50,6 +56,11 @@
       margin-right: 12px;
       border-radius: 50%;
       background-color: #FFFFFF;
+
+      @media screen and (max-width: 820px) {
+        min-width: 44px;
+        height: 44px;
+      }
 
 
       .icon {
@@ -67,6 +78,11 @@
         font-weight: 700;
         line-height: 31.2px;
         color: #122130;
+
+        @media screen and (max-width: 820px) {
+          font-size: 22px;
+          line-height: 26.4px;
+        }
       }
 
       .text {
@@ -75,12 +91,18 @@
         line-height: 19.6px;
         text-wrap: nowrap;
         color: #686B74;
+
+        @media screen and (max-width: 820px) {
+          font-size: 12px;
+          line-height: 16.8px;
+        }
       }
     }
   }
 
   .btn {
     height: 44px;
+    max-width: 180px;
     width: 180px;
     margin: 0;
     padding: 0;
@@ -92,7 +114,12 @@
     background-color: #EBE1FC;
     color: #8F47FF;
     border: none;
+    cursor: pointer;
 
+    &:hover {
+      background-color: #8F47FF;
+      color: #FFFFFF;
+    }
   }
 }
 </style>

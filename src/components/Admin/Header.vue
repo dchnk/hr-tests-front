@@ -27,7 +27,7 @@ import Profile from "./Profile.vue";
   box-sizing: border-box;
 
   @media screen and (max-width: 770px) {
-    padding: 0 1em;
+    padding: 0 12px;
     height: 66px;
   }
 

@@ -2,6 +2,7 @@
 
 import Greeting from "./Greeting.vue";
 import Balance from "./Balance.vue";
+import Departments from "./Departments.vue";
 </script>
 
 <template>
@@ -9,6 +10,9 @@ import Balance from "./Balance.vue";
     <section class="info">
       <Greeting />
       <Balance />
+    </section>
+    <section class="groups">
+      <Departments />
     </section>
   </main>
 </template>
@@ -22,16 +26,39 @@ import Balance from "./Balance.vue";
   height: 100%;
 
   @media screen and (max-width: 770px) {
-    padding: 0 1em;
+    padding: 0 12px;
   }
 
   .info {
     display: flex;
     justify-content: space-between;
     margin-top: 80px;
+    margin-bottom: 80px;
+
+    @media screen and (max-width: 950px) {
+      flex-direction: column;
+      margin-top: 57px;
+      margin-bottom: 64px;
+    }
 
     @media screen and (max-width: 770px) {
-      margin-top: 66px;
+      margin-top: 44px;
+      margin-bottom: 40px;
+    }
+  }
+
+  .groups {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #E6E6E6;
+
+    @media screen and (max-width: 770px) {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-bottom: 16px;
     }
   }
 }

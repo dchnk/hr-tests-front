@@ -13,7 +13,7 @@ import Admin from "./pages/Admin.vue"
   </div>
 </template>
 
-<style>
+<style lang="scss">
 @import url("./vendor/normalize.css");
 @import url("./vendor/fonts.css");
 
@@ -29,7 +29,7 @@ import Admin from "./pages/Admin.vue"
   flex-direction: column;
   min-height: 100vh;
   align-items: center;
-  //background-color: #F8F8F8;
+  background-color: #F8F8F8;
 
   @media screen and (max-width: 820px) {
     background-color: #FFFFFF;

@@ -17,6 +17,15 @@
   .greeting {
     margin-right: 74px;
 
+    @media screen and (max-width: 950px) {
+      margin-right: 0;
+      margin-bottom: 34px;
+    }
+
+    @media screen and (max-width: 820px) {
+      margin-bottom: 20px;
+    }
+
     .hello {
       margin-bottom: 12px;
       font-size: 24px;
@@ -31,8 +40,8 @@
     }
 
     .text {
-      max-width: 640px;
-      font-size: 16px;
+      max-width: 626px;
+      font-size: 91%;
       font-weight: 400;
       line-height: 25.6px;
       color: #686B74;
