@@ -28,9 +28,8 @@ import Admin from "./pages/Admin.vue"
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  justify-content: space-between;
   align-items: center;
-  background-color: #F8F8F8;
+  //background-color: #F8F8F8;
 
   @media screen and (max-width: 820px) {
     background-color: #FFFFFF;

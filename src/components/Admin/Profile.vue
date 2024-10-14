@@ -79,6 +79,11 @@ function handleOpenMenu() {
     font-weight: 700;
     line-height: 19.2px;
     color: #FFFFFF;
+
+    @media screen and (max-width: 770px) {
+      font-size: 14px;
+      line-height: 16.8px;
+    }
   }
 
   .img {
@@ -101,6 +106,11 @@ function handleOpenMenu() {
       background-repeat: no-repeat;
       background-size: contain;
       background-position: center center;
+    }
+
+    @media screen and (max-width: 770px) {
+      width: 28px;
+      height: 28px;
     }
   }
 
@@ -130,7 +140,7 @@ function handleOpenMenu() {
     box-sizing: border-box;
     visibility: hidden;
     opacity: 0;
-    transition: all .3s ease-in-out;
+    transition: all .2s ease-in-out;
 
     &.open {
       visibility: visible;
