@@ -4,9 +4,7 @@ import {ref} from "vue";
 const isOpen = ref(false);
 
 function handleOpenMenu() {
-
   isOpen.value = !isOpen.value;
-  console.log(isOpen.value)
 }
 
 </script>

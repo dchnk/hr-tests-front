@@ -4,6 +4,7 @@ import Greeting from "./Greeting.vue";
 import Balance from "./Balance.vue";
 import Departments from "./Departments.vue";
 import Carousel from "./Carousel.vue";
+import Panel from "./Panel.vue";
 </script>
 
 <template>
@@ -15,6 +16,9 @@ import Carousel from "./Carousel.vue";
     <section class="groups">
       <Departments />
       <Carousel />
+    </section>
+    <section class="vacancies">
+      <Panel />
     </section>
   </main>
 </template>
@@ -52,6 +56,11 @@ import Carousel from "./Carousel.vue";
   .groups {
     display: flex;
     flex-direction: column;
+    margin-bottom: 48px;
+  }
+
+  .vacancies {
+
   }
 }
 </style>

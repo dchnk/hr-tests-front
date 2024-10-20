@@ -1,121 +1,245 @@
 <script setup>
+import {ref, useTemplateRef, onMounted, watch, reactive} from "vue";
+
+const isAffixes = ref(false);
+const slider = useTemplateRef('my-slider');
+const selectedList = reactive({});
+
+function checkSliderIsAffixes() {
+  console.log(slider.value)
+  if (!slider.value.hasNext && !slider.value.hasPrev) {
+    isAffixes.value = false;
+  } else {
+    isAffixes.value = true;
+  }
+
+  console.log(isAffixes.value)
+}
+
+function handleSelectOnClick(e) {
+  selectedList[e.currentTarget.dataset.name] ?
+      delete selectedList[e.currentTarget.dataset.name] :
+      selectedList[e.currentTarget.dataset.name] = true;
+}
+
+onMounted(() => {
+  checkSliderIsAffixes()
+})
+
+// watch(slider.value, (slider) => {
+//   console.log(slider);
+// }, { deep: true })
+
+watch(selectedList, (selectedList) => {
+  console.log(selectedList);
+})
 
 </script>
 
 <template>
-  <v-slide-group class="slider" show-arrows>
+  <div class="container">
+    <div class="arrows" :class="!isAffixes && 'disabled'"></div>
+    <v-slide-group class="slider" show-arrows ref="my-slider">
+      <div class="select" data-name="1" :class="selectedList[1] && 'selected'"
+           @click.stop="(e) => { handleSelectOnClick(e) }">
+        <div class="notification"></div>
+        <div class="name">Все вакансии</div>
+      </div>
+      <div class="select" data-name="2" :class="selectedList[2] && 'selected'"
+           @click.stop="(e) => { handleSelectOnClick(e) }">
+        <div class="notification"></div>
+        <div class="name">Все вакансии</div>
+      </div>
+      <div class="select" data-name="3" :class="selectedList[3] && 'selected'"
+           @click.stop="(e) => { handleSelectOnClick(e) }">
+        <div class="notification"></div>
+        <div class="name">Все вакансии</div>
+      </div>
+      <div class="select" data-name="4" :class="selectedList[4] && 'selected'"
+           @click.stop="(e) => { handleSelectOnClick(e) }">
+        <div class="notification"></div>
+        <div class="name">Все вакансии</div>
+      </div>
+      <div class="select" data-name="5" :class="selectedList[5] && 'selected'"
+           @click.stop="(e) => { handleSelectOnClick(e) }">
+        <div class="notification"></div>
+        <div class="name">Все вакансии</div>
+      </div>
+      <!--      <div class="select" data-name="2"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="1"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="2"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="1"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="2"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="1"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="2"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="1"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
+      <!--      <div class="select" data-name="2"-->
+      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+      <!--        <div class="notification"></div>-->
+      <!--        <div class="name">Все вакансии</div>-->
+      <!--      </div>-->
 
-    <div class="select" data-name="1"
-        @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="1"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="1"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="1"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="1"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="1"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="1"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
-    <div class="select" data-name="2"
-         @click.stop="(e) => { this.handleSelectOnClick(e) }">
-      <div class="notification"></div>
-      <div class="name">Все вакансии</div>
-    </div>
+    </v-slide-group>
+  </div>
 
-  </v-slide-group>
 </template>
 
 <style lang="scss">
+
+.container {
+  position: relative;
+
+  .arrows {
+    position: absolute;
+    right: 0;
+    z-index: 5;
+    box-sizing: border-box;
+    width: 86px;
+    height: 99%;
+    border-radius: 10px;
+    border: 1px solid #E6E6E6;
+    background-color: #F8F8F8;
+
+    &.disabled {
+      display: none;
+    }
+
+    @media screen and (max-width: 820px) {
+      display: none;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      border-right: 1px solid #E6E6E6;
+      left: 50%;
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      z-index: 2;
+      position: absolute;
+      height: 120%;
+      width: 50%;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 30%, #FFFFFF 100%);
+      top: -4px;
+      left: -51%;
+    }
+  }
+
   .slider {
     display: flex;
     position: relative;
+    justify-content: space-between;
+    width: 100%;
+
+    .v-slide-group__container {
+      max-width: calc(100% - 90px);
+
+      @media screen and (max-width: 820px) {
+        max-width: 100%;
+      }
+    }
 
     .v-slide-group__content {
       gap: 11px;
+      position: static;
+
+      @media screen and (max-width: 700px) {
+        gap: 8px;
+      }
     }
 
     .v-slide-group__next {
       position: absolute;
       justify-content: flex-end;
-      z-index: 5;
-      right: 0;
-      min-width: 5em;
-      background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .1) 30%, #ffffff 100%);
-      height: 3.5em;
+      z-index: 6;
+      right: 3px;
+      max-width: 30px;
+      height: 99%;
       align-self: center;
+      min-width: 0;
+
+      .v-icon {
+        --v-icon-size-multiplier: 1.5;
+      }
+
+      @media screen and (max-width: 820px) {
+        display: none;
+      }
     }
 
     .v-slide-group__prev {
       position: absolute;
       justify-content: flex-start;
-      z-index: 5;
-      left: -100%;
-      min-width: 5em;
-      background: linear-gradient(-90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .1) 30%, #ffffff 100%);
+      z-index: 6;
+      max-width: 30px;
+      right: 52px;
       height: 3.5em;
       align-self: center;
+      min-width: 0;
+
+      .v-icon {
+        --v-icon-size-multiplier: 1.5;
+      }
+
+      @media screen and (max-width: 820px) {
+        display: none;
+      }
     }
 
     .v-slide-group__next--disabled {
-      display: none;
+      pointer-events: none;
+
+      i {
+        opacity: var(--v-disabled-opacity);
+      }
+
+      //display: none;
+      opacity: 1;
     }
 
     .v-slide-group__prev--disabled {
-      display: none;
+      pointer-events: none;
+      opacity: 1;
+
+      i {
+        opacity: var(--v-disabled-opacity);
+      }
     }
 
     .select {
@@ -135,7 +259,16 @@
         color: #FFFFFF;
       }
 
+      @media screen and (max-width: 700px) {
+        padding: 10px;
+        font-size: 13px;
+        line-height: 18.2px;
+      }
+
     }
 
   }
+}
+
+
 </style>

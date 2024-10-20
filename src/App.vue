@@ -8,8 +8,8 @@ import Admin from "./pages/Admin.vue"
 <template>
   <div class="page">
     <Admin />
-   <!-- <Test /> -->
-    <!-- <Auth /> -->
+<!--    <Test />-->
+<!--     <Auth />-->
   </div>
 </template>
 
@@ -29,7 +29,8 @@ import Admin from "./pages/Admin.vue"
   flex-direction: column;
   min-height: 100vh;
   align-items: center;
-  background-color: #F8F8F8;
+  //background-color: #F8F8F8;
+  background-color: #FFFFFF;
 
   @media screen and (max-width: 820px) {
     background-color: #FFFFFF;
