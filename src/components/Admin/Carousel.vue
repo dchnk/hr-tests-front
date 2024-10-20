@@ -6,9 +6,11 @@ const slider = useTemplateRef('my-slider');
 const selectedList = reactive({});
 
 function checkSliderIsAffixes() {
-  console.log(slider.value)
-  if (!slider.value.hasNext && !slider.value.hasPrev) {
-    isAffixes.value = false;
+  console.log(slider.value.$vuetify)
+  if (slider.value.hasNext === false) {
+    if (slider.value.hasPrev === false) {
+      isAffixes.value = false;
+    }
   } else {
     isAffixes.value = true;
   }
@@ -38,7 +40,7 @@ watch(selectedList, (selectedList) => {
 
 <template>
   <div class="container">
-    <div class="arrows" :class="!isAffixes && 'disabled'"></div>
+    <div class="arrows" :class="isAffixes === false && 'disabled'"></div>
     <v-slide-group class="slider" show-arrows ref="my-slider">
       <div class="select" data-name="1" :class="selectedList[1] && 'selected'"
            @click.stop="(e) => { handleSelectOnClick(e) }">

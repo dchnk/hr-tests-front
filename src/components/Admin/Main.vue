@@ -5,6 +5,8 @@ import Balance from "./Balance.vue";
 import Departments from "./Departments.vue";
 import Carousel from "./Carousel.vue";
 import Panel from "./Panel.vue";
+import VacancyList from "./VacancyList.vue";
+
 </script>
 
 <template>
@@ -19,6 +21,7 @@ import Panel from "./Panel.vue";
     </section>
     <section class="vacancies">
       <Panel />
+      <VacancyList />
     </section>
   </main>
 </template>

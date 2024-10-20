@@ -1,0 +1,174 @@
+<script setup>
+import {ref} from "vue";
+import Tooltip from "../ui/Tooltip.vue";
+
+const {text} = defineProps(['text']);
+const isOpen = ref(false);
+
+</script>
+
+<template>
+  <div class="vacancy">
+    <div class="notification">18</div>
+    <div class="name">{{ text }}</div>
+    <div class="btn edit">
+      <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none">
+        <path
+          d="M14.6456 4.22922L17.5919 7.1755M1.625 20.3748L1.67443 20.0288C1.84933 18.8045 1.93679 18.1923 2.13572 17.6207C2.31224 17.1136 2.55338 16.6313 2.85319 16.1858C3.19106 15.6837 3.62832 15.2465 4.50286 14.3719L16.6362 2.23861C17.4498 1.42502 18.7689 1.42502 19.5825 2.23861C20.3961 3.0522 20.3961 4.3713 19.5825 5.18489L7.2265 17.5409C6.43312 18.3342 6.03643 18.7309 5.58458 19.0464C5.18352 19.3264 4.75096 19.5584 4.29581 19.7375C3.78303 19.9394 3.23308 20.0503 2.13326 20.2722L1.625 20.3748Z"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="tooltip">Показать вакансию</div>
+    </div>
+    <div class="btn archive">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
+        <path
+          d="M7.875 12.0846H14.125M3.29167 7.91797H18.7083C19.2917 7.91797 19.5834 7.91797 19.8062 7.80443C20.0022 7.70457 20.1616 7.54521 20.2615 7.34921C20.375 7.12638 20.375 6.83469 20.375 6.2513V3.33464C20.375 2.75125 20.375 2.45955 20.2615 2.23673C20.1616 2.04073 20.0022 1.88137 19.8062 1.7815C19.5834 1.66797 19.2917 1.66797 18.7083 1.66797H3.29167C2.70828 1.66797 2.41658 1.66797 2.19376 1.7815C1.99776 1.88137 1.8384 2.04073 1.73853 2.23673C1.625 2.45955 1.625 2.75125 1.625 3.33464V6.2513C1.625 6.83469 1.625 7.12638 1.73853 7.34921C1.8384 7.54521 1.99776 7.70457 2.19376 7.80443C2.41658 7.91797 2.70828 7.91797 3.29167 7.91797ZM3.70833 7.91797H18.2917V15.0013C18.2917 16.1681 18.2917 16.7515 18.0646 17.1971C17.8649 17.5891 17.5462 17.9078 17.1541 18.1076C16.7085 18.3346 16.1251 18.3346 14.9583 18.3346H7.04167C5.87489 18.3346 5.2915 18.3346 4.84585 18.1076C4.45385 17.9078 4.13514 17.5891 3.9354 17.1971C3.70833 16.7515 3.70833 16.1681 3.70833 15.0013V7.91797Z"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="tooltip">Показать вакансию</div>
+    </div>
+    <div class="btn delete">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
+        <path
+          d="M1.66699 4.75H18.3337M14.167 4.75L13.8851 3.90424C13.6119 3.08464 13.4753 2.67483 13.2219 2.37186C12.9982 2.10431 12.7108 1.89721 12.3863 1.76956C12.0187 1.625 11.5867 1.625 10.7228 1.625H9.27786C8.41392 1.625 7.98195 1.625 7.61439 1.76956C7.28982 1.89721 7.00249 2.10431 6.77875 2.37186C6.52538 2.67483 6.38878 3.08464 6.11558 3.90424L5.83366 4.75M16.2503 4.75V15.375C16.2503 17.1252 16.2503 18.0002 15.9097 18.6687C15.6101 19.2567 15.1321 19.7348 14.544 20.0344C13.8756 20.375 13.0005 20.375 11.2503 20.375H8.75033C7.00016 20.375 6.12508 20.375 5.45661 20.0344C4.8686 19.7348 4.39053 19.2567 4.09093 18.6687C3.75033 18.0002 3.75033 17.1252 3.75033 15.375V4.75M12.0837 8.91667V16.2083M7.91699 8.91667V16.2083"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="tooltip">Показать вакансию</div>
+    </div>
+    <div class="btn arrow">
+      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
+        <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <div class="tooltip">Показать вакансию</div>
+    </div>
+
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.vacancy {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14.5px 24px;
+  box-sizing: border-box;
+  background-color: #F4F5F7;
+  border-radius: 10px;
+
+  .notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 18.2px;
+    height: 24px;
+    width: 24px;
+    background-color: #8F47FF;
+    border-radius: 50%;
+  }
+
+  .name {
+    margin: 0 auto 0 12.5px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 19.6px;
+  }
+
+  .btn {
+    position: relative;
+    display: flex;
+    height: 32px;
+    width: 32px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    cursor: pointer;
+
+    svg {
+      stroke: #122130;
+      margin: auto;
+    }
+
+    &.edit, &.archive, &.delete {
+      margin-right: 8px;
+
+      svg{
+        height: 17px;
+      }
+    }
+
+    &.arrow {
+      margin-left: 16px;
+    }
+
+    .tooltip {
+      position: absolute;
+      width: max-content;
+      right: 0;
+      top: -50%;
+      color: #FFFFFF;
+      background-color: #000000;
+      border-radius: 10px;
+      padding: 6px 12px;
+      box-sizing: border-box;
+      visibility: hidden;
+      opacity: 0;
+      //transition: all .2s ease-in-out;
+
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 19.2px;
+
+      &:after {
+        transform: rotate(-45deg);
+        content: "";
+        z-index: 1;
+        display: block;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        height: 10px;
+        width: 10px;
+        border-radius: 0px 4px 0px 0px;
+        background-color: #000000;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      //&.open {
+      //  visibility: visible;
+      //  opacity: 1;
+      //  top: 125%;
+      //
+      //  &:after {
+      //    visibility: visible;
+      //    opacity: 1;
+      //    top: -5px;
+      //  }
+      //}
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        svg {
+          stroke: #8F47FF;
+        }
+
+        .tooltip {
+          visibility: visible;
+          opacity: 1;
+          top: 125%;
+
+          &:after {
+            visibility: visible;
+            opacity: 1;
+            top: -5px;
+          }
+        }
+      }
+    }
+  }
+
+}
+</style>
