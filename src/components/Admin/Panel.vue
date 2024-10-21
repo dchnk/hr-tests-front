@@ -7,6 +7,7 @@ const isOpen = ref(false);
 function handleOpenMenu() {
   isOpen.value = !isOpen.value;
 }
+
 </script>
 
 <template>
@@ -136,6 +137,7 @@ function handleOpenMenu() {
           display: none;
 
           .content {
+            z-index: 2;
             position: absolute;
             width: max-content;
             right: 0;
