@@ -67,51 +67,51 @@ watch(selectedList, (selectedList) => {
         <div class="notification"></div>
         <div class="name">Все вакансии</div>
       </div>
-      <!--      <div class="select" data-name="2"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="1"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="2"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="1"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="2"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="1"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="2"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="1"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
-      <!--      <div class="select" data-name="2"-->
-      <!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-      <!--        <div class="notification"></div>-->
-      <!--        <div class="name">Все вакансии</div>-->
-      <!--      </div>-->
+<!--      <div class="select" data-name="2"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="1"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="2"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="1"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="2"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="1"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="2"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="1"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+<!--      <div class="select" data-name="2"-->
+<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
 
     </v-slide-group>
   </div>

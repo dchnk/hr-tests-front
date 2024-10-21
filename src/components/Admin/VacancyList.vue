@@ -6,6 +6,7 @@ import Vacancy from "./Vacancy.vue";
 <template>
   <div class="list">
     <Vacancy text="Продавец-консультант в зоомагазин (Экваторная, 2а)"/>
+<!--    <Vacancy text="Продавец-консультант в зоомагазин (Экваторная, 2а)"/>-->
   </div>
 
 </template>
