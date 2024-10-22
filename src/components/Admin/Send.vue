@@ -49,9 +49,15 @@
   padding: 44px 24px;
   box-sizing: border-box;
   border-radius: 10px;
+  margin-bottom: 44px;
+
+  @media screen and (max-width: 1000px) {
+    margin-bottom: 49px;
+  }
 
   @media screen and (max-width: 750px) {
     padding: 32px 12px 28px;
+    margin-bottom: 26px;
   }
 
   .heading {

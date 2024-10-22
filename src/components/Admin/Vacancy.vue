@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import Tooltip from "../ui/Tooltip.vue";
 import Send from "./Send.vue";
+import Applicants from "./Applicants.vue";
 
 const {text} = defineProps(['text']);
 const isOpen = ref(false);
@@ -87,6 +88,7 @@ function handleOpenMenu() {
     </div>
     <div class="container">
       <Send />
+      <Applicants :name = 'text'/>
     </div>
   </div>
 </template>
