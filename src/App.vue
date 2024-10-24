@@ -7,8 +7,8 @@ import Admin from "./pages/Admin.vue"
 
 <template>
   <div class="page">
-<!--    <Admin />-->
-    <Test />
+    <Admin />
+<!--    <Test />-->
 <!--     <Auth />-->
   </div>
 </template>

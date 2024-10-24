@@ -35,6 +35,8 @@
 <style lang="scss" scoped>
 .sign-in {
   background-color: #F8F8F8;
+  box-sizing: border-box;
+  padding: 20px;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -54,8 +56,17 @@
     font-weight: 600;
     line-height: 33.6px;
     text-align: left;
+    margin: auto;
     margin-top: 30%;
     margin-bottom: 24px;
+
+
+    @media screen and (max-width: 820px) {
+      font-size: 20px;
+      line-height: 24px;
+      margin-bottom: 12px;
+      align-self: flex-start;
+    }
   }
 
   .form  {

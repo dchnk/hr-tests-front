@@ -6,9 +6,9 @@ import Passed from "../components/Test/Passed.vue";
 </script>
 
 <template>
- <Preview/>
+<!-- <Preview/>-->
 <!--  <TestForm/>-->
-<!--  <Passed/>-->
+  <Passed/>
 </template>
 
 <style lang="scss" scoped>
