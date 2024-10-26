@@ -36,13 +36,13 @@ const comment = 'Здесь вы можете отправлять тесты с
               <svg v-if="applicant.done" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"
                    fill="none">
                 <path
-                    d="M11.7212 0.278745C11.3499 -0.093032 10.747 -0.0927976 10.3752 0.278745L4.31744 6.33674L1.62503 3.64435C1.25325 3.27257 0.650609 3.27257 0.278832 3.64435C-0.0929441 4.01613 -0.0929441 4.61877 0.278832 4.99055L3.6442 8.35592C3.82998 8.54169 4.07357 8.63481 4.31719 8.63481C4.5608 8.63481 4.80463 8.54193 4.9904 8.35592L11.7212 1.62492C12.0929 1.2534 12.0929 0.650498 11.7212 0.278745Z"
-                    fill="#8F47FF"/>
+                  d="M11.7212 0.278745C11.3499 -0.093032 10.747 -0.0927976 10.3752 0.278745L4.31744 6.33674L1.62503 3.64435C1.25325 3.27257 0.650609 3.27257 0.278832 3.64435C-0.0929441 4.01613 -0.0929441 4.61877 0.278832 4.99055L3.6442 8.35592C3.82998 8.54169 4.07357 8.63481 4.31719 8.63481C4.5608 8.63481 4.80463 8.54193 4.9904 8.35592L11.7212 1.62492C12.0929 1.2534 12.0929 0.650498 11.7212 0.278745Z"
+                  fill="#8F47FF"/>
               </svg>
               <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path
-                    d="M6 3.08333V6L7.45833 6.875M11.25 6C11.25 8.89949 8.89949 11.25 6 11.25C3.1005 11.25 0.75 8.89949 0.75 6C0.75 3.1005 3.1005 0.75 6 0.75C8.89949 0.75 11.25 3.1005 11.25 6Z"
-                    stroke="#8F47FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  d="M6 3.08333V6L7.45833 6.875M11.25 6C11.25 8.89949 8.89949 11.25 6 11.25C3.1005 11.25 0.75 8.89949 0.75 6C0.75 3.1005 3.1005 0.75 6 0.75C8.89949 0.75 11.25 3.1005 11.25 6Z"
+                  stroke="#8F47FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             {{ status }}
@@ -63,7 +63,16 @@ const comment = 'Здесь вы можете отправлять тесты с
         <div class="item">
           <div class="name">Ссылка на тест:</div>
           <div class="value">
-            https://vacancy.email/qseHq
+            <div class="link">
+              https://vacancy.email/qseHq
+            </div>
+            <div class="icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="22" viewBox="0 0 22 24" fill="none">
+                <path
+                  d="M14.5003 1.5V5.46667C14.5003 6.12006 14.5003 6.44676 14.6275 6.69632C14.7393 6.91584 14.9178 7.09432 15.1373 7.20617C15.3869 7.33333 15.7136 7.33333 16.367 7.33333H20.3337M8.66699 7.33333H4.00033C2.71166 7.33333 1.66699 8.378 1.66699 9.66667V20.1667C1.66699 21.4553 2.71166 22.5 4.00033 22.5H11.0003C12.289 22.5 13.3337 21.4553 13.3337 20.1667V16.6667M15.667 1.5H12.4003C11.0935 1.5 10.4401 1.5 9.94102 1.75432C9.50197 1.97802 9.14502 2.33498 8.92131 2.77402C8.66699 3.27315 8.66699 3.92654 8.66699 5.23333V12.9333C8.66699 14.2401 8.66699 14.8935 8.92131 15.3926C9.14502 15.8317 9.50197 16.1886 9.94102 16.4123C10.4401 16.6667 11.0935 16.6667 12.4003 16.6667H16.6003C17.9071 16.6667 18.5605 16.6667 19.0596 16.4123C19.4987 16.1886 19.8556 15.8317 20.0793 15.3926C20.3337 14.8935 20.3337 14.2401 20.3337 12.9333V6.16667L15.667 1.5Z"
+                  stroke="#8F47FF" stroke-width="1.5" stroke-linejoin="round"/>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
@@ -193,6 +202,7 @@ const comment = 'Здесь вы можете отправлять тесты с
         display: flex;
         width: 100%;
         margin-bottom: 12px;
+        align-items: center;
 
         .name {
           font-size: 14px;
@@ -209,10 +219,39 @@ const comment = 'Здесь вы можете отправлять тесты с
           font-weight: 400;
           line-height: 19.6px;
           color: #122130;
+          display: flex;
+          align-items: center;
+          width: 200px;
+
+          .link {
+            width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 4px;
+            background-color: #FFFFFF;
+            margin-left: 8px;
+            cursor: pointer;
+
+
+            //svg {
+            //  height: 10px;
+            //  width: 10px;
+            //}
+          }
 
           &.status {
             display: flex;
             align-items: center;
+            min-width: 20px;
+            height: 20px;
 
             .icon {
               display: flex;
@@ -222,7 +261,9 @@ const comment = 'Здесь вы можете отправлять тесты с
               min-width: 20px;
               border-radius: 4px;
               background-color: #FFFFFF;
+              margin-left: 0;
               margin-right: 8px;
+              cursor: default;
             }
           }
         }
