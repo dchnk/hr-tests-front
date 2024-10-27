@@ -9,7 +9,6 @@ import VacancyList from "./VacancyList.vue";
 import { ref } from 'vue';
 
 
-const a = ref('123');
 </script>
 
 <template>
