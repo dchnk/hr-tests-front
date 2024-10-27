@@ -19,7 +19,6 @@ const {text} = defineProps(['text']);
   box-sizing: border-box;
   visibility: hidden;
   opacity: 0;
-  //transition: all .2s ease-in-out;
 
   font-size: 12px;
   font-weight: 500;

@@ -1,6 +1,6 @@
 <script setup>
 
-import ApplicantsItemDesktop from "./ApplicantsItemDesktop.vue";
+import ApplicantsItem from "./ApplicantsItem.vue";
 
 const applicants = [
   {
@@ -23,8 +23,8 @@ const applicants = [
 </script>
 
 <template>
-  <div class="applicants__list_desktop">
-    <ApplicantsItemDesktop v-for="applicant in applicants" :applicant='applicant'/>
+  <div class="applicants__list">
+    <ApplicantsItem v-for="applicant in applicants" :applicant='applicant'/>
   </div>
 </template>
 

@@ -23,11 +23,9 @@ import Profile from "./Profile.vue";
   justify-content: center;
   background-color: #122130;
   height: 78px;
-  padding: 0 20px;
   box-sizing: border-box;
 
   @media screen and (max-width: 770px) {
-    padding: 0 12px;
     height: 66px;
   }
 
@@ -37,6 +35,11 @@ import Profile from "./Profile.vue";
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+
+    @media screen and (max-width: 770px) {
+      padding: 0 12px;
+    }
 
     .logo {
       background-image: url("../../img/logo.png");

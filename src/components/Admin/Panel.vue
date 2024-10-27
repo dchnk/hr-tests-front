@@ -141,7 +141,7 @@ function handleOpenMenu() {
             position: absolute;
             width: max-content;
             right: 0;
-            top: -50%;
+            top: 120%;
             background-color: #FFFFFF;
             border: 1px solid #E6E6E6;
             border-radius: 10px;
@@ -150,12 +150,11 @@ function handleOpenMenu() {
             box-sizing: border-box;
             visibility: hidden;
             opacity: 0;
-            transition: all .2s ease-in-out;
+            transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
 
             &.open {
               visibility: visible;
               opacity: 1;
-              top: 120%;
             }
 
             .item {
@@ -208,8 +207,6 @@ function handleOpenMenu() {
           box-sizing: border-box;
           visibility: hidden;
           opacity: 0;
-          //transition: all .2s ease-in-out;
-
           font-size: 12px;
           font-weight: 500;
           line-height: 19.2px;

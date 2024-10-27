@@ -1,5 +1,5 @@
 <script setup>
-import ApplicantsListDesktop from "./ApplicantsListDesktop.vue";
+import ApplicantsList from "./ApplicantsList.vue";
 
 const {name} = defineProps(['name']);
 </script>
@@ -15,7 +15,7 @@ const {name} = defineProps(['name']);
       <div class="applicants__column">Отправлен</div>
       <div class="applicants__column">Статус</div>
     </div>
-    <ApplicantsListDesktop />
+    <ApplicantsList />
   </div>
 </template>
 
@@ -37,7 +37,7 @@ const {name} = defineProps(['name']);
     @media screen and (max-width: 750px) {
       font-size: 16px;
       line-height: 19.2px;
-      margin: 0 12px;
+      margin: 0 12px 22px;
     }
   }
 
