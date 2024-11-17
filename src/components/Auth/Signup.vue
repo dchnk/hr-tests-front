@@ -160,7 +160,7 @@ const clickSubmit = async () => {
       })
     }
 
-    console.log(loginUser);
+    window.location.replace('/admin')
 
   } catch (e) {
     console.log(e)
