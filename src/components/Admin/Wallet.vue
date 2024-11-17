@@ -1,12 +1,14 @@
 <script setup>
+import {useUserStore} from "../../stores/user.js";
 
+const userStore = useUserStore();
 </script>
 
 <template>
   <div class="wallet">
     <div class="img" />
     <div class="container">
-      <div class="number">398</div>
+      <div class="number">{{ userStore.user?.balance }}</div>
       <div class="text">Баланс тестов</div>
     </div>
   </div>

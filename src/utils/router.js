@@ -39,12 +39,18 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
+
   const storeUser = useUserStore();
+
+  if (to.path === '/') {
+    window.location.replace('/signin');
+  }
 
   storeUser.$subscribe(() => {
     switch (to.path) {
       case '/':
-        storeUser.user ? router.replace('/admin') : router.replace('/signin');
+        storeUser.user ? router.push('/admin') : router.push('/signin');
+
         break;
 
       case '/signup':

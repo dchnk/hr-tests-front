@@ -1,5 +1,9 @@
 <script setup>
+import {useUserStore} from "../../stores/user.js";
+import {storeToRefs} from "pinia";
 
+const userStore = useUserStore();
+const {user} = storeToRefs(userStore);
 </script>
 
 <template>
@@ -34,7 +38,7 @@
           </svg>
         </div>
         <div class="container">
-          <div class="number">398</div>
+          <div class="number">{{ user?.balance }}</div>
           <div class="wallet__text">Баланс тестов</div>
         </div>
       </div>

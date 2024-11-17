@@ -8,13 +8,14 @@ import Panel from "./Panel.vue";
 import VacancyList from "./VacancyList.vue";
 import { ref } from 'vue';
 
+const {user} = defineProps(["user"]);
 
 </script>
 
 <template>
   <main class="main">
     <section class="info">
-      <Greeting />
+      <Greeting :user="user" />
       <Balance />
     </section>
     <section class="groups">

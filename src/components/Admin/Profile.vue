@@ -1,22 +1,37 @@
 <script setup>
 import {ref} from "vue";
+import {useUserStore} from "../../stores/user.js";
+import axios from "axios";
 
 const isOpen = ref(false);
+const userStore = useUserStore();
 
 function handleOpenMenu() {
   isOpen.value = !isOpen.value;
+}
+
+const logout = async () => {
+  try {
+    const logoutResult = await axios.post("/api/logout");
+
+    console.log(logoutResult)
+    window.location.reload();
+  } catch (e) {
+    console.log(e);
+  }
+
 }
 
 </script>
 
 <template>
   <div class="profile" @click="handleOpenMenu">
-    <div class="name">Глушков С.А.</div>
+    <div class="name">{{ userStore.user?.name }}</div>
     <div class="img"/>
     <div class="arrow" :class="isOpen && 'open'"/>
 
     <div class="content" :class="isOpen && 'open'">
-      <div class="item">
+      <div class="item" v-if="false">
         <svg class="icon profile" xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18"
              fill="none">
           <path
@@ -43,7 +58,7 @@ function handleOpenMenu() {
         </svg>
         <div class="text">Техподдержка</div>
       </div>
-      <div class="item">
+      <div class="item" @click="logout">
         <svg class="icon exit" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
           <path
               d="M14.6001 0.999951H9.80005C9.58787 0.999951 9.38438 1.08424 9.23435 1.23427C9.08432 1.3843 9.00003 1.58779 9.00003 1.79997C9.00003 2.01214 9.08432 2.21563 9.23435 2.36566C9.38438 2.5157 9.58787 2.59998 9.80005 2.59998H14.6001C14.8123 2.59998 15.0158 2.68427 15.1658 2.8343C15.3159 2.98434 15.4002 3.18782 15.4002 3.4V14.6002C15.4002 14.8124 15.3159 15.0159 15.1658 15.1659C15.0158 15.316 14.8123 15.4002 14.6001 15.4002H9.80005C9.58787 15.4002 9.38438 15.4845 9.23435 15.6346C9.08432 15.7846 9.00003 15.9881 9.00003 16.2003C9.00003 16.4124 9.08432 16.6159 9.23435 16.766C9.38438 16.916 9.58787 17.0003 9.80005 17.0003H14.6001C15.2367 17.0003 15.8471 16.7474 16.2972 16.2973C16.7473 15.8472 17.0002 15.2368 17.0002 14.6002V3.4C17.0002 2.76347 16.7473 2.15301 16.2972 1.70291C15.8471 1.25281 15.2367 0.999951 14.6001 0.999951Z"

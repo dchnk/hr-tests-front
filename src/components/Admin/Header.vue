@@ -1,5 +1,4 @@
 <script setup>
-
 import Wallet from "./Wallet.vue";
 import Profile from "./Profile.vue";
 </script>

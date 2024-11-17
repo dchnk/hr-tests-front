@@ -1,11 +1,11 @@
 <script setup>
-
+const {user} = defineProps(["user"]);
 </script>
 
 <template>
 
   <div class="greeting">
-    <div class="hello">Добрый день, Username!</div>
+    <div class="hello">Добрый день, {{user?.name}}! </div>
     <div class="text">
       Здесь вы можете отправлять тесты соискателям, отслеживать их статус выполнения и анализировать результаты в режиме
       реального времени. Сервис HR TESTS помогает вам принимать решения и оптимизировать процесс найма.
