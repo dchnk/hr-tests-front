@@ -45,7 +45,7 @@
   position: relative;
   align-items: center;
   background-color: #122130;
-  height: 100%;
+  //height: 100%;
   width: 50%;
   text-align: center;
 

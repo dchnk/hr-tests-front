@@ -1,5 +1,13 @@
 <script setup>
 
+function clickSubmit() {
+  try {
+
+  } catch (e) {
+
+  }
+}
+
 </script>
 
 <template>
@@ -7,10 +15,10 @@
     <div class="heading">
       Войти в панель управления
     </div>
-    <form class="form">
+    <form class="form" @submit.prevent="" novalidate>
       <div class="input-container">
         <div class="content">
-          <div class="name">Логин или e-mail</div>
+          <div class="name">E-mail</div>
         </div>
         <input class="input" type="text" id="login">
       </div>
@@ -25,10 +33,9 @@
         Войти
       </button>
       <div class="switch">
-        Нет аккаунта? <router-link class="link">Зарегистрироваться</router-link>
+        Нет аккаунта? <router-link class="link" to="/signup">Зарегистрироваться</router-link>
       </div>
     </form>
-
   </section>
 </template>
 
@@ -41,14 +48,13 @@
   position: relative;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  min-height: 100vh;
   width: 50%;
   text-align: center;
   color: #122130;
 
   @media screen and (max-width: 820px) {
     width: 100%;
-    min-height: 100vh;
   }
 
   .heading {
@@ -56,9 +62,7 @@
     font-weight: 600;
     line-height: 33.6px;
     text-align: left;
-    margin: auto;
-    margin-top: 30%;
-    margin-bottom: 24px;
+    margin: 30% auto 24px;
 
 
     @media screen and (max-width: 820px) {
@@ -146,6 +150,7 @@
       color: #5F5E5E;
 
       .link {
+        text-decoration: none;
         color: #8F47FF;
         cursor: pointer;
         border-bottom: 1px solid #8F47FF;

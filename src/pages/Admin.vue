@@ -4,7 +4,7 @@ import Header from "../components/Admin/Header.vue";
 import Main from "../components/Admin/Main.vue";
 import Modal from "../components/Modal/Modal.vue"
 
-const modal = ref(null);
+const modal = ref('delete');
 
 function openModal(modalName) {
   modal.value = modalName;
@@ -18,8 +18,8 @@ function closeModal() {
 
 <template>
   <Header />
-  <Main @openModal="openModal" @closeModal="closeModal"/>
-  <Modal />
+  <Main @openModal="openModal"/>
+  <Modal :modal="modal" @closeModal="closeModal"/>
 </template>
 
 <style lang="scss" scoped>

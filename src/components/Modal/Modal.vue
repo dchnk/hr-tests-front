@@ -1,12 +1,13 @@
 <script setup>
 import ModalDelete from './ModalDelete.vue';
 
-const {currentModal} = defineProps(['currentModal']);
+const {modal} = defineProps(['modal']);
+const emit = defineEmits(['closeModal'])
 
 </script>
 
 <template>
-  <div class="modal" @click.self="">
+  <div class="modal" :class="modal && 'open'" @click.self="emit('closeModal')">
     <div class="modal__container">
       <ModalDelete />
       <div class="modal__close" @click="">
@@ -31,6 +32,16 @@ const {currentModal} = defineProps(['currentModal']);
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  pointer-events: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .3s ease-in-out;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
 
   @media screen and (max-width: 500px) {
     justify-content: flex-end;
