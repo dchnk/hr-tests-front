@@ -1,14 +1,18 @@
 <script setup>
 import Test from "./pages/Test.vue";
-import Admin from "./pages/Admin.vue"
+import { useUserStore } from './stores/user.js';
+
+const userStore = useUserStore();
+
+userStore.get()
+
+console.log(userStore.isAdmin);
 
 </script>
 
 <template>
   <div class="page">
-
     <RouterView />
-<!--    <Admin />-->
 <!--    <Test />-->
   </div>
 </template>

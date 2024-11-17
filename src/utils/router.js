@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import { useUserStore } from '../stores/user';
+import { useUserStore } from '../stores/user';
 
 import Login from '../pages/Login.vue'
 import Registration from '../pages/Registration.vue'
@@ -12,10 +12,9 @@ const routes = [
   //   path: '/product/:category/:brand/:model/:id',
   //   component: Product,
   // },
-  // {
-  //   path: '/',
-  //   component: Login
-  // },
+  {
+    path: '/',
+  },
   {
     path: '/admin',
     component: Admin
@@ -40,25 +39,27 @@ const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  // const storeUser = useUserStore();
+  const storeUser = useUserStore();
 
-  // storeUser.$subscribe(() => {
-  //   switch (to.path) {
-  //
-  //     case '/signup':
-  //     case '/signin':
-  //       if (storeUser.user) {
-  //         router.replace('/catalog');
-  //       }
-  //       break;
-  //
-  //     case '/profile':
-  //       if (!storeUser.user) {
-  //         router.replace('/signin');
-  //       }
-  //   }
-  // })
+  storeUser.$subscribe(() => {
+    switch (to.path) {
+      case '/':
+        storeUser.user ? router.replace('/admin') : router.replace('/signin');
+        break;
 
+      case '/signup':
+      case '/signin':
+        if (storeUser.user) {
+          router.replace('/admin');
+        }
+        break;
+
+      case '/admin':
+        if (!storeUser.user) {
+          router.replace('/signin');
+        }
+    }
+  })
 
 })
 

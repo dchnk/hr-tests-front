@@ -11,12 +11,6 @@ export const useUserStore = defineStore('user', {
   },
 
   getters: {
-    fullName: (state) => {
-
-      return (state.user.firstName + ' ' + state.user.secondName).toUpperCase();
-
-    },
-
     isAdmin: (state) => {
       return state.user?.role === 'admin';
     },
