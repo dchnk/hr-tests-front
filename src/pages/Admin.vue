@@ -19,7 +19,7 @@ function closeModal() {
 <template>
   <Header />
   <Main @openModal="openModal" @closeModal="closeModal"/>
-  <Modal v-if="modal" :modal="modal"/>
+  <Modal />
 </template>
 
 <style lang="scss" scoped>

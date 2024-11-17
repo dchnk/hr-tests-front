@@ -18,6 +18,9 @@ const {headingText} = defineProps(['headingText']);
 .modal-delete {
   display: flex;
   flex-direction: column;
+  align-items: center;
+
+
 
   .heading {
     font-size: 16px;
@@ -41,6 +44,11 @@ const {headingText} = defineProps(['headingText']);
     display: flex;
     gap: 12px;
 
+    @media screen and (max-width: 500px) {
+      flex-direction: column;
+      width: 100%;
+    }
+
     .button {
       font-size: 14px;
       font-weight: 700;
@@ -51,6 +59,10 @@ const {headingText} = defineProps(['headingText']);
       padding: 13.5px 0;
       border-radius: 10px;
       cursor: pointer;
+
+      @media screen and (max-width: 500px) {
+        min-width: 100%;
+      }
 
       &.delete {
         background-color: #F6DBD9;
