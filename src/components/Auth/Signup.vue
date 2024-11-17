@@ -21,6 +21,7 @@ const inputErrors = reactive({
   password: '',
   passwordRepeat: '',
   conflictError: '',
+  conflictEmail: '',
 })
 
 const checkForm = (submit) => {
@@ -67,6 +68,8 @@ const validate = (inputName) => {
       break;
 
     case'email':
+      if (inputErrors.conflictError) validate('conflictError');
+
       const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       if (!inputValues.email) {
         inputErrors.email = 'Обязательно для заполнения';
@@ -142,14 +145,22 @@ const clickSubmit = async () => {
 
     pending.value = true;
 
-    const createUser = await axios.post('http://localhost:5500/signup', {
+    const createUser = await axios.post('/api/signup', {
       email: inputValues.email,
       password: inputValues.password,
       name: inputValues.name,
       phone: inputValues.phone,
     })
 
-    console.log(createUser);
+    let loginUser;
+    if (createUser.status === 201) {
+      loginUser = await axios.post('/api/signin', {
+        email: inputValues.email,
+        password: inputValues.password,
+      })
+    }
+
+    console.log(loginUser);
 
   } catch (e) {
     console.log(e)
