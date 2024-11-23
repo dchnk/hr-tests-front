@@ -6,11 +6,10 @@ import Registration from '../pages/Registration.vue'
 import Admin from '../pages/Admin.vue'
 import PageNotFound from '../pages/PageNotFound.vue'
 
-
 const routes = [
   // {
-  //   path: '/product/:category/:brand/:model/:id',
-  //   component: Product,
+  //   path: '/test/:link',
+  //   component: Test,
   // },
   {
     path: '/',

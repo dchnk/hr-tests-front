@@ -6,9 +6,11 @@ import Modal from "../components/Modal/Modal.vue"
 
 import {useUserStore} from "../stores/user.js";
 import { storeToRefs } from 'pinia';
+import NotActiveted from "../components/Admin/NotActiveted.vue";
+import ModerPage from "../components/Admin/Moder/ModerPage.vue";
 
 const userStore = useUserStore();
-const {user} = storeToRefs(userStore);
+const {user, isAdmin} = storeToRefs(userStore);
 
 const modal = ref('');
 
@@ -20,12 +22,16 @@ function closeModal() {
   modal.value = null;
 }
 
-</script>()
+</script>
 
 <template>
   <Header />
-  <Main @openModal="openModal" :user="user" />
-  <Modal :modal="modal" @closeModal="closeModal"/>
+  <ModerPage v-if="isAdmin"/>
+  <Main @openModal="openModal" :user="user" v-if="user?.activated && !isAdmin"/>
+  <NotActiveted v-if="!user?.activated && !isAdmin" :user="user"/>
+  <Modal :modal="modal" @closeModal="closeModal" v-if="user?.activated"/>
+
+
 </template>
 
 <style lang="scss" scoped>
