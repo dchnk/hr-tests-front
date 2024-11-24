@@ -1,13 +1,16 @@
 <script setup>
 import Wallet from "./Wallet.vue";
 import Profile from "./Profile.vue";
+
+const {isAdmin} = defineProps(['isAdmin']);
+
 </script>
 
 <template>
   <header class="header">
     <div class="container">
       <div class="logo"></div>
-      <Wallet />
+      <Wallet v-if="!isAdmin"/>
       <Profile />
     </div>
   </header>

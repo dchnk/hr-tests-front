@@ -8,14 +8,14 @@ const {user, opened, status} = defineProps(['user', 'opened', 'status']);
 
 <template>
   <div class="user__item-columns_desktop">
-    <div class="user__item-column">{{ user.id }}</div>
+    <div class="user__item-column">{{ user.user_id }}</div>
     <div class="user__item-column">{{ user.name }}</div>
     <div class="user__item-column">{{ user.email }}</div>
     <div class="user__item-column">{{ user.phone }}</div>
-    <div class="user__item-column">{{ user.date }}</div>
+    <div class="user__item-column">{{ user.balance }}</div>
     <div class="user__item-column status">
       <div class="icon">
-        <svg v-if="user.done" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"
+        <svg v-if="user.activated" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"
              fill="none">
           <path
               d="M11.7212 0.278745C11.3499 -0.093032 10.747 -0.0927976 10.3752 0.278745L4.31744 6.33674L1.62503 3.64435C1.25325 3.27257 0.650609 3.27257 0.278832 3.64435C-0.0929441 4.01613 -0.0929441 4.61877 0.278832 4.99055L3.6442 8.35592C3.82998 8.54169 4.07357 8.63481 4.31719 8.63481C4.5608 8.63481 4.80463 8.54193 4.9904 8.35592L11.7212 1.62492C12.0929 1.2534 12.0929 0.650498 11.7212 0.278745Z"
@@ -42,7 +42,7 @@ const {user, opened, status} = defineProps(['user', 'opened', 'status']);
 .user__item-columns_desktop {
   display: grid;
   gap: 16px;
-  grid-template-columns: 50px 270px 170px 170px 130px 100px auto;
+  grid-template-columns: 50px 270px 170px 170px 130px minmax(100px, auto) auto;
   align-items: center;
   margin-bottom: 16px;
 
@@ -58,7 +58,6 @@ const {user, opened, status} = defineProps(['user', 'opened', 'status']);
 
     &.status {
       display: flex;
-      align-items: center;
 
       .icon {
         display: flex;

@@ -25,7 +25,7 @@ function closeModal() {
 </script>
 
 <template>
-  <Header />
+  <Header :isAdmin="isAdmin"/>
   <ModerPage v-if="isAdmin"/>
   <Main @openModal="openModal" :user="user" v-if="user?.activated && !isAdmin"/>
   <NotActiveted v-if="!user?.activated && !isAdmin" :user="user"/>

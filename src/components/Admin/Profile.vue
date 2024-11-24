@@ -40,7 +40,7 @@ const logout = async () => {
         </svg>
         <div class="text">Профиль</div>
       </div>
-      <div class="item">
+      <div class="item" v-if="!userStore.isAdmin">
         <svg class="icon wallet" width="20" height="18" viewBox="0 0 20 18" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path
@@ -49,7 +49,7 @@ const logout = async () => {
         </svg>
         <div class="text">Баланс и платежи</div>
       </div>
-      <div class="item">
+      <div class="item" v-if="!userStore.isAdmin">
         <svg class="icon help" width="18" height="18" viewBox="0 0 18 18" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path

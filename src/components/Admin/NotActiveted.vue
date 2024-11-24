@@ -29,7 +29,7 @@ const clickButton = async () => {
 <template>
   <main class="main">
     <div class="text">
-      Пожалуйста, подтвердите ваш email. Перейдите по ссылке в письме на вышей почте!
+      Пожалуйста, подтвердите ваш email. Перейдите по ссылке в письме на вашей почте!
     </div>
     <div class="again" v-if="user">
       <div class="send" v-if="success === 0 && !pending">

@@ -4,9 +4,11 @@ import {computed, ref} from "vue";
 // import ApplicantsItemContent from "./ApplicantsItemContent.vue";
 // import ApplicantsItemMobile from "./ApplicantsItem-Mobile.vue";
 import UsersItemDesktop from "./UsersItem-Desktop.vue";
+import UsersItemMobile from "./UsersItem-Mobile.vue";
+import UsersItemContent from "./UsersItemContent.vue";
 
 const {user} = defineProps(['user']);
-const status = computed(() => user.done ? 'Подтвержден' : 'Ожидаем');
+const status = computed(() => user.activated ? 'Подтвержден' : 'Ожидаем');
 const opened = ref(false);
 
 function openedToggle() {
@@ -18,6 +20,8 @@ function openedToggle() {
 <template>
   <div class="users__item">
     <UsersItemDesktop :user='user' :status='status' :opened="opened" @toggle="openedToggle"/>
+    <UsersItemMobile :user='user' :status='status' :opened="opened" @toggle="openedToggle"/>
+    <UsersItemContent :user='user' :status='status' v-show="opened"/>
 <!--    <ApplicantsItemMobile :user='user' :status='status' :opened="opened" @toggle="openedToggle"/>-->
 <!--    <ApplicantsItemContent :user='user' :status='status' v-show="opened"/>-->
   </div>
