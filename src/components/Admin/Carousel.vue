@@ -194,6 +194,7 @@ onMounted(() => {
       color: #122130;
       background-color: #F4F5F7;
       cursor: pointer;
+      user-select: none;
 
       &.selected {
         background-color: #8F47FF;

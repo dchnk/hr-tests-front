@@ -13,7 +13,7 @@ import { ref } from 'vue';
 const {user} = defineProps(["user"]);
 
 const departmentsStore = useDepartmentsStore();
-const {departments} = storeToRefs(departmentsStore);
+const {departments, selected} = storeToRefs(departmentsStore);
 const emit = defineEmits(['openModal'])
 
 departmentsStore.get()
@@ -30,7 +30,7 @@ departmentsStore.get()
       <Departments @openModal="emit('openModal')"/>
       <Carousel />
     </section>
-    <section class="vacancies">
+    <section class="vacancies" v-if="selected">
       <Panel />
       <VacancyList />
     </section>

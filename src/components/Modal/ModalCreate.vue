@@ -63,16 +63,20 @@ const clickSubmit = async () => {
     checkForm(true);
     if (invalid.value) return;
 
-    let address;
+    let address, data;
 
-    if (modal === 'createDepartment') address = 'departments';
-    if (modal === 'createVacancy') address = 'vacancies';
+    if (modal === 'createDepartment') {
+      address = 'departments';
+      data = {name: inputValues.name};
+    };
+    if (modal === 'createVacancy') {
+      address = 'vacancies';
+      data = {name: inputValues.name, department_id: departmentsStore.selected.id};
+    };
 
     pending.value = true;
 
-    const create = await axios.post(`/api/${address}/create`, {
-      name: inputValues.name,
-    })
+    const create = await axios.post(`/api/${address}/create`, data)
 
     console.log(create)
 
@@ -80,7 +84,11 @@ const clickSubmit = async () => {
       departmentsStore.get();
       emit('closeModal');
     }
-    // if (modal === 'createVacancy') address = 'vacancy';
+
+    if (modal === 'createVacancy') {
+      departmentsStore.get();
+      emit('closeModal');
+    }
 
   } catch (e) {
     console.log(e)
@@ -101,7 +109,7 @@ const headingText = computed(() => {
     <div class="heading">{{ headingText }}</div>
     <div class="input-container">
       <div class="content">
-        <div class="name">Ваше имя / Название организации</div>
+        <div class="name">Название</div>
       </div>
       <input class="input" @blur="validate('name')" @input="validate('name')" type="text" id="name" minlength="1"
              maxlength="100" size="100"
