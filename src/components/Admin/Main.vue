@@ -1,4 +1,6 @@
 <script setup>
+import {useDepartmentsStore} from "../../stores/departments.js";
+import { storeToRefs } from 'pinia';
 
 import Greeting from "./Greeting.vue";
 import Balance from "./Balance.vue";
@@ -10,16 +12,22 @@ import { ref } from 'vue';
 
 const {user} = defineProps(["user"]);
 
+const departmentsStore = useDepartmentsStore();
+const {departments} = storeToRefs(departmentsStore);
+const emit = defineEmits(['openModal'])
+
+departmentsStore.get()
+
 </script>
 
 <template>
   <main class="main">
     <section class="info">
       <Greeting :user="user" />
-      <Balance />
+      <Balance :user="user"/>
     </section>
     <section class="groups">
-      <Departments />
+      <Departments @openModal="emit('openModal')"/>
       <Carousel />
     </section>
     <section class="vacancies">

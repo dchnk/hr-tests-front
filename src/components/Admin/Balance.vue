@@ -1,17 +1,11 @@
 <script setup>
-
-
-import {useUserStore} from "../../stores/user.js";
-import { storeToRefs } from 'pinia';
-
-const userStore = useUserStore();
-const {user} = storeToRefs(userStore);
+const {user} = defineProps(["user"]);
 
 </script>
 
 <template>
   <div class="balance">
-    <div class="wallet">
+    <div class="wallet" >
       <div class="img">
         <svg class="icon" width="20" height="18" viewBox="0 0 20 18" fill="none"
              xmlns="http://www.w3.org/2000/svg">
@@ -25,9 +19,9 @@ const {user} = storeToRefs(userStore);
         <div class="text">Баланс тестов</div>
       </div>
     </div>
-    <button class="btn">
+    <router-link class="btn" to="/balance">
       Пополнить
-    </button>
+    </router-link>
   </div>
 </template>
 
@@ -108,6 +102,9 @@ const {user} = storeToRefs(userStore);
   }
 
   .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 44px;
     max-width: 180px;
     width: 180px;
@@ -122,6 +119,7 @@ const {user} = storeToRefs(userStore);
     color: #8F47FF;
     border: none;
     cursor: pointer;
+    text-decoration: none;
 
     &:hover {
       background-color: #8F47FF;

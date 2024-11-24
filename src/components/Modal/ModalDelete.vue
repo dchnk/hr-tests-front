@@ -1,15 +1,24 @@
 <script setup>
-const {headingText} = defineProps(['headingText']);
+import { computed } from 'vue';
+
+const emit = defineEmits(['closeModal'])
+const {modal} = defineProps(["modal"]);
+
+const headingText = computed(() => {
+  console.log(modal)
+  if (modal === 'deleteDepartment') return 'Удалить раздел';
+  if (modal === 'deleteVacancy') return 'Удалить вакансию';
+})
 
 </script>
 
 <template>
   <div class="modal-delete">
-    <div class="heading">{{ headingText = 'Удалить раздел'}}</div>
+    <div class="heading">{{ headingText }}</div>
     <div class="text">Вы уверены? Данное действие нельзя отменить.</div>
     <div class="buttons">
       <div class="button delete">Удалить</div>
-      <div class="button cancel">Отмена</div>
+      <div class="button cancel" @click="emit('closeModal')">Отмена</div>
     </div>
   </div>
 </template>

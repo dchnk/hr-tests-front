@@ -1,16 +1,21 @@
 <script setup>
-import ModalDelete from './ModalDelete.vue';
+import {useModalStore} from "../../stores/modal.js";
+import {storeToRefs} from "pinia";
 
-const {modal} = defineProps(['modal']);
-const emit = defineEmits(['closeModal'])
+import ModalDelete from './ModalDelete.vue';
+import ModalCreate from "./ModalCreate.vue";
+
+const modalStore = useModalStore();
+const {modal} = storeToRefs(modalStore);
 
 </script>
 
 <template>
-  <div class="modal" :class="modal && 'open'" @click.self="emit('closeModal')">
+  <div class="modal" :class="modal && 'open'" @click.self="modalStore.closeModal">
     <div class="modal__container">
-      <ModalDelete />
-      <div class="modal__close" @click.self="emit('closeModal')">
+      <ModalDelete :modal="modal" v-if="modal === 'deleteDepartment' || modal === 'deleteVacancy'" @closeModal="modalStore.closeModal"/>
+      <ModalCreate :modal="modal" v-if="modal === 'createDepartment' || modal === 'createVacancy'" @closeModal="modalStore.closeModal"/>
+      <div class="modal__close" @click="modalStore.closeModal">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M1.05025 1.05021L10.9497 10.9497M10.9497 1.05021L1.05025 10.9497" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -22,7 +27,7 @@ const emit = defineEmits(['closeModal'])
 <style lang="scss" scoped>
 
 .modal {
-  position: absolute;
+  position: fixed;
   z-index: 6;
   top: 0;
   bottom: 0;
@@ -35,12 +40,12 @@ const emit = defineEmits(['closeModal'])
   pointer-events: none;
   visibility: hidden;
   opacity: 0;
-  transition: all .3s ease-in-out;
 
   &.open {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
+    transition: all .3s ease-in-out;
   }
 
   @media screen and (max-width: 500px) {

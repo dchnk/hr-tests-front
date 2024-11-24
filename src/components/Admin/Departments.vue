@@ -1,4 +1,9 @@
 <script setup>
+import {useModalStore} from "../../stores/modal.js";
+import {storeToRefs} from "pinia";
+
+const modalStore = useModalStore();
+const {modal} = storeToRefs(modalStore);
 
 </script>
 
@@ -14,7 +19,7 @@
     </div>
     <div class="container">
       <div class="archive"> Архив вакансий</div>
-      <div class="add">Создать раздел
+      <div class="add" @click="() => modalStore.openModal('createDepartment')">Создать раздел
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M1 6H11M6 1V11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg></div>

@@ -1,12 +1,16 @@
 <script setup>
 import {ref, useTemplateRef, onMounted, watch, reactive} from "vue";
+import {useDepartmentsStore} from "../../stores/departments.js";
+import {storeToRefs} from "pinia";
+
+const departmentsStore = useDepartmentsStore();
+const {departments, selected} = storeToRefs(departmentsStore);
 
 const isAffixes = ref(false);
 const slider = useTemplateRef('my-slider');
 const selectedList = reactive({});
 
 function checkSliderIsAffixes() {
-  console.log(slider.value.$vuetify)
   if (slider.value.hasNext === false) {
     if (slider.value.hasPrev === false) {
       isAffixes.value = false;
@@ -14,14 +18,10 @@ function checkSliderIsAffixes() {
   } else {
     isAffixes.value = true;
   }
-
-  console.log(isAffixes.value)
 }
 
-function handleSelectOnClick(e) {
-  selectedList[e.currentTarget.dataset.name] ?
-      delete selectedList[e.currentTarget.dataset.name] :
-      selectedList[e.currentTarget.dataset.name] = true;
+function handleSelectOnClick(e, department) {
+  departmentsStore.selectDepartment(department);
 }
 
 onMounted(() => {
@@ -32,9 +32,9 @@ onMounted(() => {
 //   console.log(slider);
 // }, { deep: true })
 
-watch(selectedList, (selectedList) => {
-  console.log(selectedList);
-})
+// watch(selectedList, (selectedList) => {
+//   console.log(selectedList);
+// })
 
 </script>
 
@@ -42,77 +42,16 @@ watch(selectedList, (selectedList) => {
   <div class="container">
     <div class="arrows" :class="isAffixes === false && 'disabled'"></div>
     <v-slide-group class="slider" show-arrows ref="my-slider">
-      <div class="select" data-name="1" :class="selectedList[1] && 'selected'"
-           @click.stop="(e) => { handleSelectOnClick(e) }">
+<!--      <div class="select" data-name="1" :class="selectedList[1] && 'selected'"-->
+<!--           @click.stop="(e) => { handleSelectOnClick(e) }">-->
+<!--        <div class="notification"></div>-->
+<!--        <div class="name">Все вакансии</div>-->
+<!--      </div>-->
+      <div class="select" v-for="(department, index) in departments" :data-name="index" :key="department.id" :class="selected === department && 'selected'"
+           @click.stop="(e) => { handleSelectOnClick(e, department) }">
         <div class="notification"></div>
-        <div class="name">Все вакансии</div>
+        <div class="name">{{ department.name }}</div>
       </div>
-      <div class="select" data-name="2" :class="selectedList[2] && 'selected'"
-           @click.stop="(e) => { handleSelectOnClick(e) }">
-        <div class="notification"></div>
-        <div class="name">Все вакансии</div>
-      </div>
-      <div class="select" data-name="3" :class="selectedList[3] && 'selected'"
-           @click.stop="(e) => { handleSelectOnClick(e) }">
-        <div class="notification"></div>
-        <div class="name">Все вакансии</div>
-      </div>
-      <div class="select" data-name="4" :class="selectedList[4] && 'selected'"
-           @click.stop="(e) => { handleSelectOnClick(e) }">
-        <div class="notification"></div>
-        <div class="name">Все вакансии</div>
-      </div>
-      <div class="select" data-name="5" :class="selectedList[5] && 'selected'"
-           @click.stop="(e) => { handleSelectOnClick(e) }">
-        <div class="notification"></div>
-        <div class="name">Все вакансии</div>
-      </div>
-<!--      <div class="select" data-name="2"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="1"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="2"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="1"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="2"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="1"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="2"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="1"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-<!--      <div class="select" data-name="2"-->
-<!--           @click.stop="(e) => { this.handleSelectOnClick(e) }">-->
-<!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
-<!--      </div>-->
-
     </v-slide-group>
   </div>
 
