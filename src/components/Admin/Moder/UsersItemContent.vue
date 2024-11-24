@@ -110,7 +110,7 @@ const updateUserInfo = async () => {
   pending.value = true;
 
   try {
-    const res = await axios.patch(`/api/users/${user.user_id}`, {
+    const res = await axios.patch(`/api/users/update/${user.user_id}`, {
       name: inputValues.name,
       // email: newValues.email,
       phone: inputValues.phone,

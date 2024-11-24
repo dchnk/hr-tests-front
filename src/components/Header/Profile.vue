@@ -31,7 +31,7 @@ const logout = async () => {
     <div class="arrow" :class="isOpen && 'open'"/>
 
     <div class="content" :class="isOpen && 'open'">
-      <div class="item" v-if="false">
+      <router-link class="item" to="/profile">
         <svg class="icon profile" xmlns="http://www.w3.org/2000/svg" width="14" height="18" viewBox="0 0 14 18"
              fill="none">
           <path
@@ -39,8 +39,8 @@ const logout = async () => {
           />
         </svg>
         <div class="text">Профиль</div>
-      </div>
-      <div class="item" v-if="!userStore.isAdmin">
+      </router-link>
+      <router-link class="item" to="/balance" v-if="!userStore.isAdmin">
         <svg class="icon wallet" width="20" height="18" viewBox="0 0 20 18" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path
@@ -48,8 +48,8 @@ const logout = async () => {
               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="text">Баланс и платежи</div>
-      </div>
-      <div class="item" v-if="!userStore.isAdmin">
+      </router-link>
+      <a class="item" href="https://ya.ru" target="_blank" v-if="!userStore.isAdmin">
         <svg class="icon help" width="18" height="18" viewBox="0 0 18 18" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path
@@ -57,7 +57,7 @@ const logout = async () => {
               stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="text">Техподдержка</div>
-      </div>
+      </a>
       <div class="item" @click="logout">
         <svg class="icon exit" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
           <path
@@ -85,6 +85,7 @@ const logout = async () => {
   display: flex;
   align-items: center;
   cursor: pointer;
+  z-index: 1;
 
   .name {
     margin-right: 10px;
@@ -163,10 +164,12 @@ const logout = async () => {
     .item {
       cursor: pointer;
       display: flex;
+      text-decoration: none;
       align-items: center;
       margin-bottom: 16px;
+      color: #686B74;
 
-      &:last-of-type {
+      &:last-child {
         margin-bottom: 0;
       }
 

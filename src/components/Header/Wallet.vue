@@ -5,17 +5,18 @@ const userStore = useUserStore();
 </script>
 
 <template>
-  <div class="wallet">
+  <router-link class="wallet" to='/balance'>
     <div class="img" />
     <div class="container">
       <div class="number">{{ userStore.user?.balance }}</div>
       <div class="text">Баланс тестов</div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style lang="scss" scoped>
   .wallet {
+    text-decoration: none;
     display: flex;
     align-items: center;
     cursor: pointer;

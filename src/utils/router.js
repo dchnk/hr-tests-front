@@ -4,6 +4,8 @@ import { useUserStore } from '../stores/user';
 import Login from '../pages/Login.vue'
 import Registration from '../pages/Registration.vue'
 import Admin from '../pages/Admin.vue'
+import Profile from '../pages/Profile.vue'
+import Balance from '../pages/Balance.vue'
 import PageNotFound from '../pages/PageNotFound.vue'
 
 const routes = [
@@ -17,6 +19,14 @@ const routes = [
   {
     path: '/admin',
     component: Admin
+  },
+  {
+    path: '/profile',
+    component: Profile
+  },
+  {
+    path: '/balance',
+    component: Balance
   },
   {
     path: '/signin',
@@ -59,6 +69,8 @@ router.beforeEach((to) => {
         }
         break;
 
+      case '/profile':
+      case '/balance':
       case '/admin':
         if (!storeUser.user) {
           router.replace('/signin');

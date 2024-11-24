@@ -347,11 +347,6 @@ const clickSubmit = async () => {
       line-height: 21.6px;
       color: #FFFFFF;
 
-      .loader {
-        min-height: 22px;
-        background-image: url("../../img/loader.png");
-      }
-
       &.invalid {
         cursor: default;
         background-color: rgba(143, 71, 255, 0.3);

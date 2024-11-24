@@ -1,8 +1,6 @@
 <script setup>
 import {computed, ref} from "vue";
 
-// import ApplicantsItemContent from "./ApplicantsItemContent.vue";
-// import ApplicantsItemMobile from "./ApplicantsItem-Mobile.vue";
 import UsersItemDesktop from "./UsersItem-Desktop.vue";
 import UsersItemMobile from "./UsersItem-Mobile.vue";
 import UsersItemContent from "./UsersItemContent.vue";
@@ -22,8 +20,6 @@ function openedToggle() {
     <UsersItemDesktop :user='user' :status='status' :opened="opened" @toggle="openedToggle"/>
     <UsersItemMobile :user='user' :status='status' :opened="opened" @toggle="openedToggle"/>
     <UsersItemContent :user='user' :status='status' v-show="opened"/>
-<!--    <ApplicantsItemMobile :user='user' :status='status' :opened="opened" @toggle="openedToggle"/>-->
-<!--    <ApplicantsItemContent :user='user' :status='status' v-show="opened"/>-->
   </div>
 </template>
 
