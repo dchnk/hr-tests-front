@@ -231,7 +231,7 @@ const clickSubmit = async () => {
       <div class="error" v-show="inputErrors.conflictError">{{ inputErrors.conflictError }}</div>
       <div class="switch">
         Уже зарегистрированы?
-        <router-link class="link" to="/signin">Зарегистрироваться</router-link>
+        <router-link class="link" to="/signin">Войти</router-link>
       </div>
     </form>
   </section>

@@ -5,23 +5,16 @@ import axios from "axios";
 
 const invalid = ref(false);
 const pending = ref(false);
+const status = ref(0);
 
-const emit = defineEmits(['clickRecoveryButton']);
+const emit = defineEmits(['clickSigninButton']);
 
 const inputValues = reactive({
-  name: '',
   email: '',
-  phone: '',
-  password: '',
-  passwordRepeat: '',
 })
 
 const inputErrors = reactive({
-  name: '',
   email: '',
-  phone: '',
-  password: '',
-  passwordRepeat: '',
   conflictError: '',
   conflictEmail: '',
 })
@@ -55,27 +48,13 @@ const validate = (inputName) => {
         checkForm();
       }
       break;
-
-    case'password':
-      const cyrillicPattern = /.[а-яА-ЯёЁ]./;
-
-      if (!inputValues.password) {
-        inputErrors.password = 'Обязательно для заполнения';
-      } else if (cyrillicPattern.test(inputValues.password)) {
-        inputErrors.password = 'Пароль может содержать только буквы латинского алфавита, спецсимволы и цифры.';
-      } else if (inputValues.password.length < 8) {
-        inputErrors.password = 'Слишком короткий. Минимальная длина пароля 8 символов.';
-      } else {
-        inputErrors.password = '';
-        checkForm();
-      }
-      break;
   }
 }
 
-
 const clickSubmit = async () => {
   if (invalid.value) return;
+
+  status.value = 0;
 
   try {
     checkForm(true);
@@ -85,26 +64,28 @@ const clickSubmit = async () => {
 
     pending.value = true;
 
-    const loginUser = await axios.post('/api/signin', {
+    const res = await axios.post('/api/reset', {
       email: inputValues.email,
-      password: inputValues.password,
     })
 
-    window.location.replace('/admin')
-
-    console.log(loginUser);
+    console.log(res);
+    if (res) status.value = 2;
 
   } catch (e) {
     console.log(e)
-    if (e.status === 401) {
-      inputErrors.conflictError = 'Неверный email или пароль';
+    if (e.status === 404) {
+      inputErrors.conflictError = 'Пользователя с таким email не существует';
       invalid.value = true;
+      return;
     };
 
     if (e.status === 400) {
       inputErrors.conflictError = 'Email некорректен';
       invalid.value = true;
+      return;
     };
+
+    status.value = 1;
   }
 
   pending.value = false;
@@ -114,35 +95,34 @@ const clickSubmit = async () => {
 <template>
   <section class="sign-in">
     <div class="heading">
-      Войти в панель управления
+      Восстановление пароля
     </div>
-    <form class="form" @submit.prevent="clickSubmit" novalidate>
+    <form class="form" @submit.prevent="clickSubmit" novalidate v-if="status !== 2">
       <div class="input-container">
         <div class="content">
           <div class="name">E-mail</div>
         </div>
-        <input class="input" type="text" id="email" maxlength="50" size="50" @blur="validate('email')"
+        <input class="input" placeholder="Введите ваш email" type="text" id="email" maxlength="50" size="50" @blur="validate('email')"
                @input="validate('email')" v-model="inputValues.email">
         <div class="error" v-show="inputErrors.email">{{ inputErrors.email }}</div>
       </div>
-      <div class="input-container">
-        <div class="content">
-          <div class="name">Пароль</div>
-          <div class="question" @click="emit('clickRecoveryButton')">Забыли пароль?</div>
-        </div>
-        <input class="input" type="password" id="password" autocomplete="false" @blur="validate('password')"
-               @input="validate('password')" v-model="inputValues.password">
-        <div class="error" v-show="inputErrors.password">{{ inputErrors.password }}</div>
-      </div>
       <button v-if="!pending" type="submit" class="submit" :class="invalid && 'invalid'">
-        <div>Войти</div>
+        <div>Сбросить пароль</div>
       </button>
       <Preloader v-else/>
       <div class="error" v-show="inputErrors.conflictError">{{ inputErrors.conflictError }}</div>
+      <div class="error" v-show="status === 1">Письмо не отправилось, попробуйте еще раз!</div>
       <div class="switch">
-        Нет аккаунта? <router-link class="link" to="/signup">Зарегистрироваться</router-link>
+        Хотите вернуться? <span class="link" @click="emit('clickSigninButton')">На страницу входа</span>
       </div>
     </form>
+    <div class="success" v-if="status === 2">
+      Мы отправили письмо с новым паролем на почтовый адрес:
+      <div class="failed-status">{{ inputValues.email }}</div>
+      <div class="switch">
+        Хотите вернуться? <span class="link" @click="emit('clickSigninButton')">На страницу входа</span>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -271,18 +251,36 @@ const clickSubmit = async () => {
       text-align: center;
     }
 
-    .switch {
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 22.4px;
-      color: #5F5E5E;
+    //.switch {
+    //  font-size: 14px;
+    //  font-weight: 400;
+    //  line-height: 22.4px;
+    //  color: #5F5E5E;
+    //
+    //  .link {
+    //    text-decoration: none;
+    //    color: #8F47FF;
+    //    cursor: pointer;
+    //    border-bottom: 1px solid #8F47FF;
+    //  }
+    //}
+  }
 
-      .link {
-        text-decoration: none;
-        color: #8F47FF;
-        cursor: pointer;
-        border-bottom: 1px solid #8F47FF;
-      }
+  .failed-status {
+    margin-bottom: 1em;
+  }
+
+  .switch {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 22.4px;
+    color: #5F5E5E;
+
+    .link {
+      text-decoration: none;
+      color: #8F47FF;
+      cursor: pointer;
+      border-bottom: 1px solid #8F47FF;
     }
   }
 }

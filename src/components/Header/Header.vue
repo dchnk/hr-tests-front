@@ -1,6 +1,6 @@
 <script setup>
-import Wallet from "./Wallet.vue";
-import Profile from "./Profile.vue";
+import Wallet from "../Admin/Wallet.vue";
+import Profile from "../Admin/Profile.vue";
 
 const {isAdmin} = defineProps(['isAdmin']);
 
