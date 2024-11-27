@@ -11,7 +11,7 @@ const {selected} = storeToRefs(departmentsStore);
 
 <template>
   <div class="list">
-    <Vacancy v-for="vacancy in selected.vacancies" :text="vacancy.name" :key="vacancy.id"/>
+    <Vacancy v-for="vacancy in selected.vacancies" :text="vacancy.name" :vacancy="vacancy" :key="vacancy.id"/>
     <div class="empty" v-if="selected.vacancies.length === 0">Вакансии еще не были добавлены.</div>
   </div>
 

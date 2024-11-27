@@ -20,6 +20,7 @@ export const useDepartmentsStore = defineStore('departments', {
       axios.get('/api/departments')
         .then(({ data }) => {
           this.departments = data;
+          console.log(data)
         }).catch(err => {
         console.log(err)
         this.user = null;

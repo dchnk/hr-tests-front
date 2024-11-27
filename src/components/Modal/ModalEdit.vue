@@ -1,19 +1,32 @@
 <script setup>
-import { computed, reactive, ref } from 'vue';
+import {computed, reactive, ref} from 'vue';
 import axios from "axios";
 import {useDepartmentsStore} from "../../stores/departments.js";
+import {useModalStore} from "../../stores/modal.js";
+import {storeToRefs} from "pinia";
 
 const emit = defineEmits(['closeModal'])
-const {modal} = defineProps(["modal"]);
+
+const modalStore = useModalStore();
+
+const {modal, currentVacancy} = storeToRefs(modalStore);
 
 const departmentsStore = useDepartmentsStore();
 
 const invalid = ref(false);
 const pending = ref(false);
 
-const inputValues = reactive({
-  name: '',
-})
+let defaultValue;
+
+if (modal.value === 'editDepartment') {
+  defaultValue = departmentsStore.selected.name;
+};
+
+if (modal.value === 'editVacancy') {
+  defaultValue = currentVacancy.value.name;
+};
+
+const inputValues = reactive({name: defaultValue})
 
 const inputErrors = reactive({
   name: '',
@@ -55,30 +68,31 @@ const clickSubmit = async () => {
 
     let address, data;
 
-    if (modal === 'createDepartment') {
+    if (modal.value === 'editDepartment') {
+      if (inputValues.name === departmentsStore.selected.name) return;
+
       address = 'departments';
       data = {name: inputValues.name};
     };
-    if (modal === 'createVacancy') {
+
+    if (modal.value === 'editVacancy') {
       address = 'vacancies';
-      data = {name: inputValues.name, department_id: departmentsStore.selected.id};
+      data = {name: inputValues.name};
     };
 
     pending.value = true;
 
-    const create = await axios.post(`/api/${address}/create`, data)
+    const create = await axios.patch(`/api/${address}/update/${departmentsStore.selected.id}`, data)
 
     console.log(create)
 
-    if (modal === 'createDepartment') {
-      let newDepartment = create.data;
-      newDepartment.vacancies = [];
-      departmentsStore.departments.push(newDepartment);
+    if (modal.value === 'editDepartment') {
+      departmentsStore.selected.name = inputValues.name;
       emit('closeModal');
     }
 
-    if (modal === 'createVacancy') {
-      departmentsStore.selected.vacancies.push(create.data);
+    if (modal.value === 'editVacancy') {
+      departmentsStore.get();
       emit('closeModal');
     }
 
@@ -90,8 +104,8 @@ const clickSubmit = async () => {
 }
 
 const headingText = computed(() => {
-  if (modal === 'createDepartment') return 'Создать раздел';
-  if (modal === 'createVacancy') return 'Создать вакансию';
+  if (modal.value === 'editDepartment') return "Переименовать раздел";
+  if (modal.value === 'editVacancy') return 'Переименовать вакансию';
 })
 
 </script>
@@ -109,7 +123,7 @@ const headingText = computed(() => {
       <div class="error" v-show="inputErrors.name">{{ inputErrors.name }}</div>
     </div>
     <div class="buttons">
-      <button class="button submit" type="submit" :class="invalid && 'invalid'">Создать</button>
+      <button class="button submit" type="submit" :class="invalid && 'invalid'">Изменить</button>
       <div class="button cancel" @click="emit('closeModal')">Отмена</div>
     </div>
   </form>

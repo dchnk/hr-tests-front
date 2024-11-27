@@ -1,14 +1,60 @@
 <script setup>
-import { computed } from 'vue';
+import {computed, ref} from 'vue';
+import axios from "axios";
+import {useDepartmentsStore} from "../../stores/departments.js";
 
 const emit = defineEmits(['closeModal'])
 const {modal} = defineProps(["modal"]);
+
+const departmentsStore = useDepartmentsStore();
+
+const pending = ref(false);
 
 const headingText = computed(() => {
   console.log(modal)
   if (modal === 'deleteDepartment') return 'Удалить раздел';
   if (modal === 'deleteVacancy') return 'Удалить вакансию';
 })
+
+const clickDelete = async () => {
+  try {
+    let address;
+
+    if (modal === 'deleteDepartment') {
+      address = 'departments';
+    };
+    if (modal === 'deleteVacancy') {
+      address = 'vacancies';
+    };
+
+    pending.value = true;
+
+    const deleteDepartment = await axios.delete(`/api/${address}/delete/${departmentsStore.selected.id}`);
+
+    console.log(deleteDepartment)
+
+    if (modal === 'deleteDepartment') {
+      for (let i in departmentsStore.departments) {
+        if (departmentsStore.departments[i].id === departmentsStore.selected.id) {
+          departmentsStore.departments.splice(i, 1);
+        }
+      }
+
+      departmentsStore.selected = null;
+      emit('closeModal');
+    }
+
+    if (modal === 'deleteVacancy') {
+      departmentsStore.get();
+      emit('closeModal');
+    }
+
+  } catch (e) {
+    console.log(e)
+  }
+
+  pending.value = false;
+}
 
 </script>
 
@@ -17,7 +63,7 @@ const headingText = computed(() => {
     <div class="heading">{{ headingText }}</div>
     <div class="text">Вы уверены? Данное действие нельзя отменить.</div>
     <div class="buttons">
-      <div class="button delete">Удалить</div>
+      <div class="button delete" @click="clickDelete">Удалить</div>
       <div class="button cancel" @click="emit('closeModal')">Отмена</div>
     </div>
   </div>
