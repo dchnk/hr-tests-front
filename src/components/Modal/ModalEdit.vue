@@ -8,7 +8,6 @@ import {storeToRefs} from "pinia";
 const emit = defineEmits(['closeModal'])
 
 const modalStore = useModalStore();
-
 const {modal, currentVacancy} = storeToRefs(modalStore);
 
 const departmentsStore = useDepartmentsStore();
@@ -66,23 +65,25 @@ const clickSubmit = async () => {
     checkForm(true);
     if (invalid.value) return;
 
-    let address, data;
+    let address, data, id;
 
     if (modal.value === 'editDepartment') {
       if (inputValues.name === departmentsStore.selected.name) return;
 
       address = 'departments';
       data = {name: inputValues.name};
+      id = departmentsStore.selected.id;
     };
 
     if (modal.value === 'editVacancy') {
       address = 'vacancies';
       data = {name: inputValues.name};
+      id = currentVacancy.value.id;
     };
 
     pending.value = true;
 
-    const create = await axios.patch(`/api/${address}/update/${departmentsStore.selected.id}`, data)
+    const create = await axios.patch(`/api/${address}/update/${id}`, data)
 
     console.log(create)
 
@@ -92,7 +93,7 @@ const clickSubmit = async () => {
     }
 
     if (modal.value === 'editVacancy') {
-      departmentsStore.get();
+      currentVacancy.value.name = inputValues.name;
       emit('closeModal');
     }
 

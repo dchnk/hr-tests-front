@@ -6,7 +6,6 @@ const userStore = useUserStore();
 
 userStore.get()
 
-console.log(userStore.isAdmin);
 
 </script>
 

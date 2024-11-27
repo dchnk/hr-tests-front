@@ -15,28 +15,30 @@ const departmentsStore = useDepartmentsStore();
 const pending = ref(false);
 
 const headingText = computed(() => {
-  if (modal === 'deleteDepartment') return 'Удалить раздел';
-  if (modal === 'deleteVacancy') return 'Удалить вакансию';
+  if (modal.value === 'archiveDepartment') return 'Архивиовать раздел';
+  if (modal.value === 'archiveVacancy') return 'Архивиовать вакансию';
 })
 
 const clickDelete = async () => {
   try {
-    let address;
+    let address, id;
 
-    if (modal === 'deleteDepartment') {
+    if (modal.value === 'deleteDepartment') {
       address = 'departments';
+      id = departmentsStore.selected.id;
     };
-    if (modal === 'deleteVacancy') {
+    if (modal.value === 'deleteVacancy') {
       address = 'vacancies';
+      id = currentVacancy.value.id;
     };
 
     pending.value = true;
 
-    const deleteDepartment = await axios.delete(`/api/${address}/delete/${departmentsStore.selected.id}`);
+    const archiveDepartment = await axios.post(`/api/${address}/archive/${id}`);
 
-    console.log(deleteDepartment)
+    console.log(archiveDepartment)
 
-    if (modal === 'deleteDepartment') {
+    if (modal.value === 'archiveDepartment') {
       for (let i in departmentsStore.departments) {
         if (departmentsStore.departments[i].id === departmentsStore.selected.id) {
           departmentsStore.departments.splice(i, 1);
@@ -47,7 +49,7 @@ const clickDelete = async () => {
       emit('closeModal');
     }
 
-    if (modal === 'deleteVacancy') {
+    if (modal.value === 'archiveVacancy') {
       departmentsStore.get();
       emit('closeModal');
     }
@@ -64,7 +66,7 @@ const clickDelete = async () => {
 <template>
   <div class="modal-delete">
     <div class="heading">{{ headingText }}</div>
-    <div class="text">Вы уверены? Данное действие нельзя отменить.</div>
+    <div class="text">Вы уверены? </div>
     <div class="buttons">
       <div class="button delete" @click="clickDelete">Удалить</div>
       <div class="button cancel" @click="emit('closeModal')">Отмена</div>
