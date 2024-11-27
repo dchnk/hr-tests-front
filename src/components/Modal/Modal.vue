@@ -18,7 +18,7 @@ const {modal} = storeToRefs(modalStore);
       <ModalDelete :modal="modal" v-if="modal === 'deleteDepartment' || modal === 'deleteVacancy'" @closeModal="modalStore.closeModal"/>
       <ModalCreate :modal="modal" v-if="modal === 'createDepartment' || modal === 'createVacancy'" @closeModal="modalStore.closeModal"/>
       <ModalEdit :modal="modal" v-if="modal === 'editDepartment' || modal === 'editVacancy'" @closeModal="modalStore.closeModal"/>
-      <ModalArchive :modal="modal" v-if="modal === 'archiveDepartment' || modal === 'archiveVacancy'" @closeModal="modalStore.closeModal"/>
+      <ModalArchive :modal="modal" v-if="modal === 'archiveDepartment' || modal === 'archiveVacancy' || modal === 'unzipVacancy'" @closeModal="modalStore.closeModal"/>
       <div class="modal__close" @click="modalStore.closeModal">
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M1.05025 1.05021L10.9497 10.9497M10.9497 1.05021L1.05025 10.9497" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

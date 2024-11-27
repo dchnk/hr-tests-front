@@ -21,8 +21,9 @@ function handleOpenMenu() {
 
 <template>
   <div class="panel">
-    <div class="text">Вакансии раздела “{{ selected.name }}”</div>
-    <div class="container">
+    <div class="text" v-if="!departmentsStore.isArchive">Вакансии раздела “{{ selected.name }}”</div>
+    <div class="text" v-if="departmentsStore.isArchive">Архив вакансий</div>
+    <div class="container" v-if="!departmentsStore.isArchive">
       <div class="add" @click="() => modalStore.openModal('createVacancy')">Создать вакансию
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
           <path d="M1 6H11M6 1V11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

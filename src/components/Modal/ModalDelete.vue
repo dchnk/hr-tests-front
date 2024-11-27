@@ -15,28 +15,30 @@ const departmentsStore = useDepartmentsStore();
 const pending = ref(false);
 
 const headingText = computed(() => {
-  if (modal === 'deleteDepartment') return 'Удалить раздел';
-  if (modal === 'deleteVacancy') return 'Удалить вакансию';
+  if (modal.value === 'deleteDepartment') return 'Удалить раздел';
+  if (modal.value === 'deleteVacancy') return 'Удалить вакансию';
 })
 
 const clickDelete = async () => {
   try {
-    let address;
+    let address, id;
 
-    if (modal === 'deleteDepartment') {
+    if (modal.value === 'deleteDepartment') {
       address = 'departments';
+      id = departmentsStore.selected.id;
     };
-    if (modal === 'deleteVacancy') {
+    if (modal.value === 'deleteVacancy') {
       address = 'vacancies';
+      id = currentVacancy.value.id;
     };
 
     pending.value = true;
 
-    const deleteDepartment = await axios.delete(`/api/${address}/delete/${departmentsStore.selected.id}`);
+    const deleteDepartment = await axios.delete(`/api/${address}/delete/${id}`);
 
     console.log(deleteDepartment)
 
-    if (modal === 'deleteDepartment') {
+    if (modal.value === 'deleteDepartment') {
       for (let i in departmentsStore.departments) {
         if (departmentsStore.departments[i].id === departmentsStore.selected.id) {
           departmentsStore.departments.splice(i, 1);
@@ -47,8 +49,14 @@ const clickDelete = async () => {
       emit('closeModal');
     }
 
-    if (modal === 'deleteVacancy') {
-      departmentsStore.get();
+    if (modal.value === 'deleteVacancy') {
+
+      for (let i in departmentsStore.selected.vacancies) {
+        if (departmentsStore.selected.vacancies[i].id === currentVacancy.value.id) {
+          departmentsStore.selected.vacancies.splice(i, 1);
+        }
+      }
+
       emit('closeModal');
     }
 

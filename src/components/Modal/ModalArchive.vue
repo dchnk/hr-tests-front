@@ -17,31 +17,36 @@ const pending = ref(false);
 const headingText = computed(() => {
   if (modal.value === 'archiveDepartment') return 'Архивиовать раздел';
   if (modal.value === 'archiveVacancy') return 'Архивиовать вакансию';
+  if (modal.value === 'unzipVacancy') return 'Разархивировать вакансию';
 })
 
-const clickDelete = async () => {
+const clickArchive = async () => {
   try {
     let address, id;
 
-    if (modal.value === 'deleteDepartment') {
-      address = 'departments';
+    if (modal.value === 'archiveDepartment') {
+      address = 'departments/archive';
       id = departmentsStore.selected.id;
     };
-    if (modal.value === 'deleteVacancy') {
-      address = 'vacancies';
+    if (modal.value === 'archiveVacancy') {
+      address = 'vacancies/archive';
+      id = currentVacancy.value.id;
+    };
+    if (modal.value === 'unzipVacancy') {
+      address = 'vacancies/unzip';
       id = currentVacancy.value.id;
     };
 
     pending.value = true;
 
-    const archiveDepartment = await axios.post(`/api/${address}/archive/${id}`);
+    const archiveDepartment = await axios.post(`/api/${address}/${id}`);
 
     console.log(archiveDepartment)
 
     if (modal.value === 'archiveDepartment') {
       for (let i in departmentsStore.departments) {
         if (departmentsStore.departments[i].id === departmentsStore.selected.id) {
-          departmentsStore.departments.splice(i, 1);
+          departmentsStore.departments[i].archived = true;
         }
       }
 
@@ -50,9 +55,34 @@ const clickDelete = async () => {
     }
 
     if (modal.value === 'archiveVacancy') {
-      departmentsStore.get();
+      for (let i in departmentsStore.selected.vacancies) {
+        if (departmentsStore.selected.vacancies[i].id === currentVacancy.value.id) {
+          console.log(departmentsStore.selected.vacancies[i])
+
+          departmentsStore.selected.vacancies[i].archived = true;
+
+          departmentsStore.archive.vacancies.push(departmentsStore.selected.vacancies[i]);
+        }
+      }
+
       emit('closeModal');
     }
+
+
+
+    if (modal.value === 'unzipVacancy') {
+      for (let i in departmentsStore.archive.vacancies) {
+        if (departmentsStore.archive.vacancies[i].id === currentVacancy.value.id) {
+
+          departmentsStore.archive.vacancies[i].archived = false;
+
+          departmentsStore.archive.vacancies.splice(i, 1);
+        }
+      }
+
+
+      emit('closeModal');
+    };
 
   } catch (e) {
     console.log(e)
@@ -66,9 +96,9 @@ const clickDelete = async () => {
 <template>
   <div class="modal-delete">
     <div class="heading">{{ headingText }}</div>
-    <div class="text">Вы уверены? </div>
+    <div class="text">Вы уверены?</div>
     <div class="buttons">
-      <div class="button delete" @click="clickDelete">Удалить</div>
+      <div class="button delete" @click="clickArchive">Да</div>
       <div class="button cancel" @click="emit('closeModal')">Отмена</div>
     </div>
   </div>
