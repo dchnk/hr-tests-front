@@ -1,33 +1,143 @@
 <script setup>
 import {useUserStore} from "../../stores/user.js";
 import {storeToRefs} from "pinia";
+import axios from "axios";
+import {reactive, ref} from "vue";
 
 const userStore = useUserStore();
 const {user} = storeToRefs(userStore);
+
+import Preloader from "../ui/Preloader.vue";
+
+const invalid = ref(false);
+const pending = ref(false);
+
+const inputValues = reactive({
+  email: '',
+})
+
+const selectedTest = reactive({oxfordTest: ''});
+
+const selectTest = (name) => {
+  if (selectedTest[name]) return selectedTest[name] = '';
+
+  selectedTest[name] = name;
+
+  validate('selected');
+}
+
+const inputErrors = reactive({
+  email: '',
+  selected: '',
+  conflictError: '',
+  conflictEmail: '',
+})
+
+const checkForm = (submit) => {
+  let currentFlag = false;
+
+  for (let error in inputErrors) {
+    if (submit) {
+      validate(error);
+    }
+
+    if (inputErrors[error]) currentFlag = true;
+  }
+
+  invalid.value = currentFlag;
+}
+
+const validate = (inputName) => {
+  if (inputErrors.conflictError) inputErrors.conflictError = '';
+
+  switch (inputName) {
+    case'email':
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!inputValues.email) {
+        inputErrors.email = 'Обязательно для заполнения';
+        invalid.value = true;
+      } else if (!emailPattern.test(inputValues.email)) {
+        inputErrors.email = 'Введите корректный email';
+        invalid.value = true;
+      } else {
+        inputErrors.email = '';
+        checkForm();
+      }
+      break;
+
+    case'selected':
+      for (let test in selectedTest) {
+        if (!selectedTest[test]) {
+          inputErrors.selected = 'Необходимо выбрать тест.';
+          invalid.value = true;
+        }
+        else {
+          inputErrors.selected = '';
+          checkForm();
+        }
+        break;
+      }
+  }
+}
+
+const clickSubmit = async () => {
+  if (invalid.value || pending.value) return;
+
+  try {
+    checkForm(true);
+    if (invalid.value) return;
+
+    pending.value = true;
+
+    const sendTest = await axios.post('/api/vacancies/sendTest', {
+      email: inputValues.email,
+      tests: selectedTest,
+    })
+
+  } catch (e) {
+    console.log(e)
+    if (e.status === 401) {
+      inputErrors.conflictError = 'Неверный email или пароль';
+      invalid.value = true;
+    };
+
+    if (e.status === 400) {
+      inputErrors.conflictError = 'Email некорректен';
+      invalid.value = true;
+    };
+  }
+
+  pending.value = false;
+}
 </script>
 
 <template>
   <div class="send">
     <div class="heading">Отправить тест соискателю</div>
-    <div class="form">
-      <input type="email" class="email" placeholder="Укажите E-mail тестируемого">
-      <button class="btn">Отправить тест
+    <form class="form" @submit.prevent="clickSubmit">
+      <div class="input-container">
+        <input class="email" placeholder="Укажите E-mail тестируемого" type="text" id="email" maxlength="50" size="50" @blur="validate('email')"
+               @input="validate('email')" v-model="inputValues.email">
+        <div class="error" v-show="inputErrors.email">{{ inputErrors.email }}</div>
+      </div>
+      <button class="btn" :class="invalid && 'invalid'" type="submit">Отправить тест
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path
               d="M6.72521 9.27092L14.076 1.92279M6.93414 9.60136L8.60096 12.935C9.00376 13.7406 9.20516 14.1434 9.45888 14.2514C9.67907 14.3451 9.93077 14.3282 10.1364 14.2057C10.3733 14.0647 10.5188 13.6385 10.8099 12.7861L13.9593 3.56298C14.2129 2.82029 14.3397 2.44894 14.2529 2.20329C14.1774 1.98958 14.0093 1.82148 13.7956 1.74598C13.5499 1.65919 13.1786 1.78599 12.4359 2.03959L3.21273 5.18895C2.36037 5.48 1.93418 5.62553 1.7931 5.86246C1.67066 6.06808 1.6537 6.31977 1.74743 6.53996C1.85545 6.79368 2.25825 6.99508 3.06385 7.39788L6.39749 9.0647C6.53023 9.13107 6.5966 9.16426 6.65412 9.20859C6.70515 9.24793 6.75091 9.29369 6.79025 9.34472C6.83458 9.40224 6.86777 9.46861 6.93414 9.60136Z"
               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-    </div>
+    </form>
 
     <div class="text">Выберите тесты, которые следует отправить соискателю</div>
     <div class="selects__container">
-      <div class="list">
-        <div class="select">Оксфордский тест</div>
-        <div class="select">Оксфордский тест</div>
-        <div class="select">Оксфордский тест</div>
-        <div class="select">Оксфордский тест</div>
+      <div class="list-container">
+        <div class="list">
+          <div class="select" :class="selectedTest.oxfordTest && 'selected'" @click="() => selectTest('oxfordTest')">Оксфордский тест</div>
+        </div>
+        <div class="error" v-show="inputErrors.selected">{{ inputErrors.selected }}</div>
       </div>
+
       <div class="wallet">
         <div class="img">
           <svg class="icon" width="20" height="18" viewBox="0 0 20 18" fill="none"
@@ -37,11 +147,12 @@ const {user} = storeToRefs(userStore);
                 stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <div class="container">
+        <router-link to="/balance" class="container" >
           <div class="number">{{ user?.balance }}</div>
           <div class="wallet__text">Баланс тестов</div>
-        </div>
+        </router-link>
       </div>
+
     </div>
   </div>
 
@@ -91,6 +202,11 @@ const {user} = storeToRefs(userStore);
       margin-bottom: 18px;
     }
 
+    .input-container {
+      display: flex;
+      flex-direction: column;
+    }
+
     .email {
       font-size: 14px;
       font-weight: 400;
@@ -114,9 +230,18 @@ const {user} = storeToRefs(userStore);
       &::placeholder {
         color: #B9BBC1;
       }
+
+
+    }
+
+    .error {
+      font-size: 12px;
+      color: #D01408;
+      text-align: start;
     }
 
     .btn {
+      height: 100%;
       font-size: 14px;
       font-weight: 700;
       line-height: 16.8px;
@@ -124,9 +249,15 @@ const {user} = storeToRefs(userStore);
       color: #FFFFFF;
       background-color: #8F47FF;
       border-radius: 10px;
-      padding: 13.5px 22px;
+      padding: 16px 22px;
       display: flex;
       align-items: center;
+
+      &.invalid {
+        cursor: default;
+        pointer-events: none;
+        background-color: rgba(143, 71, 255, 0.3);
+      }
 
       @media screen and (max-width: 750px) {
         justify-content: center;
@@ -138,8 +269,6 @@ const {user} = storeToRefs(userStore);
       }
 
       @media (hover: hover) {
-
-
         &:hover {
           color: #8F47FF;
           background-color: #EBE1FC;
@@ -184,6 +313,11 @@ const {user} = storeToRefs(userStore);
         color: #8F47FF;
         cursor: pointer;
 
+        &.selected {
+          background-color: #8F47FF;
+          color: #FFFFFF;
+        }
+
 
         @media screen and (max-width: 900px) {
           font-size: 14px;
@@ -223,6 +357,7 @@ const {user} = storeToRefs(userStore);
       .container {
         display: flex;
         flex-direction: column;
+        text-decoration: none;
 
         .number {
           font-size: 19px;
@@ -250,6 +385,14 @@ const {user} = storeToRefs(userStore);
         }
       }
     }
+  }
+
+  .error {
+    margin-left: .2em;
+    margin-top: .5em;
+    font-size: 12px;
+    color: #D01408;
+    text-align: start;
   }
 
 

@@ -100,16 +100,7 @@ function handleOpenMenu() {
 
   <div class="vacancy" :class="isOpen && 'open'" v-if="vacancy.archived && departmentsStore.isArchive">
     <div class="heading archived">
-      <!--      <div class="notification" v-if="!isOpen">18</div>-->
       <div class="name" :class="isOpen && 'open'">{{ text }}</div>
-<!--      <div class="btn edit" v-if="isOpen" @click="() => modalStore.openModal('editVacancy', vacancy)">-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none">-->
-<!--          <path-->
-<!--              d="M14.6456 4.22922L17.5919 7.1755M1.625 20.3748L1.67443 20.0288C1.84933 18.8045 1.93679 18.1923 2.13572 17.6207C2.31224 17.1136 2.55338 16.6313 2.85319 16.1858C3.19106 15.6837 3.62832 15.2465 4.50286 14.3719L16.6362 2.23861C17.4498 1.42502 18.7689 1.42502 19.5825 2.23861C20.3961 3.0522 20.3961 4.3713 19.5825 5.18489L7.2265 17.5409C6.43312 18.3342 6.03643 18.7309 5.58458 19.0464C5.18352 19.3264 4.75096 19.5584 4.29581 19.7375C3.78303 19.9394 3.23308 20.0503 2.13326 20.2722L1.625 20.3748Z"-->
-<!--              stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--        </svg>-->
-<!--        <div class="tooltip">Редактировать вакансию</div>-->
-<!--      </div>-->
       <div class="btn archive" @click="() => modalStore.openModal('unzipVacancy', vacancy)">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
           <path
@@ -133,14 +124,6 @@ function handleOpenMenu() {
               stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <div class="content" :class="menuIsOpen && 'open'">
-<!--          <div class="item edit" @click="() => modalStore.openModal('editVacancy', vacancy)">-->
-<!--            <svg xmlns="http://www.w3.org/2000/svg" width="21" height="22" viewBox="0 0 21 22" fill="none">-->
-<!--              <path-->
-<!--                  d="M14.6456 4.22922L17.5919 7.1755M1.625 20.3748L1.67443 20.0288C1.84933 18.8045 1.93679 18.1923 2.13572 17.6207C2.31224 17.1136 2.55338 16.6313 2.85319 16.1858C3.19106 15.6837 3.62832 15.2465 4.50286 14.3719L16.6362 2.23861C17.4498 1.42502 18.7689 1.42502 19.5825 2.23861C20.3961 3.0522 20.3961 4.3713 19.5825 5.18489L7.2265 17.5409C6.43312 18.3342 6.03643 18.7309 5.58458 19.0464C5.18352 19.3264 4.75096 19.5584 4.29581 19.7375C3.78303 19.9394 3.23308 20.0503 2.13326 20.2722L1.625 20.3748Z"-->
-<!--                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--            </svg>-->
-<!--            <div class="text">Переименовать вакансию</div>-->
-<!--          </div>-->
           <div class="item archive" @click="() => modalStore.openModal('unzipVacancy', vacancy)">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
               <path
@@ -159,17 +142,7 @@ function handleOpenMenu() {
           </div>
         </div>
       </div>
-<!--      <div class="btn arrow" :class="isOpen && 'open'" @click="handleOpenToggle">-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">-->
-<!--          <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>-->
-<!--        </svg>-->
-<!--        <div class="tooltip">{{ isOpen ? 'Скрыть вакансию' : 'Показать вакансию' }}</div>-->
-<!--      </div>-->
     </div>
-<!--    <div class="container">-->
-<!--      <Send />-->
-<!--      <Applicants :name = 'text'/>-->
-<!--    </div>-->
   </div>
 </template>
 

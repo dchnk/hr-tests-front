@@ -81,8 +81,6 @@ const clickSubmit = async () => {
     checkForm(true);
     if (invalid.value) return;
 
-    console.log('ехала')
-
     pending.value = true;
 
     const loginUser = await axios.post('/api/signin', {

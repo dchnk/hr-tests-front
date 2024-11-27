@@ -57,7 +57,6 @@ const clickArchive = async () => {
     if (modal.value === 'archiveVacancy') {
       for (let i in departmentsStore.selected.vacancies) {
         if (departmentsStore.selected.vacancies[i].id === currentVacancy.value.id) {
-          console.log(departmentsStore.selected.vacancies[i])
 
           departmentsStore.selected.vacancies[i].archived = true;
 
