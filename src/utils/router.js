@@ -6,13 +6,14 @@ import Registration from '../pages/Registration.vue'
 import Admin from '../pages/Admin.vue'
 import Profile from '../pages/Profile.vue'
 import Balance from '../pages/Balance.vue'
+import Test from '../pages/Test.vue'
 import PageNotFound from '../pages/PageNotFound.vue'
 
 const routes = [
-  // {
-  //   path: '/test/:link',
-  //   component: Test,
-  // },
+  {
+    path: '/test/:link',
+    component: Test,
+  },
   {
     path: '/',
   },

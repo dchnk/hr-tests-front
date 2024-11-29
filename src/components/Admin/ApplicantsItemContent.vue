@@ -40,7 +40,7 @@ const copyTextToClipboard = async (text) => {
       </div>
       <div class="comment">
         <div class="name">Комментарий</div>
-        <textarea class="textarea" :value="comment" :disabled="!isEdit"/>
+        <textarea class="textarea" :placeholder="comment" :disabled="!isEdit"/>
       </div>
       <div class="other">
         <div class="item">
@@ -65,7 +65,7 @@ const copyTextToClipboard = async (text) => {
         <div class="item">
           <div class="name">Пол:</div>
           <div class="value">
-            Мужской
+            {{ applicant.sex }}
           </div>
         </div>
         <div class="item">
@@ -78,9 +78,9 @@ const copyTextToClipboard = async (text) => {
           <div class="name">Ссылка на тест:</div>
           <div class="value">
             <div class="link">
-              https://vacancy.email/qseHq
+              {{ applicant.testLink }}
             </div>
-            <div class="icon" @click="() => copyTextToClipboard('https://vacancy.email/qseHq')">
+            <div class="icon" @click="() => copyTextToClipboard(applicant.testLink)">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="22" viewBox="0 0 22 24" fill="none">
                 <path
                   d="M14.5003 1.5V5.46667C14.5003 6.12006 14.5003 6.44676 14.6275 6.69632C14.7393 6.91584 14.9178 7.09432 15.1373 7.20617C15.3869 7.33333 15.7136 7.33333 16.367 7.33333H20.3337M8.66699 7.33333H4.00033C2.71166 7.33333 1.66699 8.378 1.66699 9.66667V20.1667C1.66699 21.4553 2.71166 22.5 4.00033 22.5H11.0003C12.289 22.5 13.3337 21.4553 13.3337 20.1667V16.6667M15.667 1.5H12.4003C11.0935 1.5 10.4401 1.5 9.94102 1.75432C9.50197 1.97802 9.14502 2.33498 8.92131 2.77402C8.66699 3.27315 8.66699 3.92654 8.66699 5.23333V12.9333C8.66699 14.2401 8.66699 14.8935 8.92131 15.3926C9.14502 15.8317 9.50197 16.1886 9.94102 16.4123C10.4401 16.6667 11.0935 16.6667 12.4003 16.6667H16.6003C17.9071 16.6667 18.5605 16.6667 19.0596 16.4123C19.4987 16.1886 19.8556 15.8317 20.0793 15.3926C20.3337 14.8935 20.3337 14.2401 20.3337 12.9333V6.16667L15.667 1.5Z"
@@ -217,8 +217,16 @@ const copyTextToClipboard = async (text) => {
         border-radius: 10px;
         min-height: 242px;
 
+        &::placeholder {
+          color: #c0c0c0;
+        }
+
         &:disabled {
           background-color: transparent;
+
+          &::placeholder {
+            color: #e7e7e7;
+          }
         }
       }
     }
@@ -255,6 +263,7 @@ const copyTextToClipboard = async (text) => {
 
           .link {
             width: 100px;
+            max-height: 20px;
             overflow: hidden;
             text-overflow: ellipsis;
           }

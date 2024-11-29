@@ -7,6 +7,8 @@ import {reactive, ref} from "vue";
 const userStore = useUserStore();
 const {user} = storeToRefs(userStore);
 
+const {vacancy} = defineProps(['vacancy']);
+
 import Preloader from "../ui/Preloader.vue";
 
 const invalid = ref(false);
@@ -89,9 +91,10 @@ const clickSubmit = async () => {
 
     pending.value = true;
 
-    const sendTest = await axios.post('/api/vacancies/sendTest', {
+    const sendTest = await axios.post('/api/candidates/create', {
       email: inputValues.email,
       tests: selectedTest,
+      vacancy_id: vacancy.id
     })
 
   } catch (e) {

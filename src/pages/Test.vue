@@ -7,7 +7,7 @@ import Passed from "../components/Test/Passed.vue";
 
 <template>
   <Preview/>
-  <TestForm/>
+<!--  <TestForm/>-->
 <!--  <Passed/>-->
 </template>
 

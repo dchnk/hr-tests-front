@@ -93,8 +93,8 @@ function handleOpenMenu() {
       </div>
     </div>
     <div class="container">
-      <Send />
-      <Applicants :name = 'text'/>
+      <Send :vacancy="vacancy"/>
+      <Applicants :name = 'text' :vacancy="vacancy"/>
     </div>
   </div>
 

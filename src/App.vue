@@ -20,6 +20,10 @@ userStore.get()
 @import url("./vendor/normalize.css");
 @import url("./vendor/fonts.css");
 
+html {
+  scroll-behavior: smooth;
+}
+
 .page {
   font-family: 'Manrope', Arial, sans-serif;
   font-weight: normal;

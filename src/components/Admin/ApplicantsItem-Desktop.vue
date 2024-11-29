@@ -1,18 +1,49 @@
 <script setup>
 
+import {computed, ref} from "vue";
+
 defineEmits(['toggle'])
 
 const {applicant, opened, status} = defineProps(['applicant', 'opened', 'status']);
+const data = ref(applicant)
+
+
+const date = computed((data) => {
+  const createdAt = applicant?.createdAt;
+
+  // Проверка на наличие значения
+  if (!createdAt) {
+    console.error("createdAt is not defined or is invalid");
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const date = new Date(createdAt);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date format:", createdAt);
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const pad = (num) => (num < 10 ? '0' + num : num);
+
+  // Получаем компоненты даты
+  const day = pad(date.getDate()); // Используем getDate() для локального дня
+  const month = pad(date.getMonth() + 1); // Используем getMonth() для локального месяца
+  const year = date.getFullYear(); // Используем getFullYear() для локального года
+  const hours = pad(date.getHours()); // Используем getHours() для локальных часов
+  const minutes = pad(date.getMinutes()); // Используем getMinutes() для локальных минут
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+});
 
 </script>
 
 <template>
   <div class="applicants__item-columns_desktop">
-    <div class="applicants__item-column">{{ applicant.id }}</div>
+    <div class="applicants__item-column">{{ applicant.candidate_id }}</div>
     <div class="applicants__item-column">{{ applicant.name }}</div>
     <div class="applicants__item-column">{{ applicant.email }}</div>
     <div class="applicants__item-column">{{ applicant.phone }}</div>
-    <div class="applicants__item-column">{{ applicant.date }}</div>
+    <div class="applicants__item-column">{{ date }}</div>
     <div class="applicants__item-column status">
       <div class="icon">
         <svg v-if="applicant.done" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"

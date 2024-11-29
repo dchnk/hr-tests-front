@@ -1,13 +1,26 @@
 <script setup>
 import ApplicantsList from "./ApplicantsList.vue";
+import axios from "axios";
+import {ref} from 'vue';
 
-const {name} = defineProps(['name']);
+const {name, vacancy} = defineProps(['name', 'vacancy']);
+
+let applicants = ref(null);
+
+axios.post('/api/candidates', {
+  vacancy_id: vacancy.id
+}).then(({data}) => {
+  applicants.value = data;
+}).catch((e) => {
+  console.log(e)
+})
+
 </script>
 
 <template>
   <div class="applicants">
     <div class="applicants__heading">Соискатели вакансии “{{name}}”</div>
-    <div class="applicants__columns">
+    <div class="applicants__columns" v-if="applicants?.length">
       <div class="applicants__column">ID</div>
       <div class="applicants__column">Имя</div>
       <div class="applicants__column">E-mail</div>
@@ -15,7 +28,7 @@ const {name} = defineProps(['name']);
       <div class="applicants__column">Отправлен</div>
       <div class="applicants__column">Статус</div>
     </div>
-    <ApplicantsList />
+    <ApplicantsList :applicants = 'applicants'/>
   </div>
 </template>
 

@@ -1,8 +1,37 @@
 <script setup>
 
+import {computed} from "vue";
+
 defineEmits(['toggle'])
 
 const {applicant, opened, status} = defineProps(['applicant', 'opened', 'status']);
+
+const date = computed((data) => {
+  const createdAt = applicant?.createdAt;
+
+  // Проверка на наличие значения
+  if (!createdAt) {
+    console.error("createdAt is not defined or is invalid");
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const date = new Date(createdAt);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date format:", createdAt);
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const pad = (num) => (num < 10 ? '0' + num : num);
+
+  // Получаем компоненты даты
+  const day = pad(date.getDate()); // Используем getDate() для локального дня
+  const month = pad(date.getMonth() + 1); // Используем getMonth() для локального месяца
+  const year = date.getFullYear(); // Используем getFullYear() для локального года
+  const hours = pad(date.getHours()); // Используем getHours() для локальных часов
+  const minutes = pad(date.getMinutes()); // Используем getMinutes() для локальных минут
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+});
 
 </script>
 
@@ -10,7 +39,7 @@ const {applicant, opened, status} = defineProps(['applicant', 'opened', 'status'
   <div class="applicants__item-columns_mobile">
     <div class="row">
       <div class="name">ID</div>
-      <div class="value">{{ applicant.id }}</div>
+      <div class="value">{{ applicant.candidate_id }}</div>
     </div>
     <div class="row">
       <div class="name">Имя</div>
@@ -26,7 +55,7 @@ const {applicant, opened, status} = defineProps(['applicant', 'opened', 'status'
     </div>
     <div class="row">
       <div class="name">Отправлен</div>
-      <div class="value">{{ applicant.date }}</div>
+      <div class="value">{{ date }}</div>
     </div>
     <div class="row status">
       <div class="name">Статус</div>

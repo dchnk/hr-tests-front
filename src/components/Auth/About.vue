@@ -1,5 +1,32 @@
 <script setup>
 
+const scrollToNextSection = () => {
+  const targetPosition = window.innerHeight; // Позиция, на которую нужно прокрутить
+  const startPosition = window.pageYOffset; // Текущая позиция прокрутки
+  const distance = targetPosition - startPosition; // Расстояние, которое нужно пройти
+  const duration = 1000; // Длительность анимации в миллисекундах
+  let startTime = null;
+
+  const animation = (currentTime) => {
+    if (startTime === null) startTime = currentTime;
+    const timeElapsed = currentTime - startTime;
+    const progress = Math.min(timeElapsed / duration, 1); // Нормализуем прогресс от 0 до 1
+
+    // Применяем easing (например, ease-in-out)
+    const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+    window.scrollTo(0, startPosition + distance * ease); // Прокрутка
+
+    if (timeElapsed < duration) {
+      requestAnimationFrame(animation); // Запрос следующего кадра
+    }
+  };
+
+  requestAnimationFrame(animation); // Запуск анимации
+}
+
+
+
 </script>
 
 <template>
@@ -19,7 +46,7 @@
       </div>
     </div>
     <div class="cover"/>
-    <div class="arrow">
+    <div class="arrow" @click="scrollToNextSection">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="9" viewBox="0 0 16 9" fill="none">
         <path fill-rule="evenodd" clip-rule="evenodd"
               d="M0.626391 0.626163C1.01692 0.235696 1.65008 0.235696 2.0406 0.626163L8.00016 6.58576L13.9597 0.626163C14.3502 0.235696 14.9834 0.235696 15.374 0.626163C15.7644 1.0167 15.7644 1.6499 15.374 2.04043L8.7073 8.7071C8.31676 9.09756 7.68356 9.09756 7.29303 8.7071L0.626391 2.04043C0.235864 1.6499 0.235864 1.0167 0.626391 0.626163Z"
