@@ -92,7 +92,7 @@ function handleOpenMenu() {
         <div class="tooltip">{{ isOpen ? 'Скрыть вакансию' : 'Показать вакансию' }}</div>
       </div>
     </div>
-    <div class="container">
+    <div class="container" v-if="isOpen">
       <Send :vacancy="vacancy"/>
       <Applicants :name = 'text' :vacancy="vacancy"/>
     </div>

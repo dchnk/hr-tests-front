@@ -64,8 +64,20 @@ const copyTextToClipboard = async (text) => {
         </div>
         <div class="item">
           <div class="name">Пол:</div>
-          <div class="value">
+          <div class="value" v-if="!isEdit">
             {{ applicant.sex }}
+          </div>
+          <div class="radio"v-if="isEdit">
+            <label class="text">
+              <input type="radio" name="sex" value="male" checked="true">
+              Муж.
+            </label>
+          </div>
+          <div class="radio"v-if="isEdit">
+            <label class="text">
+              <input type="radio" name="sex" value="female">
+              Жен.
+            </label>
           </div>
         </div>
         <div class="item">
@@ -250,6 +262,19 @@ const copyTextToClipboard = async (text) => {
           max-width: 120px;
           width: 100%;
           margin-right: 5px;
+        }
+
+        .radio {
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 19.6px;
+          color: #122130;
+          display: flex;
+          align-items: center;
+
+          &:last-child {
+            margin-left: 1em;
+          }
         }
 
         .value {

@@ -21,7 +21,6 @@ function checkSliderIsAffixes() {
 }
 
 function handleSelectOnClick(e, department) {
-  console.log(department)
   departmentsStore.selectDepartment(department);
 }
 

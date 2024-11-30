@@ -130,7 +130,7 @@ const clickSubmit = async () => {
         <div class="error" v-show="inputErrors.passwordRepeat">{{ inputErrors.passwordRepeat }}</div>
       </div>
       <button type="submit" class="submit" :class="invalid && 'invalid'">
-        <div>Войти</div>
+        <div>Изменить пароль</div>
       </button>
       <div class="loading" :class="(pending || status) && 'active'">
         <Preloader v-if="pending"/>

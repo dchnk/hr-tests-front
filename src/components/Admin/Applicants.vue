@@ -1,26 +1,21 @@
 <script setup>
 import ApplicantsList from "./ApplicantsList.vue";
 import axios from "axios";
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
+import {useDepartmentsStore} from "../../stores/departments.js";
 
 const {name, vacancy} = defineProps(['name', 'vacancy']);
+const departmentsStore = useDepartmentsStore();
+const currentVacancy = departmentsStore.selected.vacancies.find((current) => current.id === vacancy.id);
 
-let applicants = ref(null);
-
-axios.post('/api/candidates', {
-  vacancy_id: vacancy.id
-}).then(({data}) => {
-  applicants.value = data;
-}).catch((e) => {
-  console.log(e)
-})
+departmentsStore.getApplicants({vacancy_id: vacancy.id});
 
 </script>
 
 <template>
   <div class="applicants">
     <div class="applicants__heading">Соискатели вакансии “{{name}}”</div>
-    <div class="applicants__columns" v-if="applicants?.length">
+    <div class="applicants__columns" v-if="currentVacancy?.applicants?.length">
       <div class="applicants__column">ID</div>
       <div class="applicants__column">Имя</div>
       <div class="applicants__column">E-mail</div>
@@ -28,7 +23,7 @@ axios.post('/api/candidates', {
       <div class="applicants__column">Отправлен</div>
       <div class="applicants__column">Статус</div>
     </div>
-    <ApplicantsList :applicants = 'applicants'/>
+    <ApplicantsList :applicants = 'currentVacancy?.applicants'/>
   </div>
 </template>
 

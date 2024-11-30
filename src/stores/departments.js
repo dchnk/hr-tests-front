@@ -9,6 +9,7 @@ export const useDepartmentsStore = defineStore('departments', {
       departments: undefined,
       selected: null,
       isArchive: false,
+      applicants: {},
       archive: {
         name: "Архив вакансий",
         vacancies: []
@@ -26,8 +27,6 @@ export const useDepartmentsStore = defineStore('departments', {
         .then(({ data }) => {
           this.departments = data;
 
-          console.log(this.departments)
-
           for (let i in this.departments) {
             for (let n in this.departments[i].vacancies) {
               if (this.departments[i].vacancies[n].archived) {
@@ -37,7 +36,31 @@ export const useDepartmentsStore = defineStore('departments', {
           }
         }).catch(err => {
         console.log(err)
-        this.user = null;
+      })
+    },
+
+    getApplicants(data) {
+      axios.post('/api/candidates', data)
+        .then(({ data }) => {
+          for (let j in data) {
+            const currentVacancy = this.selected.vacancies.find((vacancy) => vacancy.id === data[j].vacancy_id);
+            if (!currentVacancy.applicants) {
+              currentVacancy.applicants = [];
+            }
+
+            if (!currentVacancy.applicants.some((applicant) => applicant.candidate_id === data[j].candidate_id)) {
+              currentVacancy.applicants.push(data[j]);
+            }
+
+
+
+            // if (sameApplicant === undefined) currentVacancy.applicants.push(data[j]);
+
+          }
+
+
+        }).catch(err => {
+        console.log(err)
       })
     },
 

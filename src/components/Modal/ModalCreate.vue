@@ -78,6 +78,8 @@ const clickSubmit = async () => {
     }
 
     if (modal === 'createVacancy') {
+      let newVacancy = create.data;
+      newVacancy.applicants = [];
       departmentsStore.selected.vacancies.push(create.data);
       emit('closeModal');
     }
