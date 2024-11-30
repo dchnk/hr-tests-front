@@ -1,18 +1,26 @@
 <script setup>
-import {useUserStore} from "../../stores/user.js";
+import {reactive, ref} from "vue";
 import {storeToRefs} from "pinia";
 import axios from "axios";
-import {reactive, ref} from "vue";
+import {useUserStore} from "../../stores/user.js";
+import {useDepartmentsStore} from "../../stores/departments.js";
+
+import Preloader from "../ui/Preloader.vue";
+
+const {vacancy} = defineProps(['vacancy']);
 
 const userStore = useUserStore();
 const {user} = storeToRefs(userStore);
 
-const {vacancy} = defineProps(['vacancy']);
-
-import Preloader from "../ui/Preloader.vue";
+const departmentsStore = useDepartmentsStore();
 
 const invalid = ref(false);
 const pending = ref(false);
+const status = ref('');
+
+const clearStatus = () => {
+  status.value = '';
+};
 
 const inputValues = reactive({
   email: '',
@@ -91,18 +99,18 @@ const clickSubmit = async () => {
 
     pending.value = true;
 
-    const sendTest = await axios.post('/api/candidates/create', {
+    const {data} = await axios.post('/api/candidates/create', {
       email: inputValues.email,
       tests: selectedTest,
       vacancy_id: vacancy.id
     })
 
+    if (data) departmentsStore.addApplicant(data);
+    status.value = 'Тест был успешно отправлен';
+
   } catch (e) {
     console.log(e)
-    if (e.status === 401) {
-      inputErrors.conflictError = 'Неверный email или пароль';
-      invalid.value = true;
-    };
+    status.value = `Произошла ошибка. ${e}`;
 
     if (e.status === 400) {
       inputErrors.conflictError = 'Email некорректен';
@@ -157,6 +165,13 @@ const clickSubmit = async () => {
       </div>
 
     </div>
+    <div class="loading" :class="(pending || status) && 'active'">
+      <Preloader v-if="pending"/>
+      <div class="status" v-if="status">
+        <div class="text">{{ status }}</div>
+        <div class="ok" @click="clearStatus">Продолжить</div>
+      </div>
+    </div>
   </div>
 
 </template>
@@ -168,6 +183,7 @@ const clickSubmit = async () => {
   box-sizing: border-box;
   border-radius: 10px;
   margin-bottom: 44px;
+  position: relative;
 
   @media screen and (max-width: 1000px) {
     margin-bottom: 49px;
@@ -281,6 +297,52 @@ const clickSubmit = async () => {
           }
         }
       }
+    }
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.65);
+    visibility: hidden;
+    opacity: 0;
+    border-radius: inherit;
+    transition: all .3s ease-in-out;
+
+    .status {
+
+      min-height: 50%;
+      padding: 15px 30px;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: max-content;
+      flex-direction: column;
+      background-color: #FFFFFF;
+      border-radius: inherit;
+
+
+      .ok {
+        margin-top: 1em;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 22.4px;
+        margin-bottom: 8px;
+        color: #8F47FF;
+        cursor: pointer;
+        border-bottom: 1px solid #8F47FF;
+      }
+    }
+
+    &.active {
+      visibility: visible;
+      opacity: 1;
     }
   }
 

@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-
 export const useDepartmentsStore = defineStore('departments', {
 
   state: () => {
@@ -51,17 +50,19 @@ export const useDepartmentsStore = defineStore('departments', {
             if (!currentVacancy.applicants.some((applicant) => applicant.candidate_id === data[j].candidate_id)) {
               currentVacancy.applicants.push(data[j]);
             }
-
-
-
-            // if (sameApplicant === undefined) currentVacancy.applicants.push(data[j]);
-
           }
-
-
         }).catch(err => {
         console.log(err)
       })
+    },
+
+    addApplicant({candidate}) {
+      const currentVacancy = this.selected.vacancies.find((vacancy) => vacancy.id === candidate.vacancy_id);
+      if (!currentVacancy.applicants) {
+        currentVacancy.applicants = [];
+      }
+
+      currentVacancy.applicants.push(candidate);
     },
 
     selectDepartment(department) {
