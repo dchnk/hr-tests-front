@@ -36,14 +36,20 @@ const clickDelete = async () => {
 
     const deleteDepartment = await axios.delete(`/api/${address}/delete/${id}`);
 
-    console.log(deleteDepartment)
-
     if (modal.value === 'deleteDepartment') {
       for (let i in departmentsStore.departments) {
         if (departmentsStore.departments[i].id === departmentsStore.selected.id) {
           departmentsStore.departments.splice(i, 1);
         }
       }
+
+      departmentsStore.archive.vacancies.forEach((vacancy, index) => {
+        if (vacancy.department_id === id) {
+          console.log('123')
+          departmentsStore.archive.vacancies.splice(index, 1);
+        }
+      })
+
 
       departmentsStore.selected = null;
       emit('closeModal');
