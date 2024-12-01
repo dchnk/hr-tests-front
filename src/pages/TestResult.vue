@@ -1,5 +1,6 @@
 <script setup>
 import Header from "../components/Header/Header.vue";
+import TestResultItem from "../components/Admin/TestResultItem.vue";
 </script>
 
 <template>
@@ -54,10 +55,7 @@ import Header from "../components/Header/Header.vue";
 
 
       <div class="container" >
-        <div class="heading">
-          <div class="text">Для пополнения баланса вам необходимо связаться с менеджером.</div>
-          <a class="link" href="https://ya.ru" target="_blank">Связаться</a>
-        </div>
+        <TestResultItem/>
       </div>
     </div>
 
@@ -133,7 +131,7 @@ import Header from "../components/Header/Header.vue";
       color: #122130;
       cursor: pointer;
       align-items: center;
-      padding: 13px 20px;
+      padding: 8px 20px;
       background-color: #ffffff;
       border-radius: 10px;
       box-sizing: border-box;
@@ -169,12 +167,6 @@ import Header from "../components/Header/Header.vue";
 
   .container {
     flex-grow: 1;
-    position: relative;
-    padding: 20px 40px;
-    //max-width: max-content;
-    box-sizing: border-box;
-    border-radius: 10px;
-    background-color: #F4F5F7;
     display: flex;
     flex-direction: column;
 
