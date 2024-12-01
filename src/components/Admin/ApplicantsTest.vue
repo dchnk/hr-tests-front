@@ -1,9 +1,11 @@
 <script setup>
 import {computed, ref} from "vue";
 
-// const {applicant} = defineProps(['applicant']);
+const {applicant} = defineProps(['applicant']);
 // const status = computed(() => applicant.done ? 'Готово' : 'Ожидаем');
 // const opened = ref(false);
+
+const link = `/tests/result/${applicant.candidate_id}`;
 
 </script>
 
@@ -22,7 +24,7 @@ import {computed, ref} from "vue";
         Результат
       </div>
       <div class="content">
-        <router-link class="link" to="/tests/result/">Результат тестирования
+        <router-link class="link" :to='link'>Результат тестирования
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path
                 d="M15.0007 16.6654H5.00065C4.08398 16.6654 3.33398 15.9154 3.33398 14.9987V4.9987C3.33398 4.08203 4.08398 3.33203 5.00065 3.33203H8.33398C8.83398 3.33203 9.16732 3.66536 9.16732 4.16536C9.16732 4.66536 8.83398 4.9987 8.33398 4.9987H5.00065V14.9987H15.0007V11.6654C15.0007 11.1654 15.334 10.832 15.834 10.832C16.334 10.832 16.6673 11.1654 16.6673 11.6654V14.9987C16.6673 15.9154 15.9173 16.6654 15.0007 16.6654Z"

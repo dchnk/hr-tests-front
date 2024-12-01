@@ -88,6 +88,10 @@ import TestResultItem from "../components/Admin/TestResultItem.vue";
     line-height: 33.6px;
     text-align: left;
     color: #122130;
+
+    @media screen and (max-width: 1200px) {
+      margin-top: 1em;
+    }
   }
 
   .profile {

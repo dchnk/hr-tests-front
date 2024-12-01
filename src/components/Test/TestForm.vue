@@ -1,8 +1,9 @@
 <script setup>
-import {test} from '../../constants/test-list.js';
+import {questions} from '../../vendor/oxford-test.js';
 import {reactive, toRefs, watch, ref} from 'vue';
 
-// let answered = ref({});
+
+console.log(questions)
 let answered = reactive({});
 const result = reactive({
   a: 0,
@@ -16,52 +17,6 @@ const result = reactive({
   i: 0,
   j: 0,
 })
-
-const resultRefs = toRefs(result);
-
-watch([], (newValue, oldValue) => {
-  console.log(newValue, oldValue)
-},)
-
-watch(answered, (newValue, oldValue) => {
-  console.log(newValue, oldValue)
-},)
-
-
-function clickInputRadio(item, index, answer) {
-
-  // if (answered[index]) {
-  //   resultRefs[item.type.toLowerCase()].value += (answered[index].value * -1);
-  //
-  //   answered[index].value = item.answer[answer];
-  //   resultRefs[item.type.toLowerCase()].value += item.answer[answer];
-  //   return;
-  // }
-  //
-  // answered[`${index}`] = {value: item.answer[answer]};
-  // resultRefs[item.type.toLowerCase()].value += item.answer[answer];
-
-  // if (answered.value[index]) {
-  //   console.log('old', answered.value[index].value)
-  //   resultRefs[item.type.toLowerCase()].value -= answered.value[index].value;
-  //
-  //   answered.value[index].value = item.answer[answer];
-  // }
-  //
-  // answered.value = {...answered.value, [index]: {value: item.answer[answer]}};
-  // resultRefs[item.type.toLowerCase()].value += answered.value[index].value;
-  //
-  // console.log('new', answered.value[index].value);
-
-  if (answered.value[index]) {
-    // resultRefs[item.type.toLowerCase()].value -= answered.value[index].value;
-
-    answered.value[index].value = item.answer[answer];
-  }
-
-  answered.value = {...answered.value, [index]: {value: item.answer[answer]}};
-  // resultRefs[item.type.toLowerCase()].value += answered.value[index].value;
-}
 
 </script>
 

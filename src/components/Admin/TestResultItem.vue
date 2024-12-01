@@ -6,26 +6,15 @@ import Applicants from "./Applicants.vue";
 import {useModalStore} from "../../stores/modal.js";
 import {useDepartmentsStore} from "../../stores/departments.js";
 
-const modalStore = useModalStore();
-
-const departmentsStore = useDepartmentsStore();
-
-const {test} = defineProps(['test']);
-const isOpen = ref(false);
-const menuIsOpen = ref(false);
-function handleOpenToggle() {
-  isOpen.value = !isOpen.value;
-}
-
-function handleOpenMenu() {
-  menuIsOpen.value = !menuIsOpen.value;
-}
-
 </script>
 
 <template>
+
+
   <div class="test-item" :class="isOpen && 'open'">
-    <div class="heading">
+    {{ newArr }}
+
+    <div class="heading" @click="ff">
       <div class="name" :class="isOpen && 'open'">Оксфордский тест</div>
       <div class="btn arrow" :class="isOpen && 'open'" @click="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
@@ -40,17 +29,66 @@ function handleOpenMenu() {
         <div class="percent percent-50">50</div>
         <div class="percent percent-50-minus">-50</div>
         <div class="percent percent-100-minus">-100</div>
-        <div class="percent a">A</div>
-        <div class="percent b">B</div>
-        <div class="percent c">C</div>
-        <div class="percent d">D</div>
-        <div class="percent e">E</div>
-        <div class="percent f">F</div>
-        <div class="percent g">G</div>
-        <div class="percent h">H</div>
-        <div class="percent i">I</div>
-        <div class="percent j">J</div>
-        <div class="center"></div>
+
+        <div class="columns">
+          <div class="column" @click="increaseHeight">
+            <div class="text">A</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">B</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">C</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">D</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">E</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">F</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">G</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">H</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">I</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">J</div>
+            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
+          </div>
+        </div>
+      </div>
+      <div class="test-info">
+        <div class="test-name">Оксфордский тест</div>
+        <div class="info">
+          <div class="item">
+            <div class="item-name">Начало</div>
+            <div class="value">11.09 13:59</div>
+          </div>
+          <div class="item">
+            <div class="item-name">Завершение</div>
+            <div class="value">11.09 13:59</div>
+          </div>
+          <div class="item">
+            <div class="item-name">Время</div>
+            <div class="value">01:00:00</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -75,6 +113,45 @@ function handleOpenMenu() {
       margin: 22px 12px 28px;
     }
 
+    .columns {
+      position: relative;
+      display: flex;
+      gap: 1%;
+      width: 92%;
+      height: 100%;
+      margin: 0 0 auto;
+      justify-content: space-between;
+      align-items: end;
+
+      .column {
+        position: relative;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-start;
+        text-align: center;
+        width: 10%;
+        max-width: 44px;
+        height: 100%;
+
+        .diagram {
+          background-color: #7987FF;
+          min-height: 1%;
+        }
+
+        .text {
+          position: absolute;
+          left: 50%;
+          bottom: -25px;
+          transform: translate(-50%, 0);
+          font-family: Manrope;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 16.39px;
+          color: #122130;
+        }
+      }
+    }
+
     .graph {
       position: relative;
       height: 278px;
@@ -83,44 +160,157 @@ function handleOpenMenu() {
 
       .percent {
         position: absolute;
-        font-family: Inter;
+        font-family: Manrope;
         font-size: 12px;
-        font-weight: 400;
-        line-height: 14.52px;
-        color: #192C40;
+        font-weight: 500;
+        line-height: 16.39px;
+        text-align: center;
+      }
+
+      .percent-a {
+        bottom: 0;
+        left: 10%;
+      }
+
+      .percent-b {
+        bottom: 0;
+        left: 20%;
+      }
+
+      .percent-c {
+        bottom: 0;
+        left: 30%;
+      }
+
+      .percent-d {
+        bottom: 0;
+        left: 40%;
+      }
+
+      .percent-e {
+        bottom: 0;
+        left: 50%;
+      }
+
+      .percent-f {
+        bottom: 0;
+        left: 60%;
+      }
+
+      .percent-g {
+        bottom: 0;
+        left: 70%;
+      }
+
+      .percent-h {
+        bottom: 0;
+        left: 80%;
+      }
+
+      .percent-i {
+        bottom: 0;
+        left: 90%;
+      }
+
+      .percent-j {
+        bottom: 0;
+        left: 100%;
+      }
+
+      //.column {
+      //  position: absolute;
+      //  width: 3%;
+      //  background-color: #7987FF;
+      //  height: 10%;
+      //  bottom: 10px;
+      //}
+
+      .a {
+        left: 7%;
+      }
+
+      .b {
+        left: 20%;
+      }
+
+      .c {
+        left: 30%;
+      }
+
+      .d {
+        left: 40%;
+      }
+
+      .e {
+        left: 50%;
+      }
+
+      .f {
+        left: 60%;
+      }
+
+      .g {
+        left: 70%;
+      }
+
+      .h {
+        left: 80%;
+      }
+
+      .i {
+        left: 90%;
+      }
+
+      .j {
+        left: 100%;
       }
 
       .center {
         height: 1px;
-        width: 94%;
+        width: 90%;
         margin: auto 0;
         background-color: #E6E6E6;
       }
 
       .percent-100 {
         top: 0;
-        left: 0;
+        left: -5px;
       }
 
       .percent-50 {
         top: 30%;
-        left: 0;
+        left: -5px;
       }
 
       .percent-50-minus {
         bottom: 30%;
-        left: 0;
+        left: -5px;
       }
 
       .percent-100-minus {
         bottom: 0;
-        left: 0;
+        left: -5px;
       }
+    }
+  }
 
-      .a {
-        bottom: 0;
-        left: 10%;
-      }
+  .test-info {
+    margin-top: 3em;
+    background-color: #F4F5F7;
+    border-radius: 10px;
+    padding: 24px;
+
+    .test-name {
+      font-family: Manrope;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 19.2px;
+      color: #122130;
+    }
+
+    .info {
+      display: flex;
+      gap: 1em;
     }
   }
 
@@ -134,7 +324,6 @@ function handleOpenMenu() {
     box-sizing: border-box;
     background-color: #F4F5F7;
     border-radius: 10px;
-
 
 
     @media screen and (max-width: 750px) {
@@ -189,7 +378,7 @@ function handleOpenMenu() {
       &.edit, &.archive, &.delete {
         margin-right: 8px;
 
-        svg{
+        svg {
           height: 17px;
         }
       }
@@ -199,7 +388,7 @@ function handleOpenMenu() {
 
         &.open {
 
-          svg{
+          svg {
             transform: rotate(180deg);
           }
 
@@ -323,7 +512,7 @@ function handleOpenMenu() {
       }
 
       @media screen and (max-width: 750px) {
-        svg{
+        svg {
           //height: 17px;
         }
 
@@ -359,11 +548,6 @@ function handleOpenMenu() {
       display: flex;
     }
   }
-
-
-
-
-
 
 
 }

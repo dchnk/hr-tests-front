@@ -7,8 +7,8 @@ import Passed from "../components/Test/Passed.vue";
 
 <template>
   <Preview/>
-<!--  <TestForm/>-->
-<!--  <Passed/>-->
+  <TestForm/>
+  <Passed/>
 </template>
 
 <style lang="scss" scoped>
