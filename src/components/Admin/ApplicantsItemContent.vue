@@ -82,9 +82,10 @@ const copyTextToClipboard = async (text) => {
         </div>
         <div class="item">
           <div class="name">Возраст:</div>
-          <div class="value">
-            32 года
+          <div class="value"v-if="!isEdit">
+            {{ applicant?.dob || 'Не указан'}}
           </div>
+          <input type="date">
         </div>
         <div class="item">
           <div class="name">Ссылка на тест:</div>
