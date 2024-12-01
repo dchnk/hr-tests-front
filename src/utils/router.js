@@ -8,6 +8,7 @@ import Profile from '../pages/Profile.vue'
 import Balance from '../pages/Balance.vue'
 import Test from '../pages/Test.vue'
 import PageNotFound from '../pages/PageNotFound.vue'
+import TestResult from '../pages/TestResult.vue'
 
 const routes = [
   {
@@ -20,6 +21,10 @@ const routes = [
   {
     path: '/admin',
     component: Admin
+  },
+  {
+    path: '/tests/result/:id',
+    component: TestResult
   },
   {
     path: '/profile',
