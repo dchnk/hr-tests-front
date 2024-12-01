@@ -6,6 +6,14 @@ import Applicants from "./Applicants.vue";
 import {useModalStore} from "../../stores/modal.js";
 import {useDepartmentsStore} from "../../stores/departments.js";
 
+
+const {test} = defineProps(['test']);
+const isOpen = ref(false);
+
+function handleOpenToggle() {
+  isOpen.value = !isOpen.value;
+}
+
 </script>
 
 <template>
