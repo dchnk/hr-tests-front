@@ -1,14 +1,70 @@
 <script setup>
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import Tooltip from "../ui/Tooltip.vue";
 import Send from "./Send.vue";
 import Applicants from "./Applicants.vue";
 import {useModalStore} from "../../stores/modal.js";
 import {useDepartmentsStore} from "../../stores/departments.js";
 
-
 const {test} = defineProps(['test']);
+
+console.log(test);
+
 const isOpen = ref(false);
+
+const started = computed((data) => {
+  const started = test?.started;
+
+  // Проверка на наличие значения
+  if (!started) {
+    console.error("createdAt is not defined or is invalid");
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const date = new Date(started);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date format:", started);
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const pad = (num) => (num < 10 ? '0' + num : num);
+
+  // Получаем компоненты даты
+  const day = pad(date.getDate()); // Используем getDate() для локального дня
+  const month = pad(date.getMonth() + 1); // Используем getMonth() для локального месяца
+  const year = date.getFullYear(); // Используем getFullYear() для локального года
+  const hours = pad(date.getHours()); // Используем getHours() для локальных часов
+  const minutes = pad(date.getMinutes()); // Используем getMinutes() для локальных минут
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+});
+
+const ended = computed((data) => {
+  const ended = test?.ended;
+
+  // Проверка на наличие значения
+  if (!ended) {
+    console.error("createdAt is not defined or is invalid");
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const date = new Date(ended);
+  if (isNaN(date.getTime())) {
+    console.error("Invalid date format:", ended);
+    return null; // Или любое другое значение по умолчанию
+  }
+
+  const pad = (num) => (num < 10 ? '0' + num : num);
+
+  // Получаем компоненты даты
+  const day = pad(date.getDate()); // Используем getDate() для локального дня
+  const month = pad(date.getMonth() + 1); // Используем getMonth() для локального месяца
+  const year = date.getFullYear(); // Используем getFullYear() для локального года
+  const hours = pad(date.getHours()); // Используем getHours() для локальных часов
+  const minutes = pad(date.getMinutes()); // Используем getMinutes() для локальных минут
+
+  return `${day}.${month}.${year} ${hours}:${minutes}`;
+});
 
 function handleOpenToggle() {
   isOpen.value = !isOpen.value;
@@ -20,9 +76,7 @@ function handleOpenToggle() {
 
 
   <div class="test-item" :class="isOpen && 'open'">
-    {{ newArr }}
-
-    <div class="heading" @click="ff">
+    <div class="heading">
       <div class="name" :class="isOpen && 'open'">Оксфордский тест</div>
       <div class="btn arrow" :class="isOpen && 'open'" @click="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
@@ -32,70 +86,70 @@ function handleOpenToggle() {
       </div>
     </div>
     <div class="container" v-if="isOpen">
-      <div class="graph">
-        <div class="percent percent-100">100</div>
-        <div class="percent percent-50">50</div>
-        <div class="percent percent-50-minus">-50</div>
-        <div class="percent percent-100-minus">-100</div>
+<!--      <div class="graph">-->
+<!--        <div class="percent percent-100">100</div>-->
+<!--        <div class="percent percent-50">50</div>-->
+<!--        <div class="percent percent-50-minus">-50</div>-->
+<!--        <div class="percent percent-100-minus">-100</div>-->
 
-        <div class="columns">
-          <div class="column" @click="increaseHeight">
-            <div class="text">A</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">B</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">C</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">D</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">E</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">F</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">G</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">H</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">I</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-          <div class="column">
-            <div class="text">J</div>
-            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>
-          </div>
-        </div>
-      </div>
+<!--        <div class="columns">-->
+<!--          <div class="column" @click="increaseHeight">-->
+<!--            <div class="text">A</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">B</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">C</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">D</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">E</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">F</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">G</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">H</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">I</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--          <div class="column">-->
+<!--            <div class="text">J</div>-->
+<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="test-info">
         <div class="test-name">Оксфордский тест</div>
         <div class="info">
           <div class="item">
             <div class="item-name">Начало</div>
-            <div class="value">11.09 13:59</div>
+            <div class="value">{{ test?.started && started || "Не начат" }}</div>
           </div>
           <div class="item">
             <div class="item-name">Завершение</div>
-            <div class="value">11.09 13:59</div>
+            <div class="value">{{ test?.ended && ended || "-" }}</div>
           </div>
-          <div class="item">
-            <div class="item-name">Время</div>
-            <div class="value">01:00:00</div>
-          </div>
+<!--          <div class="item">-->
+<!--            <div class="item-name">Время</div>-->
+<!--            <div class="value">01:00:00</div>-->
+<!--          </div>-->
         </div>
       </div>
     </div>
@@ -317,8 +371,31 @@ function handleOpenToggle() {
     }
 
     .info {
+      margin-top: 1em;
       display: flex;
       gap: 1em;
+
+      .item {
+
+
+        .item-name {
+          font-family: Manrope;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 22.4px;
+          text-align: left;
+          color: #686B74;
+        }
+
+        .value {
+          font-family: Manrope;
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 22.4px;
+          text-align: left;
+          color: #122130;
+        }
+      }
     }
   }
 
@@ -402,6 +479,7 @@ function handleOpenToggle() {
 
         }
       }
+
 
       &.more {
         display: none;

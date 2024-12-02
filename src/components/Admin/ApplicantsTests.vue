@@ -3,6 +3,8 @@ import {computed, ref} from "vue";
 import ApplicantsTest from "./ApplicantsTest.vue";
 
 const {applicant} = defineProps(['applicant']);
+
+console.log(applicant)
 // const status = computed(() => applicant.done ? 'Готово' : 'Ожидаем');
 // const opened = ref(false);
 

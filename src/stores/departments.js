@@ -56,8 +56,12 @@ export const useDepartmentsStore = defineStore('departments', {
       })
     },
 
-    addApplicant({candidate}) {
+    addApplicant(candidate) {
+
+      console.log()
+
       const currentVacancy = this.selected.vacancies.find((vacancy) => vacancy.id === candidate.vacancy_id);
+
       if (!currentVacancy.applicants) {
         currentVacancy.applicants = [];
       }

@@ -5,7 +5,9 @@ const {applicant} = defineProps(['applicant']);
 // const status = computed(() => applicant.done ? 'Готово' : 'Ожидаем');
 // const opened = ref(false);
 
-const link = `/tests/result/${applicant.candidate_id}`;
+console.log(applicant);
+
+const link = `/tests/result/${applicant?.ulink}`;
 
 </script>
 

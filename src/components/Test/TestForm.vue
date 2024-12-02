@@ -1,22 +1,34 @@
 <script setup>
 import {questions} from '../../vendor/oxford-test.js';
-import {reactive, toRefs, watch, ref} from 'vue';
+import {reactive, toRefs, watch, ref, computed} from 'vue';
 
+const emit = defineEmits(['endTest'])
+const {pending} = defineProps(['pending']);
 
-console.log(questions)
 let answered = reactive({});
-const result = reactive({
-  a: 0,
-  b: 0,
-  c: 0,
-  d: 0,
-  e: 0,
-  f: 0,
-  g: 0,
-  h: 0,
-  i: 0,
-  j: 0,
+let current = ref(1);
+const progress = computed(() => {
+  if (Object.keys(answered).length === 199) return 99;
+  return Math.ceil((Object.keys(answered).length / 200) * 100);
 })
+
+const selectAnswer = (answer) => {
+  answered[questions[current.value].id] = answer;
+
+  if (current.value !== 200) {
+    current.value++;
+  } else {
+    if (Object.keys(answered).length === 200) {
+      console.log('Сделали')
+      emit('endTest', answered)
+    }
+  }
+}
+
+const prevAnswer = () => {
+  if (current.value === 1) return;
+  current.value--;
+}
 
 </script>
 
@@ -28,74 +40,26 @@ const result = reactive({
     </div>
     <div class="progress">
       <div class="content">
-        <div class="questions">вопрос 5 из 200</div>
-        <div class="percent">Готово: <span class="num">14%</span></div>
+        <div class="questions">вопрос {{ current }} из 200</div>
+        <div class="percent">Готово: <span class="num">{{ progress }}%</span></div>
       </div>
       <div class="bar">
-        <div class="line"/>
+        <div class="line" :style='{width: `${progress}%`}'/>
       </div>
     </div>
   </section>
-  <div class="question">
-    <div class="num">вопрос 1</div>
-    <div class="text">Просматриваете ли вы расписания движения поездов, телефонные справочники или словари просто ради
-      удовольствия?
+  <div class="question" v-if="!pending">
+    <div class="num">вопрос {{ current }}</div>
+    <div class="text">{{ questions[current].text }}
     </div>
     <div class="answers">
-      <button class="answer">Да</button>
-      <button class="answer">Может быть</button>
-      <button class="answer">Нет</button>
+      <button class="answer" :class="answered[questions[current].id] === 'yes' && 'selected'" @click="selectAnswer('yes')">Да</button>
+      <button class="answer" :class="answered[questions[current].id] === 'maybe' && 'selected'" @click="selectAnswer('maybe')">Может быть</button>
+      <button class="answer" :class="answered[questions[current].id] === 'no' && 'selected'" @click="selectAnswer('no')">Нет</button>
     </div>
-    <button class="prev"><span class="arrow">&#8592;</span>Предудыщий вопрос</button>
+    <button class="prev" @click="prevAnswer"><span class="arrow">&#8592;</span>Предудыщий вопрос</button>
   </div>
 </template>
-
-<!--<template>-->
-<!--  <div class="container">-->
-<!--    <div class="content">-->
-
-<!--      <h1 class="heading">Тест</h1>-->
-<!--      <p class="description">Ответь на все вопросы, чтобы получить результат.</p>-->
-
-<!--      <div class="result">-->
-<!--        <div class="list">-->
-<!--          <div class="item" v-for="(item, index) in test.types">-->
-<!--            <div class="index">{{ index }} {{ item.name }}: {{ resultRefs[index] }}</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="form">-->
-<!--        <div class="question" :class="answered[index] && 'answered'" v-for="(item, index) in test.list">-->
-<!--          <div class="text">{{ item.question }}</div>-->
-
-<!--          <form>-->
-
-<!--            <div class="radio">-->
-<!--              <input class="input" type="radio" :id="index + 'yes'" :name="index"-->
-<!--                     @click="() => clickInputRadio(item, index, 'yes')"/>-->
-<!--              <label :for="index + 'yes'">Да</label>-->
-<!--            </div>-->
-
-<!--            <div class="radio">-->
-<!--              <input class="input" type="radio" :id="index + 'maybe'" :name="index"-->
-<!--                     @click="() => clickInputRadio(item, index, 'maybe')"/>-->
-<!--              <label :for="index + 'maybe'">Может быть</label>-->
-<!--            </div>-->
-
-<!--            <div class="radio">-->
-<!--              <input class="input" type="radio" :id="index + 'no'" :name="index"-->
-<!--                     @click="() => clickInputRadio(item, index, 'no')"/>-->
-<!--              <label :for="index + 'no'">Нет</label>-->
-<!--            </div>-->
-
-<!--          </form>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--    </div>-->
-<!--  </div>-->
-<!--</template>-->
 
 <style lang="scss" scoped>
 .container {
@@ -329,6 +293,11 @@ const result = reactive({
       border-radius: 10px;
       background-color: #FFFFFF;
       cursor: pointer;
+
+      &.selected {
+        color: #FFFFFF;
+        background-color: #8F47FF;
+      }
 
       @media screen and (max-width: 770px) {
         width: 100%;

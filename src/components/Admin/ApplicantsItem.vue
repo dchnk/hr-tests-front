@@ -6,7 +6,7 @@ import ApplicantsItemDesktop from "./ApplicantsItem-Desktop.vue";
 import ApplicantsItemMobile from "./ApplicantsItem-Mobile.vue";
 
 const {applicant} = defineProps(['applicant']);
-const status = computed(() => applicant.done ? 'Готово' : 'Ожидаем');
+const status = computed(() => applicant.status ? 'Готово' : 'Ожидаем');
 const opened = ref(false);
 
 function openedToggle() {

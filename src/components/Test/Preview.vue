@@ -1,5 +1,7 @@
 <script setup>
 
+const emit = defineEmits(['startTest'])
+
 </script>
 
 <template>
@@ -11,11 +13,11 @@
     <div class="content">
       <div class="greeting">
         <div class="hello">
-          Добрый день, Лариса Тестовая!
+          Здравствуйте!
         </div>
         <div class="description">
-          Вы получили ссылку на данное тестирование, так как откликались на вакансию “C++ Teamlead” в ОАО “Росатом”.
-          Тут можно написать еще пару вводных строк про тестирование, зачем это нужно соискателю/работадателю.
+          Обратите внимание! Данный тест доступен 24 часа с момента как вы получили ссылку на него. Тест можно пройти только
+          один раз. Промежуточный результат не сохраняется. Для заверщения теста вам необходимо пройти его полностью.
         </div>
       </div>
       <div class="guide">
@@ -39,7 +41,7 @@
         <div class="option">
           Время на прохождение: ~30 минут
         </div>
-        <button class="button">Начать тест &nbsp; &#8594;</button>
+        <button class="button" @click="emit('startTest')">Начать тест &nbsp; &#8594;</button>
       </div>
     </div>
   </section>
@@ -311,6 +313,7 @@
 
       @media screen and (max-width: 770px) {
         font-size: 15px;
+        margin-bottom: 1em;
       }
     }
   }
