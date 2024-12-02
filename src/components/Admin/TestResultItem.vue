@@ -86,55 +86,55 @@ function handleOpenToggle() {
       </div>
     </div>
     <div class="container" v-if="isOpen">
-<!--      <div class="graph">-->
-<!--        <div class="percent percent-100">100</div>-->
-<!--        <div class="percent percent-50">50</div>-->
-<!--        <div class="percent percent-50-minus">-50</div>-->
-<!--        <div class="percent percent-100-minus">-100</div>-->
+      <div class="graph">
+        <div class="percent percent-100">100</div>
+        <div class="percent percent-50">50</div>
+        <div class="percent percent-50-minus">-50</div>
+        <div class="percent percent-100-minus">-100</div>
 
-<!--        <div class="columns">-->
-<!--          <div class="column" @click="increaseHeight">-->
-<!--            <div class="text">A</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">B</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">C</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">D</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">E</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">F</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">G</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">H</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">I</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--          <div class="column">-->
-<!--            <div class="text">J</div>-->
-<!--            <div class="diagram" :style="{ height: `${diagramHeight}%` }"/>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
+        <div class="columns">
+          <div class="column" @click="increaseHeight">
+            <div class="text">A</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">B</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">C</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">D</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">E</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">F</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">G</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">H</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">I</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+          <div class="column">
+            <div class="text">J</div>
+            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+          </div>
+        </div>
+      </div>
       <div class="test-info">
         <div class="test-name">Оксфордский тест</div>
         <div class="info">
