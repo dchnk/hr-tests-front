@@ -144,7 +144,7 @@ const clickSubmit = async () => {
     <div class="selects__container">
       <div class="list-container">
         <div class="list">
-          <div class="select" :class="selectedTest.oxfordTest && 'selected'" @click="() => selectTest('oxfordTest')">Оксфордский тест</div>
+          <div class="select" :class="selectedTest.oxfordTest && 'selected'" @click="() => selectTest('oxfordTest')">Базовый тест</div>
         </div>
         <div class="error" v-show="inputErrors.selected">{{ inputErrors.selected }}</div>
       </div>

@@ -18,7 +18,7 @@ const link = `/tests/result/${applicant?.ulink}`;
         Тест
       </div>
       <div class="content">
-        <div class="name">Оксфордский тест</div>
+        <div class="name">Базовый тест</div>
       </div>
     </div>
     <div class="block">

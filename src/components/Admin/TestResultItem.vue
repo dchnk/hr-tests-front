@@ -77,7 +77,7 @@ function handleOpenToggle() {
 
   <div class="test-item" :class="isOpen && 'open'">
     <div class="heading">
-      <div class="name" :class="isOpen && 'open'">Оксфордский тест</div>
+      <div class="name" :class="isOpen && 'open'">Базовый тест</div>
       <div class="btn arrow" :class="isOpen && 'open'" @click="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
           <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -99,44 +99,44 @@ function handleOpenToggle() {
           </div>
           <div class="column">
             <div class="text">B</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.b.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">C</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.c.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">D</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.d.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">E</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.e.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">F</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.f.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">G</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.g.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">H</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.h.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">I</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.i.level}%` }"/>
           </div>
           <div class="column">
             <div class="text">J</div>
-            <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
+            <div class="diagram" :style="{ height: `${test.types.j.level}%` }"/>
           </div>
         </div>
       </div>
       <div class="test-info">
-        <div class="test-name">Оксфордский тест</div>
+        <div class="test-name">Базовый тест</div>
         <div class="info">
           <div class="item">
             <div class="item-name">Начало</div>
@@ -148,7 +148,7 @@ function handleOpenToggle() {
           </div>
 <!--          <div class="item">-->
 <!--            <div class="item-name">Время</div>-->
-<!--            <div class="value">01:00:00</div>-->
+<!--            <div class="value">{{ allTime }}</div>-->
 <!--          </div>-->
         </div>
       </div>

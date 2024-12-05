@@ -1,7 +1,7 @@
 <script setup>
 import Header from "../components/Header/Header.vue";
 import TestResultItem from "../components/Admin/TestResultItem.vue";
-import {questions} from "../vendor/oxford-test.js";
+import {questions, results} from "../vendor/oxford-test.js";
 import {reactive, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
@@ -98,119 +98,23 @@ const prepareTest = (testInfo) => {
 
   for (let typeIndex in currentTest.types) {
     let type = currentTest.types[typeIndex]
+    // console.log()
 
-    switch (typeIndex) {
-      case'a':
-        if (type.value === 110) {
-          type.percent = 99;
-        } else if (type.value === 109) {
-          type.percent = 98;
-        } else if (type.value === 108) {
-          type.percent = 96;
-        } else if (type.value === 107) {
-          type.percent = 94;
-        } else if (type.value === 106) {
-          type.percent = 94;
-        } else if (type.value === 105) {
-          type.percent = 98;
-        } else if (type.value === 104) {
-          type.percent = 96;
-        } else if (type.value === 103) {
-          type.percent = 94;
-        } else if (type.value === 102) {
-          type.percent = 94;
-        } else if (type.value === 101) {
-          type.percent = 94;
-        } else if (type.value === 100) {
-          type.percent = 94;
-        } else if (type.value === 99) {
-          type.percent = 94;
-        } else if (type.value === 98) {
-          type.percent = 98;
-        } else if (type.value === 97) {
-          type.percent = 96;
-        } else if (type.value === 96) {
-          type.percent = 94;
-        } else if (type.value === 95) {
-          type.percent = 94;
-        } else if (type.value === 94) {
-          type.percent = 94;
-        }  else if (type.value === 93) {
-          type.percent = 94;
-        } else if (type.value === 92) {
-          type.percent = 94;
-        } else if (type.value === 91) {
-          type.percent = 94;
-        } else if (type.value === 90) {
-          type.percent = 94;
-        } else if (type.value === 89) {
-          type.percent = 94;
-        } else if (type.value === 87) {
-          type.percent = 98;
-        } else if (type.value === 86) {
-          type.percent = 96;
-        } else if (type.value === 85) {
-          type.percent = -95;
-        } else if (type.value === 84) {
-          type.percent = -95;
-        } else if (type.value === 83) {
-          type.percent = -95;
-        }  else if (type.value === 82) {
-          type.percent = -95;
-        } else if (type.value === 81) {
-          type.percent = -95;
-        } else if (type.value === 80) {
-          type.percent = -95;
-        } else if (type.value === 79) {
-          type.percent = -95;
-        } else if (type.value === 78) {
-          type.percent = -95;
-        } else if (type.value === 77) {
-          type.percent = -95;
-        } else if (type.value === 76) {
-          type.percent = -95;
-        } else if (type.value === 75) {
-          type.percent = -95;
-        } else if (type.value === 74) {
-          type.percent = -70;
-        } else if (type.value === 73) {
-          type.percent = -95;
-        } else if (type.value === 72) {
-          type.percent = -95;
-        } else if (type.value === 71) {
-          type.percent = -95;
-        } else if (type.value === 69) {
-          type.percent = -95;
-        } else if (type.value === 68) {
-          type.percent = -95;
-        } else if (type.value === 67) {
-          type.percent = -95;
-        } else if (type.value === 66) {
-          type.percent = -95;
-        } else if (type.value === 65) {
-          type.percent = -96;
-        } else if (type.value === 64) {
-          type.percent = -97;
-        } else if (type.value === 63) {
-          type.percent = -98;
-        } else if (type.value === 62) {
-          type.percent = -99;
-        } else if (type.value === 61) {
-          type.percent = -99;
-        } else if (type.value === 60) {
-          type.percent = -99;
-        } else if (type.value <= 59) {
-          type.percent = -100;
-          type.level = 1;
-        }
+    type.percent = results[typeIndex.toUpperCase()][type.value];
+    type.level = Math.ceil(((100 + type.percent) / 200) * 100);
+    console.log(type)
 
+    // console.log(results[typeIndex.toUpperCase()][type.value])
 
-        type.level = Math.ceil(((100 + type.percent) / 199) * 100);
-        break;
-    }
+    // switch (typeIndex) {
+    //   case'a':
+    //     type.percent =
+    //
+    //
+    //     type.level = Math.ceil(((199/2 + type.percent) / 199) * 100);
+    //     break;
+    // }
 
-
-    console.log(type);
   }
 
   test.value = currentTest;

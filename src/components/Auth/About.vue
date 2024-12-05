@@ -4,7 +4,7 @@ const scrollToNextSection = () => {
   const targetPosition = window.innerHeight; // Позиция, на которую нужно прокрутить
   const startPosition = window.pageYOffset; // Текущая позиция прокрутки
   const distance = targetPosition - startPosition; // Расстояние, которое нужно пройти
-  const duration = 1000; // Длительность анимации в миллисекундах
+  const duration = 100; // Длительность анимации в миллисекундах
   let startTime = null;
 
   const animation = (currentTime) => {

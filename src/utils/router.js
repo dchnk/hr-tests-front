@@ -82,6 +82,12 @@ router.beforeEach((to) => {
           router.replace('/signin');
         }
     }
+
+    if (to.path.includes('/tests/result')) {
+      if (!storeUser.user) {
+        router.replace('/signin');
+      }
+    }
   })
 
 })
