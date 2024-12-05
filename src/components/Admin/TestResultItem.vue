@@ -76,9 +76,9 @@ function handleOpenToggle() {
 
 
   <div class="test-item" :class="isOpen && 'open'">
-    <div class="heading">
+    <div class="heading" @click="handleOpenToggle">
       <div class="name" :class="isOpen && 'open'">Базовый тест</div>
-      <div class="btn arrow" :class="isOpen && 'open'" @click="handleOpenToggle">
+      <div class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
           <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -146,10 +146,20 @@ function handleOpenToggle() {
             <div class="item-name">Завершение</div>
             <div class="value">{{ test?.ended && ended || "-" }}</div>
           </div>
-<!--          <div class="item">-->
-<!--            <div class="item-name">Время</div>-->
-<!--            <div class="value">{{ allTime }}</div>-->
-<!--          </div>-->
+        </div>
+      </div>
+      <div class="characteristics">
+        <div class="characteristics__heading">
+          Характеристики
+        </div>
+        <div class="characteristic-list">
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">A-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.a.rait">{{ `Балл: ${test.types.a.percent} (${test.types.a.raitName})` }}</div>
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -400,7 +410,6 @@ function handleOpenToggle() {
   }
 
   .heading {
-
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -409,6 +418,7 @@ function handleOpenToggle() {
     box-sizing: border-box;
     background-color: #F4F5F7;
     border-radius: 10px;
+    cursor: pointer;
 
 
     @media screen and (max-width: 750px) {

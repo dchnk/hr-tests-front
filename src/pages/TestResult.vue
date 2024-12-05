@@ -24,6 +24,7 @@ const getTestInfo = async () => {
 }
 
 const prepareTest = (testInfo) => {
+  console.log(testInfo)
   let currentTest = testInfo;
 
   currentTest.types = {
