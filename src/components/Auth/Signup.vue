@@ -223,10 +223,14 @@ const clickSubmit = async () => {
         <div class="error" v-show="inputErrors.passwordRepeat">{{ inputErrors.passwordRepeat }}</div>
       </div>
       <button v-if="!pending" type="submit" class="submit" :class="invalid && 'invalid'">
-        <div>Войти</div>
+        <div>Зарегистрироваться</div>
       </button>
       <Preloader v-else/>
       <div class="error" v-show="inputErrors.conflictError">{{ inputErrors.conflictError }}</div>
+      <div class="switch">
+        Нажимая на кнопку "Зарегистрироваться" вы соглашаетесь с
+        <router-link class="link" to="/offer">офертой.</router-link>
+      </div>
       <div class="switch">
         Уже зарегистрированы?
         <router-link class="link" to="/signin">Войти</router-link>

@@ -1,34 +1,22 @@
 <script setup>
 import axios from "axios";
 import {reactive, ref} from "vue";
-import Preloader from "../../ui/Preloader.vue";
 import UsersItem from "./UsersItem.vue";
-import ApplicantsList from "../ApplicantsList.vue";
+import TextItem from "./TextItem.vue";
 
 const pending = ref(false);
-const success = ref(0);
 const users = ref(null);
+const texts = ref(null);
 
 axios.get("/api/users")
-  .then(res => users.value = res.data)
-  .catch(err => console.log(err));
+    .then(res => users.value = res.data)
+    .catch(err => console.log(err));
+
+axios.get("/api/text")
+    .then(res => texts.value = res.data)
+    .catch(err => console.log(err));
 
 
-const clickButton = async () => {
-  success.value = 0;
-
-  try {
-    pending.value = true;
-    const sendMail = await axios.post('/api/users/activation-link')
-    if (sendMail.status === 200) success.value = 1;
-
-  } catch (e) {
-    console.log(e)
-    success.value = 2;
-  }
-
-  pending.value = false;
-}
 
 </script>
 
@@ -50,9 +38,17 @@ const clickButton = async () => {
         <UsersItem v-for="user in users" :user='user'/>
       </div>
     </div>
+    <div class="heading">
+      Список всех текстов.
+    </div>
+    <div class="texts">
+      <div class="text__list">
+        <TextItem v-for="text in texts" :text='text'/>
+      </div>
+    </div>
 
 
-<!--    <Preloader v-else/>-->
+    <!--    <Preloader v-else/>-->
   </main>
 </template>
 
@@ -76,7 +72,7 @@ const clickButton = async () => {
     line-height: 28.8px;
     align-self: start;
   }
-  
+
   .users {
     box-sizing: border-box;
     width: 100%;
@@ -103,6 +99,11 @@ const clickButton = async () => {
       flex-direction: column;
       width: 100%;
     }
+  }
+
+  .texts {
+    box-sizing: border-box;
+    width: 100%;
   }
 
   .button {
