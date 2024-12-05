@@ -1,9 +1,9 @@
 <script setup>
-import {questions} from '../../vendor/oxford-test.js';
+// import {questions} from '../../vendor/oxford-test.js';
 import {reactive, toRefs, watch, ref, computed} from 'vue';
 
 const emit = defineEmits(['endTest'])
-const {pending} = defineProps(['pending']);
+const {pending, questions} = defineProps(['pending', 'questions']);
 
 let answered = reactive({});
 let current = ref(1);
@@ -12,7 +12,9 @@ const progress = computed(() => {
   return Math.ceil((Object.keys(answered).length / 200) * 100);
 })
 
+
 const selectAnswer = (answer) => {
+
   answered[questions[current.value].id] = answer;
 
   if (current.value !== 200) {

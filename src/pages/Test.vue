@@ -14,7 +14,7 @@ const candidate = reactive({
   name: '',
 });
 
-
+let questions = ref(null);
 
 const route = useRoute();
 
@@ -24,10 +24,26 @@ const getTestInfo = async () => {
       name: 'oxford'
     })
 
+    if (test.data.test.ended) return testStatus.value = 2;
 
-    if (test.data.ended) return testStatus.value = 2;
+    let obj = {};
 
-    if (test.data.started) testStatus.value = 1;
+    for (let index in test.data.questions) {
+      let current = test.data.questions[index];
+
+      obj[current.name.split('base-test-question-')[1]] = {
+        text: current.text,
+        id: current.name.split('base-test-question-')[1],
+      }
+    }
+
+    questions.value = obj;
+
+    // console.log(questions)
+
+    if (test.data.test?.started) testStatus.value = 1;
+
+
 
   } catch (e) {
     console.log(e)
@@ -71,7 +87,7 @@ const endTest = async (result) => {
 
 <template>
   <Preview v-if="!testStatus" @startTest="startTest"/>
-  <TestForm v-if="testStatus === 1" @endTest="endTest" :pending="pending"/>
+  <TestForm v-if="testStatus === 1" @endTest="endTest" :pending="pending" :questions="questions"/>
   <Passed v-if="testStatus === 2"/>
 </template>
 
