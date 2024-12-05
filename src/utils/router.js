@@ -9,6 +9,7 @@ import Balance from '../pages/Balance.vue'
 import Test from '../pages/Test.vue'
 import PageNotFound from '../pages/PageNotFound.vue'
 import TestResult from '../pages/TestResult.vue'
+import Offer from '../pages/Offer.vue'
 
 const routes = [
   {
@@ -21,6 +22,10 @@ const routes = [
   {
     path: '/admin',
     component: Admin
+  },
+  {
+    path: '/offer',
+    component: Offer
   },
   {
     path: '/tests/result/:id',
