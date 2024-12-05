@@ -104,17 +104,6 @@ const prepareTest = (testInfo) => {
     type.level = Math.ceil(((100 + type.percent) / 200) * 100);
     console.log(type)
 
-    // console.log(results[typeIndex.toUpperCase()][type.value])
-
-    // switch (typeIndex) {
-    //   case'a':
-    //     type.percent =
-    //
-    //
-    //     type.level = Math.ceil(((199/2 + type.percent) / 199) * 100);
-    //     break;
-    // }
-
   }
 
   test.value = currentTest;
