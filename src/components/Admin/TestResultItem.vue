@@ -1,10 +1,5 @@
 <script setup>
 import {computed, ref} from "vue";
-import Tooltip from "../ui/Tooltip.vue";
-import Send from "./Send.vue";
-import Applicants from "./Applicants.vue";
-import {useModalStore} from "../../stores/modal.js";
-import {useDepartmentsStore} from "../../stores/departments.js";
 
 const {test} = defineProps(['test']);
 
@@ -89,8 +84,14 @@ function handleOpenToggle() {
       <div class="graph">
         <div class="percent percent-100">100</div>
         <div class="percent percent-50">50</div>
+        <div class="percent percent-0">0</div>
         <div class="percent percent-50-minus">-50</div>
         <div class="percent percent-100-minus">-100</div>
+        <div class="center"/>
+        <div class="line-100"/>
+        <div class="line-50"/>
+        <div class="line-50-minus"/>
+        <div class="line-100-minus"/>
 
         <div class="columns">
           <div class="column" @click="increaseHeight">
@@ -151,6 +152,78 @@ function handleOpenToggle() {
       <div class="characteristics">
         <div class="characteristics__heading">
           Характеристики
+        </div>
+        <div class="characteristic-list">
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">A - Cтабильность</div>
+              <div class="characteristic__score" :class="test.types.a.rait">{{ `Балл: ${test.types.a.percent} (${test.types.a.raitName})` }}</div>
+            </div>
+            {{test.types.a.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">B - Cчастье и подавленность</div>
+              <div class="characteristic__score" :class="test.types.b.rait">{{ `Балл: ${test.types.b.percent} (${test.types.b.raitName})` }}</div>
+            </div>
+            {{test.types.b.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">C - Cпокойствие и нервозность</div>
+              <div class="characteristic__score" :class="test.types.c.rait">{{ `Балл: ${test.types.c.percent} (${test.types.c.raitName})` }}</div>
+            </div>
+            {{test.types.c.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">D - Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.d.rait">{{ `Балл: ${test.types.d.percent} (${test.types.d.raitName})` }}</div>
+            </div>
+            {{test.types.d.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">E - Активность</div>
+              <div class="characteristic__score" :class="test.types.e.rait">{{ `Балл: ${test.types.e.percent} (${test.types.e.raitName})` }}</div>
+            </div>
+            {{test.types.e.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">F - Способность</div>
+              <div class="characteristic__score" :class="test.types.f.rait">{{ `Балл: ${test.types.f.percent} (${test.types.f.raitName})` }}</div>
+            </div>
+            {{test.types.f.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">G - Ответственность</div>
+              <div class="characteristic__score" :class="test.types.g.rait">{{ `Балл: ${test.types.g.percent} (${test.types.g.raitName})` }}</div>
+            </div>
+            {{test.types.g.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">H - Критичность, объективность</div>
+              <div class="characteristic__score" :class="test.types.h.rait">{{ `Балл: ${test.types.h.percent} (${test.types.h.raitName})` }}</div>
+            </div>
+            {{test.types.h.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">I - Открытость, замкнутость</div>
+              <div class="characteristic__score" :class="test.types.i.rait">{{ `Балл: ${test.types.i.percent} (${test.types.i.raitName})` }}</div>
+            </div>
+            {{test.types.i.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">J - Уровень общения</div>
+              <div class="characteristic__score" :class="test.types.j.rait">{{ `Балл: ${test.types.j.percent} (${test.types.j.raitName})` }}</div>
+            </div>
+            {{test.types.j.text}}
+          </div>
         </div>
         <div class="characteristic-list">
           <div class="characteristic">
@@ -225,6 +298,16 @@ function handleOpenToggle() {
           </div>
         </div>
       </div>
+      <div class="syndromes">
+        <div class="syndromes__heading">
+          Синдромы
+        </div>
+        <div class="syndrome-list">
+          <div class="syndrome" v-for="syndrome in test.syndromes">
+            {{syndrome.text}}
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -291,6 +374,10 @@ function handleOpenToggle() {
     .characteristics {
       margin: 2em auto;
 
+      @media screen and (max-width: 1200px) {
+        font-size: 14px;
+      }
+
       .characteristics__heading {
         font-family: Manrope;
         font-size: 20px;
@@ -315,6 +402,10 @@ function handleOpenToggle() {
             font-weight: 700;
             line-height: 19.2px;
             color: #122130;
+
+            @media screen and (max-width: 1200px) {
+              font-size: 14px;
+            }
           }
 
 
@@ -328,6 +419,11 @@ function handleOpenToggle() {
               font-size: 16px;
               font-weight: 700;
               line-height: 19.2px;
+              text-align: end;
+
+              @media screen and (max-width: 1200px) {
+                font-size: 14px;
+              }
 
               &.high {
                 color: #0BC03E;
@@ -346,6 +442,34 @@ function handleOpenToggle() {
               }
 
             }
+          }
+        }
+      }
+    }
+
+    .syndromes {
+      margin: 2em auto;
+
+      @media screen and (max-width: 1200px) {
+        font-size: 14px;
+      }
+
+      .syndromes__heading {
+        font-family: Manrope;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #122130;
+        margin-bottom: 1em;
+      }
+
+      .syndrome-list {
+
+        .syndrome {
+          margin-bottom: 2em;
+
+          &:last-child {
+            margin-bottom: 0;
           }
         }
       }
@@ -466,8 +590,46 @@ function handleOpenToggle() {
       }
 
       .center {
+        position: absolute;
         height: 1px;
-        width: 90%;
+        top: 50%;
+        width: 95%;
+        margin: auto 0;
+        background-color: #E6E6E6;
+      }
+
+      .line-50 {
+        position: absolute;
+        height: 1px;
+        top: 25%;
+        width: 95%;
+        margin: auto 0;
+        background-color: #E6E6E6;
+      }
+
+      .line-100 {
+        position: absolute;
+        height: 1px;
+        top: 0;
+        width: 95%;
+        margin: auto 0;
+        background-color: #E6E6E6;
+      }
+
+      .line-50-minus {
+        position: absolute;
+        height: 1px;
+        bottom: 25%;
+        width: 95%;
+        margin: auto 0;
+        background-color: #E6E6E6;
+      }
+
+      .line-100-minus {
+        position: absolute;
+        height: 1px;
+        bottom: 0;
+        width: 95%;
         margin: auto 0;
         background-color: #E6E6E6;
       }
@@ -478,12 +640,17 @@ function handleOpenToggle() {
       }
 
       .percent-50 {
-        top: 30%;
+        top: 25%;
+        left: -5px;
+      }
+
+      .percent-0 {
+        top: 50%;
         left: -5px;
       }
 
       .percent-50-minus {
-        bottom: 30%;
+        bottom: 25%;
         left: -5px;
       }
 
