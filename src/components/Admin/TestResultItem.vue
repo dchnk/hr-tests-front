@@ -158,7 +158,70 @@ function handleOpenToggle() {
               <div class="characteristic__name">A-Уверенность в себе</div>
               <div class="characteristic__score" :class="test.types.a.rait">{{ `Балл: ${test.types.a.percent} (${test.types.a.raitName})` }}</div>
             </div>
-
+            {{test.types.a.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">B-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.b.rait">{{ `Балл: ${test.types.b.percent} (${test.types.b.raitName})` }}</div>
+            </div>
+            {{test.types.b.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">C-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.c.rait">{{ `Балл: ${test.types.c.percent} (${test.types.c.raitName})` }}</div>
+            </div>
+            {{test.types.c.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">D-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.d.rait">{{ `Балл: ${test.types.d.percent} (${test.types.d.raitName})` }}</div>
+            </div>
+            {{test.types.d.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">E-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.e.rait">{{ `Балл: ${test.types.e.percent} (${test.types.e.raitName})` }}</div>
+            </div>
+            {{test.types.e.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">F-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.f.rait">{{ `Балл: ${test.types.f.percent} (${test.types.f.raitName})` }}</div>
+            </div>
+            {{test.types.f.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">G-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.g.rait">{{ `Балл: ${test.types.g.percent} (${test.types.g.raitName})` }}</div>
+            </div>
+            {{test.types.g.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">H-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.h.rait">{{ `Балл: ${test.types.h.percent} (${test.types.h.raitName})` }}</div>
+            </div>
+            {{test.types.h.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">I-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.i.rait">{{ `Балл: ${test.types.i.percent} (${test.types.i.raitName})` }}</div>
+            </div>
+            {{test.types.i.text}}
+          </div>
+          <div class="characteristic">
+            <div class="characteristic__group">
+              <div class="characteristic__name">J-Уверенность в себе</div>
+              <div class="characteristic__score" :class="test.types.j.rait">{{ `Балл: ${test.types.j.percent} (${test.types.j.raitName})` }}</div>
+            </div>
+            {{test.types.j.text}}
           </div>
         </div>
       </div>
@@ -223,6 +286,71 @@ function handleOpenToggle() {
         }
       }
     }
+
+
+    .characteristics {
+      margin: 2em auto;
+
+      .characteristics__heading {
+        font-family: Manrope;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #122130;
+        margin-bottom: 1em;
+      }
+
+      .characteristic-list {
+
+        .characteristic {
+          margin-bottom: 2em;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          .characteristic__name{
+            font-family: Manrope;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 19.2px;
+            color: #122130;
+          }
+
+
+          .characteristic__group {
+            margin-bottom: 1em;
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+
+            .characteristic__score {
+              font-size: 16px;
+              font-weight: 700;
+              line-height: 19.2px;
+
+              &.high {
+                color: #0BC03E;
+              }
+
+              &.middle {
+                color: #C9AC12;
+              }
+
+              &.low {
+                color: #c96412;
+              }
+
+              &.veryLow {
+                color: #D01408;
+              }
+
+            }
+          }
+        }
+      }
+    }
+
 
     .graph {
       position: relative;

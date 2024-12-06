@@ -1,7 +1,7 @@
 <script setup>
 import Header from "../components/Header/Header.vue";
 import TestResultItem from "../components/Admin/TestResultItem.vue";
-import {questions, results} from "../vendor/oxford-test.js";
+import {questions, results, characteristics} from "../vendor/oxford-test.js";
 import {reactive, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
@@ -15,7 +15,7 @@ const getTestInfo = async () => {
       name: 'oxford'
     })
 
-    prepareTest(testInfo.data)
+    prepareTest(testInfo.data.test)
 
   } catch (e) {
     console.log(e)
@@ -103,7 +103,25 @@ const prepareTest = (testInfo) => {
 
     type.percent = results[typeIndex.toUpperCase()][type.value];
     type.level = Math.ceil(((100 + type.percent) / 200) * 100);
-    console.log(type)
+
+    if (type.percent === 100 && type.percent >= 30) {
+      type.text = characteristics[`${typeIndex.toUpperCase()}1`];
+      type.rait = 'high'
+      type.raitName = 'Высокий'
+    } else if (type.percent < 30 && type.percent >= 0) {
+      type.text = characteristics[`${typeIndex.toUpperCase()}2`];
+      type.rait = 'middle'
+      type.raitName = 'Средний'
+    } else if (type.percent < 0 && type.percent >= -19) {
+      type.text = characteristics[`${typeIndex.toUpperCase()}3`];
+      type.rait = 'low'
+      type.raitName = 'Ниже среднего'
+    } else {
+      type.text = characteristics[`${typeIndex.toUpperCase()}4`];
+      type.rait = 'veryLow'
+      type.raitName = 'Низкий'
+    }
+    console.log()
 
   }
 

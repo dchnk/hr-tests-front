@@ -12,7 +12,6 @@ const progress = computed(() => {
   return Math.ceil((Object.keys(answered).length / 200) * 100);
 })
 
-
 const selectAnswer = (answer) => {
 
   answered[questions[current.value].id] = answer;
