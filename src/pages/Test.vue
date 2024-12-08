@@ -6,6 +6,7 @@ import axios from "axios";
 import Preview from "../components/Test/Preview.vue";
 import TestForm from "../components/Test/TestForm.vue";
 import Passed from "../components/Test/Passed.vue";
+import TestFailed from "../components/Test/TestFailed.vue";
 
 const testStatus = ref(0);
 const pending = ref(false);
@@ -24,7 +25,16 @@ const getTestInfo = async () => {
       name: 'oxford'
     })
 
+    if (test.data.test.failed) return testStatus.value = 'failed';
     if (test.data.test.ended) return testStatus.value = 2;
+
+    const createdTime = new Date(test.data.test.createdAt);
+    const currentTime = new Date();
+    const diffTime = (currentTime - createdTime) / (1000 * 60 * 60);
+
+    if (diffTime > 24) {
+      return testStatus.value = 'failed';
+    }
 
     let obj = {};
 
@@ -46,7 +56,8 @@ const getTestInfo = async () => {
 
 
   } catch (e) {
-    console.log(e)
+    console.log('123')
+    testStatus.value = 'failed';
   };
 }
 
@@ -86,6 +97,7 @@ const endTest = async (result) => {
 </script>
 
 <template>
+  <TestFailed v-if="testStatus === 'failed'"/>
   <Preview v-if="!testStatus" @startTest="startTest"/>
   <TestForm v-if="testStatus === 1" @endTest="endTest" :pending="pending" :questions="questions"/>
   <Passed v-if="testStatus === 2"/>
