@@ -99,8 +99,8 @@ function handleOpenMenu() {
     </div>
   </div>
 
-  <div class="vacancy" :class="isOpen && 'open'" v-if="vacancy.archived && departmentsStore.isArchive">
-    <div class="heading archived" @click="handleOpenToggle">
+  <div class="vacancy" v-if="vacancy.archived && departmentsStore.isArchive">
+    <div class="heading archived">
       <div class="name" :class="isOpen && 'open'">{{ text }}</div>
       <div class="btn archive" @click="() => modalStore.openModal('unzipVacancy', vacancy)">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
