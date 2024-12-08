@@ -15,7 +15,7 @@ import Header from "../components/Header/Header.vue";
     <div class="container" >
       <div class="heading">
         <div class="text">Для пополнения баланса вам необходимо связаться с менеджером.</div>
-        <a class="link" href="https://ya.ru" target="_blank">Связаться</a>
+        <a class="link" href="https://t.me/glushkov_semyon" target="_blank">Связаться</a>
       </div>
     </div>
   </main>

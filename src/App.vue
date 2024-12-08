@@ -1,5 +1,4 @@
 <script setup>
-import Test from "./pages/Test.vue";
 import { useUserStore } from './stores/user.js';
 
 const userStore = useUserStore();
@@ -12,7 +11,6 @@ userStore.get()
 <template>
   <div class="page">
     <RouterView />
-<!--    <Test />-->
   </div>
 </template>
 

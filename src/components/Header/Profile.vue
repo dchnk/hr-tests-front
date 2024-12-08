@@ -49,7 +49,7 @@ const logout = async () => {
         </svg>
         <div class="text">Баланс и платежи</div>
       </router-link>
-      <a class="item" href="https://ya.ru" target="_blank" v-if="!userStore.isAdmin">
+      <a class="item" href="https://t.me/glushkov_semyon" target="_blank" v-if="!userStore.isAdmin">
         <svg class="icon help" width="18" height="18" viewBox="0 0 18 18" fill="none"
              xmlns="http://www.w3.org/2000/svg">
           <path

@@ -70,15 +70,32 @@
       <tr>
         <th scope="col" style="border: 1px solid black; padding: 0.5em">Количество тестирований</th>
         <th scope="col" style="border: 1px solid black; padding: 0.5em">Вознаграждение</th>
+        <th scope="col" style="border: 1px solid black; padding: 0.5em">Цена за 1 тест</th>
       </tr>
       </thead>
       <thead>
       <tr>
         <th scope="col" style="border: 1px solid black;padding: 0.5em">50</th>
         <th scope="col" style="border: 1px solid black; padding: 0.5em">15 000 ₽</th>
+        <th scope="col" style="border: 1px solid black; padding: 0.5em">300 ₽</th>
+      </tr>
+      </thead>
+      <thead>
+      <tr>
+        <th scope="col" style="border: 1px solid black;padding: 0.5em">150</th>
+        <th scope="col" style="border: 1px solid black; padding: 0.5em">30 000 ₽</th>
+        <th scope="col" style="border: 1px solid black; padding: 0.5em">200 ₽</th>
+      </tr>
+      </thead>
+      <thead>
+      <tr>
+        <th scope="col" style="border: 1px solid black;padding: 0.5em">500</th>
+        <th scope="col" style="border: 1px solid black; padding: 0.5em">50 000 ₽</th>
+        <th scope="col" style="border: 1px solid black; padding: 0.5em">100 ₽</th>
       </tr>
       </thead>
     </table>
+    <div class="p" :style="{textAlign: center, marginBottom: '2em', marginTop: '1em', fontWeight: 600}">Свыше 500 тестов 1 тест имеет стоимость 100 ₽</div>
 
 
     <p>4.2. Лицензиат обязан уплатить сумму лицензионного вознаграждения в соответствии с тарифом в течение 7 календарных

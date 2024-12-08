@@ -1,11 +1,6 @@
 <script setup>
-import {computed, ref} from "vue";
 
 const {applicant} = defineProps(['applicant']);
-// const status = computed(() => applicant.done ? 'Готово' : 'Ожидаем');
-// const opened = ref(false);
-
-console.log(applicant);
 
 const link = `/tests/result/${applicant?.ulink}`;
 
