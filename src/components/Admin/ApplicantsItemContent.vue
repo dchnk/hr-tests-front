@@ -204,7 +204,7 @@ const updateUserInfo = async () => {
       <div class="other">
         <div class="item">
           <div class="name">Статус:</div>
-          <div class="value status">
+          <div class="value status" v-if="!applicant.failed">
             <div class="icon">
               <svg v-if="applicant.status" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"
                    fill="none">
@@ -212,7 +212,7 @@ const updateUserInfo = async () => {
                     d="M11.7212 0.278745C11.3499 -0.093032 10.747 -0.0927976 10.3752 0.278745L4.31744 6.33674L1.62503 3.64435C1.25325 3.27257 0.650609 3.27257 0.278832 3.64435C-0.0929441 4.01613 -0.0929441 4.61877 0.278832 4.99055L3.6442 8.35592C3.82998 8.54169 4.07357 8.63481 4.31719 8.63481C4.5608 8.63481 4.80463 8.54193 4.9904 8.35592L11.7212 1.62492C12.0929 1.2534 12.0929 0.650498 11.7212 0.278745Z"
                     fill="#8F47FF"/>
               </svg>
-              <svg v-else xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <svg v-if="!applicant.status" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path
                     d="M6 3.08333V6L7.45833 6.875M11.25 6C11.25 8.89949 8.89949 11.25 6 11.25C3.1005 11.25 0.75 8.89949 0.75 6C0.75 3.1005 3.1005 0.75 6 0.75C8.89949 0.75 11.25 3.1005 11.25 6Z"
                     stroke="#8F47FF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -220,6 +220,7 @@ const updateUserInfo = async () => {
             </div>
             {{ status }}
           </div>
+          <div class="value status" v-if="applicant.failed">Тест отменен</div>
         </div>
         <div class="item">
           <div class="name">Пол:</div>
@@ -246,7 +247,7 @@ const updateUserInfo = async () => {
           </div>
           <input type="date" v-model="inputValues.dob" v-if="isEdit">
         </div>
-        <div class="item">
+        <div class="item" v-if="!applicant.failed">
           <div class="name">Ссылка на тест:</div>
           <div class="value">
             <div class="link">

@@ -44,7 +44,7 @@ const date = computed((data) => {
     <div class="applicants__item-column">{{ applicant.email }}</div>
     <div class="applicants__item-column">{{ applicant.phone }}</div>
     <div class="applicants__item-column">{{ date }}</div>
-    <div class="applicants__item-column status">
+    <div class="applicants__item-column status" v-if="!applicant.failed">
       <div class="icon">
         <svg v-if="applicant.status" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"
              fill="none">
@@ -59,6 +59,9 @@ const date = computed((data) => {
         </svg>
       </div>
       {{ status }}
+    </div>
+    <div class="applicants__item-column status" v-if="applicant.failed">
+      Тест отменен
     </div>
     <div class="applicants__item-column more" @click="$emit('toggle')" :class="opened && 'opened'">Подробнее
       <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">

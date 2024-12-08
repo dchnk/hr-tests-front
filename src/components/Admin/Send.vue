@@ -93,6 +93,8 @@ const validate = (inputName) => {
 const clickSubmit = async () => {
   if (invalid.value || pending.value) return;
 
+  if (!user.value.balance) return status.value = 'Недостаточно тестов. Пополните баланс';
+
   try {
     checkForm(true);
     if (invalid.value) return;
@@ -107,6 +109,7 @@ const clickSubmit = async () => {
 
     if (data) departmentsStore.addApplicant(data);
     status.value = 'Тест был успешно отправлен';
+    user.value.balance--;
 
   } catch (e) {
     console.log(e)

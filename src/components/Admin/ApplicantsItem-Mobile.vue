@@ -59,7 +59,7 @@ const date = computed((data) => {
     </div>
     <div class="row status">
       <div class="name">Статус</div>
-      <div class="value">
+      <div class="value" v-if="!applicant.failed">
         <div class="icon">
           <svg v-if="applicant.status" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9"
                fill="none">
@@ -74,6 +74,9 @@ const date = computed((data) => {
           </svg>
         </div>
         {{ status }}
+      </div>
+      <div class="value" v-if="applicant.failed">
+        Тест отменен
       </div>
     </div>
     <div class="row more" @click="$emit('toggle')" :class="opened && 'opened'">Подробнее

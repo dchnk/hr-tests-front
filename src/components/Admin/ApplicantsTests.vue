@@ -6,7 +6,7 @@ const {applicant} = defineProps(['applicant']);
 </script>
 
 <template>
-  <section class="applicants__tests">
+  <section class="applicants__tests" v-if="applicant.status">
     <div class="heading">Тестирование</div>
     <ApplicantsTest :applicant='applicant'/>
   </section>
