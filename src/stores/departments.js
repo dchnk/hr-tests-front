@@ -25,10 +25,12 @@ export const useDepartmentsStore = defineStore('departments', {
       axios.get('/api/departments')
         .then(({ data }) => {
           this.departments = data;
+          this.archive.vacancies = [];
 
           for (let i in this.departments) {
             for (let n in this.departments[i].vacancies) {
               if (this.departments[i].vacancies[n].archived) {
+
                 this.archive.vacancies.push(this.departments[i].vacancies[n]);
               }
             }
