@@ -119,7 +119,7 @@ const prepareTest = (testInfo) => {
     type.level = Math.ceil(((100 + type.percent) / 200) * 100);
 
 
-    if (type.percent === 100 && type.percent >= 30) {
+    if (type.percent >= 30) {
       type.text = characteristics[`${typeIndex.toUpperCase()}1`];
       type.rait = 'high'
       type.raitName = 'Высокий'
