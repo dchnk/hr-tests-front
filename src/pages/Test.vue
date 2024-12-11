@@ -32,7 +32,7 @@ const getTestInfo = async () => {
     const currentTime = new Date();
     const diffTime = (currentTime - createdTime) / (1000 * 60 * 60);
 
-    if (diffTime > 24) {
+    if (diffTime > 72) {
       return testStatus.value = 'failed';
     }
 
