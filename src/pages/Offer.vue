@@ -65,7 +65,7 @@
       выбранного Лицензиатом тарифа:</p>
 
     <h2>Тарифы</h2>
-    <table>
+    <table class="table">
       <thead>
       <tr>
         <th scope="col" style="border: 1px solid black; padding: 0.5em">Количество тестирований</th>
@@ -206,6 +206,11 @@
   @media screen and (max-width: 770px) {
     padding: 0 12px;
   }
+}
+
+.table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 .number {
