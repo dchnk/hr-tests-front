@@ -127,14 +127,14 @@ const clickSubmit = async () => {
 
 <template>
   <div class="send">
-    <div class="heading">Отправить тест соискателю</div>
+    <div class="heading">Отправить тест кандидату</div>
     <form class="form" @submit.prevent="clickSubmit">
       <div class="input-container">
-        <input class="email" placeholder="Укажите E-mail тестируемого" type="text" id="email" maxlength="50" size="50" @blur="validate('email')"
+        <input class="email" placeholder="Укажите e-mail соискателя" type="text" id="email" maxlength="50" size="50" @blur="validate('email')"
                @input="validate('email')" v-model="inputValues.email">
         <div class="error" v-show="inputErrors.email">{{ inputErrors.email }}</div>
       </div>
-      <button class="btn" :class="invalid && 'invalid'" type="submit">Отправить тест
+      <button class="btn" :class="invalid && 'invalid'" type="submit">Отправить
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
           <path
               d="M6.72521 9.27092L14.076 1.92279M6.93414 9.60136L8.60096 12.935C9.00376 13.7406 9.20516 14.1434 9.45888 14.2514C9.67907 14.3451 9.93077 14.3282 10.1364 14.2057C10.3733 14.0647 10.5188 13.6385 10.8099 12.7861L13.9593 3.56298C14.2129 2.82029 14.3397 2.44894 14.2529 2.20329C14.1774 1.98958 14.0093 1.82148 13.7956 1.74598C13.5499 1.65919 13.1786 1.78599 12.4359 2.03959L3.21273 5.18895C2.36037 5.48 1.93418 5.62553 1.7931 5.86246C1.67066 6.06808 1.6537 6.31977 1.74743 6.53996C1.85545 6.79368 2.25825 6.99508 3.06385 7.39788L6.39749 9.0647C6.53023 9.13107 6.5966 9.16426 6.65412 9.20859C6.70515 9.24793 6.75091 9.29369 6.79025 9.34472C6.83458 9.40224 6.86777 9.46861 6.93414 9.60136Z"
@@ -143,7 +143,7 @@ const clickSubmit = async () => {
       </button>
     </form>
 
-    <div class="text">Выберите тесты, которые следует отправить соискателю</div>
+    <div class="text">Выберите тесты для отправки</div>
     <div class="selects__container">
       <div class="list-container">
         <div class="list">

@@ -5,7 +5,7 @@ import ApplicantsTests from "./ApplicantsTests.vue";
 import Preloader from "../ui/Preloader.vue";
 
 const {applicant, status, opened} = defineProps(['applicant', 'status', 'opened']);
-const comment = 'Здесь вы можете отправлять тесты соискателям, отслеживать их статус выполнения и анализировать результаты в режиме реального времени. Сервис HR TESTS помогает вам принимать решения и оптимизировать процесс найма.'
+const comment = 'Создайте вакансию, добавьте информацию о соискателях. Отправляйте им тесты и анализируйте результаты с помощью сервиса для упрощения найма HR TEST.'
 
 const isEdit = ref(false);
 const invalid = ref(false);
