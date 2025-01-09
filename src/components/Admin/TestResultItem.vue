@@ -95,43 +95,43 @@ function handleOpenToggle() {
 
         <div class="columns">
           <div class="column" @click="increaseHeight">
-            <div class="text">A</div>
+            <div class="text">A ({{test.types.a.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">B</div>
+            <div class="text">B ({{test.types.b.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.b.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">C</div>
+            <div class="text">C ({{test.types.c.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.c.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">D</div>
+            <div class="text">D ({{test.types.d.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.d.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">E</div>
+            <div class="text">E ({{test.types.e.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.e.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">F</div>
+            <div class="text">F ({{test.types.f.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.f.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">G</div>
+            <div class="text">G ({{test.types.g.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.g.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">H</div>
+            <div class="text">H ({{test.types.h.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.h.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">I</div>
+            <div class="text">I ({{test.types.i.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.i.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">J</div>
+            <div class="text">J ({{test.types.j.percent}})</div>
             <div class="diagram" :style="{ height: `${test.types.j.level}%` }"/>
           </div>
         </div>
@@ -287,7 +287,7 @@ function handleOpenToggle() {
         .text {
           position: absolute;
           left: 50%;
-          bottom: -25px;
+          bottom: -40px;
           transform: translate(-50%, 0);
           font-family: Manrope;
           font-size: 12px;
