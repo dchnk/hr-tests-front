@@ -25,7 +25,7 @@ function handleSelectOnClick(e, department) {
 }
 
 onMounted(() => {
-  checkSliderIsAffixes()
+  // checkSliderIsAffixes()
 })
 
 // watch(slider.value, (slider) => {
@@ -39,28 +39,66 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="container">
-    <div class="arrows" :class="isAffixes === false && 'disabled'"></div>
-    <v-slide-group class="slider" show-arrows ref="my-slider">
-<!--      <div class="select" data-name="1" :class="selectedList[1] && 'selected'"-->
-<!--           @click.stop="(e) => { handleSelectOnClick(e) }">-->
+<!--  <div class="container">-->
+<!--    <div class="arrows" :class="isAffixes === false && 'disabled'"></div>-->
+<!--    <v-slide-group class="slider" show-arrows ref="my-slider">-->
+<!--&lt;!&ndash;      <div class="select" data-name="1" :class="selectedList[1] && 'selected'"&ndash;&gt;-->
+<!--&lt;!&ndash;           @click.stop="(e) => { handleSelectOnClick(e) }">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="notification"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="name">Все вакансии</div>&ndash;&gt;-->
+<!--&lt;!&ndash;      </div>&ndash;&gt;-->
+<!--      <div class="select" v-for="(department, index) in departments" :data-name="index" :key="department.id" :class="selected === department && 'selected'"-->
+<!--           @click.stop="(e) => { handleSelectOnClick(e, department) }">-->
 <!--        <div class="notification"></div>-->
-<!--        <div class="name">Все вакансии</div>-->
+<!--        <div class="name">{{ department.name }}</div>-->
 <!--      </div>-->
-      <div class="select" v-for="(department, index) in departments" :data-name="index" :key="department.id" :class="selected === department && 'selected'"
-           @click.stop="(e) => { handleSelectOnClick(e, department) }">
-        <div class="notification"></div>
-        <div class="name">{{ department.name }}</div>
-      </div>
-    </v-slide-group>
+<!--    </v-slide-group>-->
+<!--  </div>-->
+
+  <div class="carusel__container">
+    <div class="select" v-for="(department, index) in departments" :data-name="index" :key="department.id" :class="selected === department && 'selected'"
+         @click.stop="(e) => { handleSelectOnClick(e, department) }">
+      <div class="notification"></div>
+      <div class="name">{{ department.name }}</div>
+    </div>
   </div>
 
 </template>
 
 <style lang="scss">
 
-.container {
+.carusel__container {
   position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+
+  > .select {
+    padding: 13px 20px;
+    max-width: max-content;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19.6px;
+    text-align: center;
+    color: #122130;
+    background-color: #F4F5F7;
+    cursor: pointer;
+    user-select: none;
+
+    &.selected {
+      background-color: #8F47FF;
+      color: #FFFFFF;
+    }
+
+    @media screen and (max-width: 700px) {
+      padding: 10px;
+      font-size: 13px;
+      line-height: 18.2px;
+    }
+
+  }
 
   .arrows {
     position: absolute;
