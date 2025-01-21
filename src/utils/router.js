@@ -18,6 +18,10 @@ const routes = [
   },
   {
     path: '/',
+    redirect: (to) => {
+      const storeUser = useUserStore();
+      return storeUser.user ? '/admin' : '/signin';
+    }
   },
   {
     path: '/admin',
@@ -54,48 +58,34 @@ const routes = [
 ]
 
 const router = createRouter({
-  routes,
-  history: createWebHistory()
+  history: createWebHistory(),
+  routes
 })
 
-router.beforeEach((to) => {
-
+router.beforeEach(async (to) => {
   const storeUser = useUserStore();
 
-  if (to.path === '/') {
-    window.location.replace('/signin');
+  if (storeUser.user === undefined) {
+    await storeUser.get()
   }
 
-  storeUser.$subscribe(() => {
-    switch (to.path) {
-      case '/':
-        storeUser.user ? router.push('/admin') : router.push('/signin');
+  const isAuth = !!storeUser.user;
 
-        break;
+  // Защищенные пути
+  const protectedPaths = ['/admin', '/profile', '/balance', '/tests/result'];
+  console.log(to.path)
+  const isProtected = protectedPaths.some(path => to.path.startsWith(path));
 
-      case '/signup':
-      case '/signin':
-        if (storeUser.user) {
-          router.replace('/admin');
-        }
-        break;
+  // Доступ к защищенным путям без авторизации
+  if (isProtected && !isAuth) {
+    return '/signin';
+  }
 
-      case '/profile':
-      case '/balance':
-      case '/admin':
-        if (!storeUser.user) {
-          router.replace('/signin');
-        }
-    }
-
-    if (to.path.includes('/tests/result')) {
-      if (!storeUser.user) {
-        router.replace('/signin');
-      }
-    }
-  })
-
-})
+  // Доступ к логину/регистрации для авторизованных
+  if (['/signin', '/signup'].includes(to.path) && isAuth) {
+    return '/admin';
+  }
+});
 
 
 

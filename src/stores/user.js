@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 
-
 export const useUserStore = defineStore('user', {
 
   state: () => {
@@ -17,14 +16,14 @@ export const useUserStore = defineStore('user', {
   },
 
   actions: {
-    get() {
-      axios.get('/api/users/me')
-        .then(({ data }) => {
-          this.user = data;
-        }).catch(err => {
+    async get() {
+      try {
+        const {data} = await axios.get('/api/users/me');
+        this.user = data;
+      } catch(err) {
         console.log(err)
         this.user = null;
-      })
+      }
     },
   },
 })

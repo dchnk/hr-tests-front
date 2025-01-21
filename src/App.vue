@@ -1,9 +1,9 @@
 <script setup>
-import { useUserStore } from './stores/user.js';
-
-const userStore = useUserStore();
-
-userStore.get()
+// import { useUserStore } from './stores/user.js';
+//
+// const userStore = useUserStore();
+//
+// userStore.get()
 
 
 </script>
