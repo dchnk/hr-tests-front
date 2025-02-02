@@ -31,7 +31,7 @@ const emit = defineEmits(['startTest'])
       </div>
       <div class="start">
         <div class="option">
-          Вопросов в тесте: 200
+          Вопросов в тесте: 225
         </div>
         <div class="option">
           Время на прохождение: ~30 минут
