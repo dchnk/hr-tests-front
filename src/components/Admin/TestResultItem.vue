@@ -3,9 +3,17 @@ import {computed, ref} from "vue";
 
 const {test} = defineProps(['test']);
 
-console.log(test);
-
 const isOpen = ref(false);
+
+const mainMotivationHeading = computed(() => {
+  if (!test.motivation.main) return;
+  return test.motivation.main?.length > 1 ? 'Основные мотивации:' : 'Основаная мотивация:';
+})
+
+const secondaryMotivationHeading = computed(() => {
+  if (!test.motivation.secondary) return;
+  return test.motivation?.secondary?.length > 1 ? 'Дополнительные мотивации:' : 'Дополнительная мотивация:';
+})
 
 const started = computed((data) => {
   const started = test?.started;
@@ -95,43 +103,43 @@ function handleOpenToggle() {
 
         <div class="columns">
           <div class="column" @click="increaseHeight">
-            <div class="text">A ({{test.types.a.percent}})</div>
+            <div class="text">A ({{ test.types.a.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">B ({{test.types.b.percent}})</div>
+            <div class="text">B ({{ test.types.b.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.b.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">C ({{test.types.c.percent}})</div>
+            <div class="text">C ({{ test.types.c.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.c.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">D ({{test.types.d.percent}})</div>
+            <div class="text">D ({{ test.types.d.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.d.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">E ({{test.types.e.percent}})</div>
+            <div class="text">E ({{ test.types.e.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.e.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">F ({{test.types.f.percent}})</div>
+            <div class="text">F ({{ test.types.f.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.f.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">G ({{test.types.g.percent}})</div>
+            <div class="text">G ({{ test.types.g.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.g.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">H ({{test.types.h.percent}})</div>
+            <div class="text">H ({{ test.types.h.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.h.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">I ({{test.types.i.percent}})</div>
+            <div class="text">I ({{ test.types.i.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.i.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">J ({{test.types.j.percent}})</div>
+            <div class="text">J ({{ test.types.j.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.j.level}%` }"/>
           </div>
         </div>
@@ -157,72 +165,92 @@ function handleOpenToggle() {
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">A - Cтабильность</div>
-              <div class="characteristic__score" :class="test.types.a.rait">{{ `Балл: ${test.types.a.percent} (${test.types.a.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.a.rait">
+                {{ `Балл: ${test.types.a.percent} (${test.types.a.raitName})` }}
+              </div>
             </div>
-            {{test.types.a.text}}
+            {{ test.types.a.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">B - Cчастье и подавленность</div>
-              <div class="characteristic__score" :class="test.types.b.rait">{{ `Балл: ${test.types.b.percent} (${test.types.b.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.b.rait">
+                {{ `Балл: ${test.types.b.percent} (${test.types.b.raitName})` }}
+              </div>
             </div>
-            {{test.types.b.text}}
+            {{ test.types.b.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">C - Cпокойствие и нервозность</div>
-              <div class="characteristic__score" :class="test.types.c.rait">{{ `Балл: ${test.types.c.percent} (${test.types.c.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.c.rait">
+                {{ `Балл: ${test.types.c.percent} (${test.types.c.raitName})` }}
+              </div>
             </div>
-            {{test.types.c.text}}
+            {{ test.types.c.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">D - Уверенность в себе</div>
-              <div class="characteristic__score" :class="test.types.d.rait">{{ `Балл: ${test.types.d.percent} (${test.types.d.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.d.rait">
+                {{ `Балл: ${test.types.d.percent} (${test.types.d.raitName})` }}
+              </div>
             </div>
-            {{test.types.d.text}}
+            {{ test.types.d.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">E - Активность</div>
-              <div class="characteristic__score" :class="test.types.e.rait">{{ `Балл: ${test.types.e.percent} (${test.types.e.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.e.rait">
+                {{ `Балл: ${test.types.e.percent} (${test.types.e.raitName})` }}
+              </div>
             </div>
-            {{test.types.e.text}}
+            {{ test.types.e.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">F - Способность</div>
-              <div class="characteristic__score" :class="test.types.f.rait">{{ `Балл: ${test.types.f.percent} (${test.types.f.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.f.rait">
+                {{ `Балл: ${test.types.f.percent} (${test.types.f.raitName})` }}
+              </div>
             </div>
-            {{test.types.f.text}}
+            {{ test.types.f.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">G - Ответственность</div>
-              <div class="characteristic__score" :class="test.types.g.rait">{{ `Балл: ${test.types.g.percent} (${test.types.g.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.g.rait">
+                {{ `Балл: ${test.types.g.percent} (${test.types.g.raitName})` }}
+              </div>
             </div>
-            {{test.types.g.text}}
+            {{ test.types.g.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">H - Критичность, объективность</div>
-              <div class="characteristic__score" :class="test.types.h.rait">{{ `Балл: ${test.types.h.percent} (${test.types.h.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.h.rait">
+                {{ `Балл: ${test.types.h.percent} (${test.types.h.raitName})` }}
+              </div>
             </div>
-            {{test.types.h.text}}
+            {{ test.types.h.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">I - Открытость, замкнутость</div>
-              <div class="characteristic__score" :class="test.types.i.rait">{{ `Балл: ${test.types.i.percent} (${test.types.i.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.i.rait">
+                {{ `Балл: ${test.types.i.percent} (${test.types.i.raitName})` }}
+              </div>
             </div>
-            {{test.types.i.text}}
+            {{ test.types.i.text }}
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
               <div class="characteristic__name">J - Уровень общения</div>
-              <div class="characteristic__score" :class="test.types.j.rait">{{ `Балл: ${test.types.j.percent} (${test.types.j.raitName})` }}</div>
+              <div class="characteristic__score" :class="test.types.j.rait">
+                {{ `Балл: ${test.types.j.percent} (${test.types.j.raitName})` }}
+              </div>
             </div>
-            {{test.types.j.text}}
+            {{ test.types.j.text }}
           </div>
         </div>
       </div>
@@ -232,7 +260,47 @@ function handleOpenToggle() {
         </div>
         <div class="syndrome-list">
           <div class="syndrome" v-for="syndrome in test.syndromes">
-            {{syndrome.text}}
+            {{ syndrome.text }}
+          </div>
+        </div>
+      </div>
+      <div class="characteristics" v-if="test.motivation.main">
+        <div class="characteristics__heading">
+          {{ mainMotivationHeading }}
+        </div>
+        <div class="characteristic-list">
+          <div class="characteristic" v-for="motivation in test.motivation.main">
+            <div class="characteristic__group">
+              <div class="characteristic__name">{{ motivation.name }}</div>
+              <div class="characteristic__score high">{{ `Балл: ${motivation.value}` }}</div>
+            </div>
+            {{ motivation.text }}
+          </div>
+        </div>
+      </div>
+      <div class="motivation_description" v-if="test.motivation.main">
+        Тип мотивации, получивший самое большое количество баллов, будет является ведущим. Второй по количеству тип
+        будет являться дополнительным.
+      </div>
+      <div class="motivation_description last" v-if="test.motivation.main">
+        <span class="bold">Важно!</span>
+        Необходимо помнить, что практически не бывает людей с одним (чистым) типом мотивации. Бывает, что 2 и более
+        типов мотивации набирают одинаковое количество баллов. В таком случае считается, что все эти типы мотивации
+        являются ведущими.
+      </div>
+      <div class="characteristics" v-if="test.motivation.secondary">
+        <div class="characteristics__heading">
+          {{ secondaryMotivationHeading }}
+        </div>
+        <div class="characteristic-list" >
+          <div class="characteristic-list">
+            <div class="characteristic" v-for="motivation in test.motivation.secondary">
+              <div class="characteristic__group">
+                <div class="characteristic__name">{{ motivation.name }}</div>
+                <div class="characteristic__score middle">{{ `Балл: ${motivation.value}` }}</div>
+              </div>
+              {{ motivation.text }}
+            </div>
           </div>
         </div>
       </div>
@@ -245,6 +313,23 @@ function handleOpenToggle() {
   display: flex;
   flex-direction: column;
   margin-bottom: 8px;
+
+  .motivation_description {
+    background-color: #f8f8f8;
+    font-size: 90%;
+    padding: 1em 1em .5em;
+    border-top: 1px solid #e7e7e7;
+
+    &.last {
+      padding: 0 1em 1em;
+      border-top: none;
+      border-bottom: 1px solid #e7e7e7;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  }
 
   .container {
     display: none;
@@ -324,7 +409,7 @@ function handleOpenToggle() {
             margin-bottom: 0;
           }
 
-          .characteristic__name{
+          .characteristic__name {
             font-family: Manrope;
             font-size: 16px;
             font-weight: 700;

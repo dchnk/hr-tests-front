@@ -10,6 +10,7 @@ const test = ref(null);
 
 const characteristics = {};
 const syndromes = {};
+const motivations = {}
 
 const route = useRoute();
 
@@ -28,6 +29,13 @@ const getTestInfo = async () => {
 
       if (texts.data[text].type === 'oxford-test-characteristic') {
         characteristics[texts.data[text].name.split("characteristic-")[1].toUpperCase()] = texts.data[text].text;
+      }
+
+      if (texts.data[text].type === 'oxford-test-motivation') {
+        motivations[texts.data[text].name.split("motivation-")[1]] = {
+          text: texts.data[text].text,
+          name: texts.data[text].description,
+        };
       }
     }
 
@@ -103,6 +111,36 @@ const prepareTest = (testInfo) => {
       percent: 0,
       level: 0,
       text: ''
+    },
+    'k-1': {
+      value: 0,
+      percent: 0,
+      level: 0,
+      text: ''
+    },
+    'k-2': {
+      value: 0,
+      percent: 0,
+      level: 0,
+      text: ''
+    },
+    'k-3': {
+      value: 0,
+      percent: 0,
+      level: 0,
+      text: ''
+    },
+    'k-4': {
+      value: 0,
+      percent: 0,
+      level: 0,
+      text: ''
+    },
+    'k-5': {
+      value: 0,
+      percent: 0,
+      level: 0,
+      text: ''
     }
   }
 
@@ -112,8 +150,23 @@ const prepareTest = (testInfo) => {
     currentType.value += Number(questions[answer].answers[currentTest.result[answer]]);
   }
 
+  currentTest.motivation = {};
+  currentTest.motivation.types = []
+
   for (let typeIndex in currentTest.types) {
     let type = currentTest.types[typeIndex]
+
+    if (['k-1', 'k-2', 'k-3', 'k-4', 'k-5'].some((acc) => acc === typeIndex)) {
+
+      currentTest.motivation.types.push({
+        type: typeIndex,
+        value: type.value,
+        text: motivations[typeIndex].text,
+        name: motivations[typeIndex].name,
+      })
+
+      continue;
+    };
 
     type.percent = results[typeIndex.toUpperCase()][type.value];
     type.level = Math.ceil(((100 + type.percent) / 200) * 100);
@@ -141,205 +194,221 @@ const prepareTest = (testInfo) => {
   currentTest.syndromes = [];
 
   if (
-      currentTest.types.a.percent < currentTest.types.g.percent &&
-      currentTest.types.b.percent < currentTest.types.g.percent &&
-      currentTest.types.c.percent < currentTest.types.g.percent &&
-      currentTest.types.d.percent < currentTest.types.g.percent &&
-      currentTest.types.e.percent < currentTest.types.g.percent &&
-      currentTest.types.f.percent < currentTest.types.g.percent &&
-      currentTest.types.h.percent < currentTest.types.g.percent &&
-      currentTest.types.i.percent < currentTest.types.g.percent &&
-      currentTest.types.j.percent < currentTest.types.g.percent
+    currentTest.types.a.percent < currentTest.types.g.percent &&
+    currentTest.types.b.percent < currentTest.types.g.percent &&
+    currentTest.types.c.percent < currentTest.types.g.percent &&
+    currentTest.types.d.percent < currentTest.types.g.percent &&
+    currentTest.types.e.percent < currentTest.types.g.percent &&
+    currentTest.types.f.percent < currentTest.types.g.percent &&
+    currentTest.types.h.percent < currentTest.types.g.percent &&
+    currentTest.types.i.percent < currentTest.types.g.percent &&
+    currentTest.types.j.percent < currentTest.types.g.percent
   ) {
     currentTest.syndromes.push(syndromes[1])
   }
 
   if (
-      currentTest.types.a.percent < currentTest.types.d.percent &&
-      currentTest.types.b.percent < currentTest.types.d.percent &&
-      currentTest.types.c.percent < currentTest.types.d.percent &&
-      currentTest.types.g.percent < currentTest.types.d.percent &&
-      currentTest.types.e.percent < currentTest.types.d.percent &&
-      currentTest.types.f.percent < currentTest.types.d.percent &&
-      currentTest.types.h.percent < currentTest.types.d.percent &&
-      currentTest.types.i.percent < currentTest.types.d.percent &&
-      currentTest.types.j.percent < currentTest.types.d.percent
+    currentTest.types.a.percent < currentTest.types.d.percent &&
+    currentTest.types.b.percent < currentTest.types.d.percent &&
+    currentTest.types.c.percent < currentTest.types.d.percent &&
+    currentTest.types.g.percent < currentTest.types.d.percent &&
+    currentTest.types.e.percent < currentTest.types.d.percent &&
+    currentTest.types.f.percent < currentTest.types.d.percent &&
+    currentTest.types.h.percent < currentTest.types.d.percent &&
+    currentTest.types.i.percent < currentTest.types.d.percent &&
+    currentTest.types.j.percent < currentTest.types.d.percent
   ) {
     currentTest.syndromes.push(syndromes[2])
   }
 
   if (
-      currentTest.types.e.percent > currentTest.types.f.percent
+    currentTest.types.e.percent > currentTest.types.f.percent
   ) {
     currentTest.syndromes.push(syndromes[3])
   }
 
   if (
-      currentTest.types.a.percent < currentTest.types.i.percent &&
-      currentTest.types.b.percent < currentTest.types.i.percent &&
-      currentTest.types.c.percent < currentTest.types.i.percent &&
-      currentTest.types.g.percent < currentTest.types.i.percent &&
-      currentTest.types.e.percent < currentTest.types.i.percent &&
-      currentTest.types.f.percent < currentTest.types.i.percent &&
-      currentTest.types.h.percent < currentTest.types.i.percent &&
-      currentTest.types.d.percent < currentTest.types.i.percent &&
-      currentTest.types.j.percent < currentTest.types.i.percent
+    currentTest.types.a.percent < currentTest.types.i.percent &&
+    currentTest.types.b.percent < currentTest.types.i.percent &&
+    currentTest.types.c.percent < currentTest.types.i.percent &&
+    currentTest.types.g.percent < currentTest.types.i.percent &&
+    currentTest.types.e.percent < currentTest.types.i.percent &&
+    currentTest.types.f.percent < currentTest.types.i.percent &&
+    currentTest.types.h.percent < currentTest.types.i.percent &&
+    currentTest.types.d.percent < currentTest.types.i.percent &&
+    currentTest.types.j.percent < currentTest.types.i.percent
   ) {
     currentTest.syndromes.push(syndromes[4])
   }
 
   if (
-      currentTest.types.a.rait === 'veryLow' &&
-      currentTest.types.b.rait === 'veryLow' &&
-      currentTest.types.c.rait === 'veryLow'
+    currentTest.types.a.rait === 'veryLow' &&
+    currentTest.types.b.rait === 'veryLow' &&
+    currentTest.types.c.rait === 'veryLow'
   ) {
     currentTest.syndromes.push(syndromes[5])
   }
 
   if (
-      currentTest.types.a.rait === 'veryLow' &&
-      currentTest.types.e.rait === 'high'
+    currentTest.types.a.rait === 'veryLow' &&
+    currentTest.types.e.rait === 'high'
   ) {
     currentTest.syndromes.push(syndromes[6])
   }
 
   if (
-      currentTest.types.a.rait === 'veryLow' &&
-      currentTest.types.b.rait === 'veryLow' &&
-      currentTest.types.c.rait === 'veryLow' &&
-      currentTest.types.e.rait === 'high'
+    currentTest.types.a.rait === 'veryLow' &&
+    currentTest.types.b.rait === 'veryLow' &&
+    currentTest.types.c.rait === 'veryLow' &&
+    currentTest.types.e.rait === 'high'
   ) {
     currentTest.syndromes.push(syndromes[7])
   }
 
   if (
-      currentTest.types.a.rait === 'veryLow' &&
-      currentTest.types.j.rait === 'veryLow'
+    currentTest.types.a.rait === 'veryLow' &&
+    currentTest.types.j.rait === 'veryLow'
   ) {
     currentTest.syndromes.push(syndromes[8])
   }
 
   if (
-      currentTest.types.a.rait === 'veryLow' &&
-      currentTest.types.c.rait === 'veryLow' &&
-      currentTest.types.g.rait === 'veryLow' &&
-      currentTest.types.f.rait === 'high'
+    currentTest.types.a.rait === 'veryLow' &&
+    currentTest.types.c.rait === 'veryLow' &&
+    currentTest.types.g.rait === 'veryLow' &&
+    currentTest.types.f.rait === 'high'
   ) {
     currentTest.syndromes.push(syndromes[9])
   }
 
   if (
-      currentTest.types.a.rait === 'high' &&
-      currentTest.types.d.rait === 'middle'
+    currentTest.types.a.rait === 'high' &&
+    currentTest.types.d.rait === 'middle'
   ) {
     currentTest.syndromes.push(syndromes[10])
   }
 
   if (
-      (currentTest.types.f.rait === 'high' && currentTest.types.g.rait === 'low') ||
-      (currentTest.types.f.rait === 'high' && currentTest.types.g.rait === 'veryLow')
+    (currentTest.types.f.rait === 'high' && currentTest.types.g.rait === 'low') ||
+    (currentTest.types.f.rait === 'high' && currentTest.types.g.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[11])
   }
 
   if (
-      (currentTest.types.g.rait === 'high' && currentTest.types.f.rait === 'low') ||
-      (currentTest.types.g.rait === 'high' && currentTest.types.f.rait === 'veryLow')
+    (currentTest.types.g.rait === 'high' && currentTest.types.f.rait === 'low') ||
+    (currentTest.types.g.rait === 'high' && currentTest.types.f.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[12])
   }
 
   if (
-      (currentTest.types.h.rait === 'high' && currentTest.types.i.rait === 'low') ||
-      (currentTest.types.h.rait === 'high' && currentTest.types.i.rait === 'veryLow')
+    (currentTest.types.h.rait === 'high' && currentTest.types.i.rait === 'low') ||
+    (currentTest.types.h.rait === 'high' && currentTest.types.i.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[13])
   }
 
   if (
-      (currentTest.types.i.rait === 'high' && currentTest.types.h.rait === 'low') ||
-      (currentTest.types.i.rait === 'high' && currentTest.types.h.rait === 'veryLow')
+    (currentTest.types.i.rait === 'high' && currentTest.types.h.rait === 'low') ||
+    (currentTest.types.i.rait === 'high' && currentTest.types.h.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[14])
   }
 
   if (
-      (currentTest.types.d.rait === 'high' && currentTest.types.a.rait === 'low') ||
-      (currentTest.types.d.rait === 'high' && currentTest.types.a.rait === 'veryLow')
+    (currentTest.types.d.rait === 'high' && currentTest.types.a.rait === 'low') ||
+    (currentTest.types.d.rait === 'high' && currentTest.types.a.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[15])
   }
 
   if (
-      (currentTest.types.e.rait === 'high' && currentTest.types.d.rait === 'low') ||
-      (currentTest.types.e.rait === 'high' && currentTest.types.d.rait === 'veryLow')
+    (currentTest.types.e.rait === 'high' && currentTest.types.d.rait === 'low') ||
+    (currentTest.types.e.rait === 'high' && currentTest.types.d.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[16])
   }
 
   if (
-      (currentTest.types.e.rait === 'high' && currentTest.types.f.rait === 'low') ||
-      (currentTest.types.e.rait === 'high' && currentTest.types.f.rait === 'veryLow')
+    (currentTest.types.e.rait === 'high' && currentTest.types.f.rait === 'low') ||
+    (currentTest.types.e.rait === 'high' && currentTest.types.f.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[17])
   }
 
   if (
-      (currentTest.types.f.rait === 'high' && currentTest.types.e.rait === 'low') ||
-      (currentTest.types.f.rait === 'high' && currentTest.types.e.rait === 'veryLow')
+    (currentTest.types.f.rait === 'high' && currentTest.types.e.rait === 'low') ||
+    (currentTest.types.f.rait === 'high' && currentTest.types.e.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[18])
   }
 
   if (
-      (currentTest.types.b.rait === 'high' && currentTest.types.a.rait === 'low') ||
-      (currentTest.types.b.rait === 'high' && currentTest.types.a.rait === 'veryLow')
+    (currentTest.types.b.rait === 'high' && currentTest.types.a.rait === 'low') ||
+    (currentTest.types.b.rait === 'high' && currentTest.types.a.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[19])
   }
 
   if (
-      (currentTest.types.b.rait === 'high' && currentTest.types.c.rait === 'low') ||
-      (currentTest.types.b.rait === 'high' && currentTest.types.c.rait === 'veryLow')
+    (currentTest.types.b.rait === 'high' && currentTest.types.c.rait === 'low') ||
+    (currentTest.types.b.rait === 'high' && currentTest.types.c.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[20])
   }
 
   if (
-      (currentTest.types.c.rait === 'high' && currentTest.types.a.rait === 'low') ||
-      (currentTest.types.c.rait === 'high' && currentTest.types.a.rait === 'veryLow')
+    (currentTest.types.c.rait === 'high' && currentTest.types.a.rait === 'low') ||
+    (currentTest.types.c.rait === 'high' && currentTest.types.a.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[21])
   }
 
   if (
-      (currentTest.types.c.rait === 'high' && currentTest.types.b.rait === 'low') ||
-      (currentTest.types.c.rait === 'high' && currentTest.types.b.rait === 'veryLow')
+    (currentTest.types.c.rait === 'high' && currentTest.types.b.rait === 'low') ||
+    (currentTest.types.c.rait === 'high' && currentTest.types.b.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[22])
   }
 
   if (
-      currentTest.types.g.percent === 90 && currentTest.types.i.percent > 90
+    currentTest.types.g.percent === 90 && currentTest.types.i.percent > 90
   ) {
     currentTest.syndromes.push(syndromes[23])
   }
 
   if (
-      (currentTest.types.a.rait === 'high' && currentTest.types.b.rait === 'low') ||
-      (currentTest.types.a.rait === 'high' && currentTest.types.b.rait === 'veryLow')
+    (currentTest.types.a.rait === 'high' && currentTest.types.b.rait === 'low') ||
+    (currentTest.types.a.rait === 'high' && currentTest.types.b.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[24])
   }
 
   if (
-      (currentTest.types.a.rait === 'high' && currentTest.types.c.rait === 'low') ||
-      (currentTest.types.a.rait === 'high' && currentTest.types.c.rait === 'veryLow')
+    (currentTest.types.a.rait === 'high' && currentTest.types.c.rait === 'low') ||
+    (currentTest.types.a.rait === 'high' && currentTest.types.c.rait === 'veryLow')
   ) {
     currentTest.syndromes.push(syndromes[25])
   }
 
+  if (currentTest.motivation.types.length > 0) {
+    currentTest.motivation.types.sort((a, b) => b.value - a.value)
 
+
+    currentTest.motivation.main = [currentTest.motivation.types[0]];
+    currentTest.motivation.secondary = [];
+
+    for (let i in currentTest.motivation.types) {
+      if (i == 0) continue;
+
+      if (currentTest.motivation.types[0].value === currentTest.motivation.types[i].value) {
+        currentTest.motivation.main.push(currentTest.motivation.types[i]);
+      } else {
+        currentTest.motivation.secondary.push(currentTest.motivation.types[i]);
+      }
+    }
+  }
 
   test.value = currentTest;
 

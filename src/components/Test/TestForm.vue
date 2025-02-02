@@ -4,23 +4,22 @@ import {reactive, toRefs, watch, ref, computed} from 'vue';
 
 const emit = defineEmits(['endTest'])
 const {pending, questions} = defineProps(['pending', 'questions']);
+const questionsLength = Object.keys(questions).length;
 
 let answered = reactive({});
 let current = ref(1);
 const progress = computed(() => {
-  if (Object.keys(answered).length === 199) return 99;
-  return Math.ceil((Object.keys(answered).length / 200) * 100);
+  return Math.floor((Object.keys(answered).length / questionsLength) * 100);
 })
 
 const selectAnswer = (answer) => {
 
   answered[questions[current.value].id] = answer;
 
-  if (current.value !== 200) {
+  if (current.value !== questionsLength) {
     current.value++;
   } else {
-    if (Object.keys(answered).length === 200) {
-      console.log('Сделали')
+    if (Object.keys(answered).length === questionsLength) {
       emit('endTest', answered)
     }
   }
@@ -41,7 +40,7 @@ const prevAnswer = () => {
     </div>
     <div class="progress">
       <div class="content">
-        <div class="questions">вопрос {{ current }} из 200</div>
+        <div class="questions">вопрос {{ current }} из {{ questionsLength }}</div>
         <div class="percent">Готово: <span class="num">{{ progress }}%</span></div>
       </div>
       <div class="bar">
