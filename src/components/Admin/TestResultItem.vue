@@ -288,7 +288,7 @@ function handleOpenToggle() {
         типов мотивации набирают одинаковое количество баллов. В таком случае считается, что все эти типы мотивации
         являются ведущими.
       </div>
-      <div class="characteristics" v-if="test.motivation.secondary">
+      <div class="characteristics" v-if="test.motivation.secondary.length > 0">
         <div class="characteristics__heading">
           {{ secondaryMotivationHeading }}
         </div>
