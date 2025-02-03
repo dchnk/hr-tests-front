@@ -1,11 +1,26 @@
 <script setup>
 import {computed, reactive, ref} from "vue";
 import axios from "axios";
+import {questions} from "../../../vendor/oxford-test.js";
 
 const {text} = defineProps(['text']);
 
 const isEdit = ref(false);
 const pending = ref(false);
+const answers = reactive({
+  yes: null,
+  maybe: null,
+  no: null,
+})
+
+const question = text.name.split('question-')[1];
+
+if (question) {
+  answers.yes = questions[question].answers.yes;
+  answers.maybe = questions[question].answers.maybe;
+  answers.no = questions[question].answers.no;
+}
+
 
 const textInputs = reactive({
   description: text.description,
@@ -51,6 +66,11 @@ const updateTextInfo = async () => {
 <template>
   <div class="text__item">
     <div class="text_name">Имя: {{ text.name }}</div>
+    <div class="answers" v-if="question">
+      <div class="answer">Да: {{answers.yes}}</div>
+      <div class="answer">Может быть: {{answers.maybe}}</div>
+      <div class="answer">Нет: {{answers.no}}</div>
+    </div>
     <div class="container">
       <textarea class="area" v-model="textInputs.description" :disabled="!isEdit"/>
       <textarea class="area" v-model="textInputs.text" :disabled="!isEdit"/>
