@@ -3,18 +3,15 @@ import {reactive, toRefs, watch, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import axios from "axios";
 
-import Preview from "../components/Test/Preview.vue";
-import TestForm from "../components/Test/TestForm.vue";
 import Passed from "../components/Test/Passed.vue";
 import TestFailed from "../components/Test/TestFailed.vue";
-import TestSelect from "../components/Test/TestSelect.vue";
+import TestList from "../components/Test/TestList.vue";
+import TestBase from "../components/Test/TestBase.vue";
 
 const testStatus = ref('select');
 const pending = ref(false);
 const status = ref('');
-const candidate = reactive({
-  name: '',
-});
+let tests = ref(null);
 
 let questions = ref(null);
 
@@ -26,6 +23,8 @@ const getTestInfo = async () => {
 
     if (test.data.test.some((acc) => acc.failed)) return testStatus.value = 'failed';
     if (test.data.test.every((acc) => acc.ended)) return testStatus.value = 2;
+
+    tests.value = test.data;
 
     const createdTime = new Date(test.data.test.createdAt);
     const currentTime = new Date();
@@ -50,8 +49,6 @@ const getTestInfo = async () => {
 
     if (test.data.test?.started) testStatus.value = 1;
 
-
-
   } catch (e) {
     console.log('123')
     testStatus.value = 'failed';
@@ -60,21 +57,23 @@ const getTestInfo = async () => {
 
 getTestInfo();
 
-const startTest = async () => {
-  testStatus.value = 1;
+const startTest = async (name) => {
+  testStatus.value = name;
+
+  if (tests.value.some(acc => acc.started)) return;
 
   try {
     axios.post(`/api/tests/start/${route.params.link}`, {
-      name: 'oxford'
+      name: name
     })
 
-    testStatus.value = 1;
+    testStatus.value = name;
   } catch (e) {
     console.log(e)
   };
 }
 
-const endTest = async (result) => {
+const endTest = async (name, result) => {
 
   console.log(result)
   testStatus.value = 2;
@@ -95,9 +94,8 @@ const endTest = async (result) => {
 
 <template>
   <TestFailed v-if="testStatus === 'failed'"/>
-  <TestSelect v-if="testStatus === 'select'"/>
-  <Preview v-if="!testStatus" @startTest="startTest"/>
-  <TestForm v-if="testStatus === 1" @endTest="endTest" :pending="pending" :questions="questions"/>
+  <TestList v-if="testStatus === 'select'" :tests="tests" @startTest="startTest" />
+  <TestBase v-if="testStatus === 'oxford'" :test = />
   <Passed v-if="testStatus === 2"/>
 </template>
 

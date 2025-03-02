@@ -1,6 +1,19 @@
 <script setup>
 
+import {watchEffect} from "vue";
+
 const emit = defineEmits(['startTest'])
+
+const {tests} = defineProps(['tests'])
+
+watchEffect(
+  () => {
+    if ( tests )
+    console.log(tests)
+  }
+)
+
+
 
 </script>
 
@@ -11,32 +24,37 @@ const emit = defineEmits(['startTest'])
       <p class="heading">Онлайн-оценка сотрудников</p>
     </div>
     <div class="content">
-      <div class="greeting">
-        <div class="heading">
-          Тесты которые вам предстоит пройти
+      <div class="heading">
+        Тесты, которые вам предложили пройти
+      </div>
+      <div class="test-list flex-wrap">
+        <div class="test-container" v-if="tests?.some((acc) => acc.name === 'oxford')">
+          <div class="test-name">Базовый тест</div>
+          <div class="test-text questions-count">Вопросов в тесте: 225</div>
+          <div class="test-text time-to-pass">Время прохождения: ~30 минут</div>
+          <div class="start-test mt-4" @click="emit('startTest', 'oxford')">
+            Начать тестирование
+          </div>
         </div>
-        <div class="description">
-          У вас есть 72 часа с момента получения ссылки, чтобы пройти этот тест. Промежуточные результаты не сохраняются: нужно выбрать время и пройти тест от начала и до конца. Повторное прохождение не предусмотрено.
+        <div class="test-container" v-if="tests?.some((acc) => acc.name === 'questionnaire')">
+          <div class="test-name">Опросник</div>
+          <div class="test-text questions-count">Вопросов в тесте: 20</div>
+          <div class="test-text time-to-pass">Время прохождения: ~10 минут</div>
+          <div class="start-test mt-4" @click="emit('startTest', 'questionnaire')">
+            Начать тестирование
+          </div>
+        </div>
+        <div class="test-container" v-if="tests?.some((acc) => acc.name === 'iq')">
+          <div class="test-name">Тест IQ</div>
+          <div class="test-text questions-count">Вопросов в тесте: 40</div>
+          <div class="test-text time-to-pass">Время прохождения: ~30 минут</div>
+          <div class="start-test mt-4" @click="emit('startTest', 'iq')">
+            Начать тестирование
+          </div>
         </div>
       </div>
-      <div class="guide">
-        <div class="heading">Как проходить тест?</div>
-        <div class="text">
-          Не тратьте на один вопрос много времени, отвечайте быстро. Будьте внимательны при чтении. Прочитав и убедившись, что вы правильно поняли вопрос, ответьте на него.
-        </div>
-        <div class="impotent">Варианты ответов:</div>
-        <div class="answer"><span class="bold">ДА</span> – скорее да, чем нет</div>
-        <div class="answer"><span class="bold">МОЖЕТ БЫТЬ</span> –  я точно не знаю, не уверен</div>
-        <div class="answer"><span class="bold">НЕТ</span> – скорее нет, чем да</div>
-      </div>
-      <div class="start">
-        <div class="option">
-          Вопросов в тесте: 225
-        </div>
-        <div class="option">
-          Время на прохождение: ~30 минут
-        </div>
-        <button class="button" @click="emit('startTest')">Начать тест &nbsp; &#8594;</button>
+      <div class="bottom-text text-center">
+        Для завершения тестирования необходимо пройти все тесты, в любом порядке.
       </div>
     </div>
   </section>
@@ -102,6 +120,7 @@ const emit = defineEmits(['startTest'])
       font-weight: 600;
       line-height: 24px;
       font-size: 120%;
+      text-align: center;
       color: #fff;
       margin: 0;
 
@@ -114,33 +133,111 @@ const emit = defineEmits(['startTest'])
         font-size: 14px;
         line-height: 16.8px;
         text-align: end;
-        margin-left: 10px;
       }
     }
   }
 
   .content {
     display: flex;
+    margin: 2em 0;
     flex-direction: column;
-    //padding: 0 2em;
+    padding: 0 1em;
     box-sizing: border-box;
     color: #122130;
 
-    //@media screen and (max-width: 820px) {
-    //  margin: 40px 0 auto;
-    //}
-    //
-    //@media screen and (max-width: 770px) {
-    //  margin: 40px 0 auto;
-    //  padding: 0 1em;
-    //}
+    @media screen and (max-width: 820px) {
+      margin: 40px 0 auto;
+    }
+
+    @media screen and (max-width: 770px) {
+      margin: 40px 0 auto;
+      padding: 0 1em;
+    }
+
+    .heading {
+      font-size: 144%;
+      line-height: 29px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1em;
+
+
+      @media screen and (max-width: 820px) {
+        font-size: 20px;
+        line-height: 24px;
+      }
+
+      @media screen and (max-width: 770px) {
+        font-size: 17px;
+        line-height: 21.6px;
+      }
+    }
+
+    .test-list {
+      display: flex;
+      justify-content: center;
+      margin: auto auto 2em;
+      gap: 1em;
+
+      .test-container {
+        padding: 1em 2em;
+        background-color: #F8F8F8;
+        border-radius: 10px;
+
+        .test-name {
+          font-weight: 600;
+          font-size: 18px;
+          line-height: 25.2px;
+          color: #122130;
+          margin-bottom: 1em;
+
+          @media screen and (max-width: 820px) {
+            font-size: 16px;
+            line-height: 21.6px;
+          }
+        }
+
+        .test-text {
+          margin-bottom: 6px;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 22.4px;
+          color: #5F5E5E;
+
+          @media screen and (max-width: 820px) {
+            font-size: 12px;
+          }
+        }
+
+        .start-test {
+          cursor: pointer;
+          padding: 1em 0;
+          width: 100%;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 19.2px;
+          text-align: center;
+          color: #FFFFFF;
+          background-color: #8F47FF;
+          border-radius: 10px;
+
+          @media screen and (max-width: 820px) {
+            font-size: 14px;
+            line-height: 21.6px;
+          }
+        }
+      }
+
+      .bottom-text {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 25.6px;
+        color: #122130;
+        text-align: center;
+
+      }
+    }
   }
-
-
-
-
-
-
 }
 
 </style>
