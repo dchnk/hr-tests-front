@@ -8,18 +8,18 @@ const link = `/tests/result/${applicant?.ulink}`;
 
 <template>
   <div class="applicants__test">
+<!--    <div class="block">-->
+<!--      <div class="block_name">-->
+<!--        Тесты-->
+<!--      </div>-->
+<!--      <div class="content">-->
+<!--        <div class="name">Базовый тест</div>-->
+<!--      </div>-->
+<!--    </div>-->
     <div class="block">
-      <div class="block_name">
-        Тест
-      </div>
-      <div class="content">
-        <div class="name">Базовый тест</div>
-      </div>
-    </div>
-    <div class="block">
-      <div class="block_name">
-        Результат
-      </div>
+<!--      <div class="block_name">-->
+<!--        Результат-->
+<!--      </div>-->
       <div class="content">
         <router-link class="link" :to='link'>Результат тестирования
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

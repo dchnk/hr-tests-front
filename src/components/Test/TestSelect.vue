@@ -11,32 +11,18 @@ const emit = defineEmits(['startTest'])
       <p class="heading">Онлайн-оценка сотрудников</p>
     </div>
     <div class="content">
-      <div class="greeting">
-        <div class="hello">
-          Здравствуйте!
-        </div>
-        <div class="description">
-          У вас есть 72 часа с момента получения ссылки, чтобы пройти этот тест. Промежуточные результаты не сохраняются: нужно выбрать время и пройти тест от начала и до конца. Повторное прохождение не предусмотрено.
-        </div>
+      <div class="heading">
+        Тесты, которые вам предложили пройти
       </div>
-      <div class="guide">
-        <div class="heading">Как проходить тест?</div>
-        <div class="text">
-          Не тратьте на один вопрос много времени, отвечайте быстро. Будьте внимательны при чтении. Прочитав и убедившись, что вы правильно поняли вопрос, ответьте на него.
+      <div class="test-list flex">
+        <div class="test-container">
+          <div class="">Базовый тест</div>
+          <div class="questions-count">Вопросов в тесте: 225</div>
+          <div class="time-to-pass">Время прохождения: ~30 минут</div>
+          <div class="start-test mt-1">
+            Начать тестирование
+          </div>
         </div>
-        <div class="impotent">Варианты ответов:</div>
-        <div class="answer"><span class="bold">ДА</span> – скорее да, чем нет</div>
-        <div class="answer"><span class="bold">МОЖЕТ БЫТЬ</span> –  я точно не знаю, не уверен</div>
-        <div class="answer"><span class="bold">НЕТ</span> – скорее нет, чем да</div>
-      </div>
-      <div class="start">
-        <div class="option">
-          Вопросов в тесте: 225
-        </div>
-        <div class="option">
-          Время на прохождение: ~30 минут
-        </div>
-        <button class="button" @click="emit('startTest')">Начать тест &nbsp; &#8594;</button>
       </div>
     </div>
   </section>
@@ -56,7 +42,7 @@ const emit = defineEmits(['startTest'])
 
   @media screen and (max-width: 820px) {
     border-radius: 0px;
-    margin: 0 auto auto;  
+    margin: 0 auto auto;
     border: none;
   }
 
@@ -98,10 +84,11 @@ const emit = defineEmits(['startTest'])
       }
     }
 
-    .heading {
+    >.heading {
       font-weight: 600;
       line-height: 24px;
       font-size: 120%;
+      text-align: center;
       color: #fff;
       margin: 0;
 
@@ -114,12 +101,11 @@ const emit = defineEmits(['startTest'])
         font-size: 14px;
         line-height: 16.8px;
         text-align: end;
-        margin-left: 10px;
       }
     }
   }
 
-  >.content {
+  .content {
     display: flex;
     margin: 3em 0;
     flex-direction: column;
@@ -136,55 +122,25 @@ const emit = defineEmits(['startTest'])
       padding: 0 1em;
     }
 
-    .greeting {
-      display: flex;
-      flex-direction: column;
+    .heading {
+      font-size: 144%;
+      line-height: 29px;
+      font-weight: 600;
+      margin-bottom: 16px;
       padding-bottom: 2em;
-      border-bottom: 1px solid #0000001A;
-      margin-bottom: 28px;
+      text-align: center;
+
 
       @media screen and (max-width: 820px) {
-        padding-bottom: 28px;
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 12px;
       }
 
       @media screen and (max-width: 770px) {
-        padding-bottom: 24px;
-        margin-bottom: 24px;
-      }
-
-      .hello {
-        font-size: 144%;
-        line-height: 29px;
-        font-weight: 600;
-        margin-bottom: 16px;
-
-        @media screen and (max-width: 820px) {
-          font-size: 20px;
-          line-height: 24px;
-          margin-bottom: 12px;
-        }
-
-        @media screen and (max-width: 770px) {
-          font-size: 17px;
-          line-height: 21.6px;
-          margin-bottom: 10px;
-        }
-      }
-
-      .description {
-        font-size: 96%;
-        max-width: 96%;
-        line-height: 24px;
-
-        @media screen and (max-width: 820px) {
-          line-height: 25.6px;
-          max-width: 100%;
-        }
-
-        @media screen and (max-width: 770px) {
-          font-size: 14px;
-          line-height: 22.4px;
-        }
+        font-size: 17px;
+        line-height: 21.6px;
+        margin-bottom: 10px;
       }
     }
   }

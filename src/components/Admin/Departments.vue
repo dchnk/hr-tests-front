@@ -48,7 +48,7 @@ const departmentsStore = useDepartmentsStore();
       padding-bottom: 16px;
     }
 
-    .heading {
+    >.heading {
       display: flex;
       align-items: center;
 

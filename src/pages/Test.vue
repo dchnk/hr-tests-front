@@ -7,8 +7,9 @@ import Preview from "../components/Test/Preview.vue";
 import TestForm from "../components/Test/TestForm.vue";
 import Passed from "../components/Test/Passed.vue";
 import TestFailed from "../components/Test/TestFailed.vue";
+import TestSelect from "../components/Test/TestSelect.vue";
 
-const testStatus = ref(0);
+const testStatus = ref('select');
 const pending = ref(false);
 const status = ref('');
 const candidate = reactive({
@@ -21,12 +22,10 @@ const route = useRoute();
 
 const getTestInfo = async () => {
   try {
-    const test = await axios.post(`/api/tests/${route.params.link}`, {
-      name: 'oxford'
-    })
+    const test = await axios.post(`/api/tests/${route.params.link}`)
 
-    if (test.data.test.failed) return testStatus.value = 'failed';
-    if (test.data.test.ended) return testStatus.value = 2;
+    if (test.data.test.some((acc) => acc.failed)) return testStatus.value = 'failed';
+    if (test.data.test.every((acc) => acc.ended)) return testStatus.value = 2;
 
     const createdTime = new Date(test.data.test.createdAt);
     const currentTime = new Date();
@@ -38,8 +37,8 @@ const getTestInfo = async () => {
 
     let obj = {};
 
-    for (let index in test.data.questions) {
-      let current = test.data.questions[index];
+    for (let index in test.data.questions.oxford) {
+      let current = test.data.questions.oxford[index];
 
       obj[current.name.split('base-test-question-')[1]] = {
         text: current.text,
@@ -48,8 +47,6 @@ const getTestInfo = async () => {
     }
 
     questions.value = obj;
-
-    // console.log(questions)
 
     if (test.data.test?.started) testStatus.value = 1;
 
@@ -98,6 +95,7 @@ const endTest = async (result) => {
 
 <template>
   <TestFailed v-if="testStatus === 'failed'"/>
+  <TestSelect v-if="testStatus === 'select'"/>
   <Preview v-if="!testStatus" @startTest="startTest"/>
   <TestForm v-if="testStatus === 1" @endTest="endTest" :pending="pending" :questions="questions"/>
   <Passed v-if="testStatus === 2"/>

@@ -9,17 +9,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^1.6.7",
+    "pinia": "^2.1.7",
     "vue": "^3.4.37",
     "vue-router": "^4.4.5",
-    "vuetify": "^3.6.13",
-    "axios": "^1.6.7",
-    "pinia": "^2.1.7"
+    "vuetify": "^3.6.13"
   },
   "devDependencies": {
     "@mdi/font": "^7.3.67",
     "@mdi/js": "^7.3.67",
     "@vitejs/plugin-vue": "^5.1.2",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.3",
     "sass": "^1.78.0",
+    "tailwindcss": "^4.0.9",
     "vite": "^5.4.1"
   }
 }

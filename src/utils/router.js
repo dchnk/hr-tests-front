@@ -18,7 +18,7 @@ const routes = [
   },
   {
     path: '/',
-    redirect: (to) => {
+    redirect: to => {
       const storeUser = useUserStore();
       return storeUser.user ? '/admin' : '/signin';
     }
@@ -65,23 +65,18 @@ const router = createRouter({
 router.beforeEach(async (to) => {
   const storeUser = useUserStore();
 
-  if (storeUser.user === undefined) {
-    await storeUser.get()
-  }
+  if (storeUser.user === undefined) await storeUser.get()
 
   const isAuth = !!storeUser.user;
 
-  // Защищенные пути
   const protectedPaths = ['/admin', '/profile', '/balance', '/tests/result'];
-  console.log(to.path)
+
   const isProtected = protectedPaths.some(path => to.path.startsWith(path));
 
-  // Доступ к защищенным путям без авторизации
   if (isProtected && !isAuth) {
     return '/signin';
   }
 
-  // Доступ к логину/регистрации для авторизованных
   if (['/signin', '/signup'].includes(to.path) && isAuth) {
     return '/admin';
   }
