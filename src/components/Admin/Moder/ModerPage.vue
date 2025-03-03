@@ -64,7 +64,7 @@ axios.get("/api/text")
   justify-content: center;
   align-items: center;
 
-  .heading {
+  >.heading {
     margin-top: 1em;
     margin-bottom: 1em;
     font-size: 18px;

@@ -60,7 +60,7 @@ const emit = defineEmits(['startTest'])
     border: none;
   }
 
-  .header {
+  >.header {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -119,7 +119,7 @@ const emit = defineEmits(['startTest'])
     }
   }
 
-  .content {
+  >.content {
     display: flex;
     margin: 3em 0;
     flex-direction: column;

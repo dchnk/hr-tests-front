@@ -26,10 +26,10 @@ const inputValues = reactive({
   email: '',
 })
 
-const selectedTest = reactive({oxfordTest: ''});
+const selectedTest = reactive({});
 
 const selectTest = (name) => {
-  if (selectedTest[name]) return selectedTest[name] = '';
+  if (selectedTest[name]) return delete selectedTest[name];
 
   selectedTest[name] = name;
 
@@ -107,9 +107,9 @@ const clickSubmit = async () => {
       vacancy_id: vacancy.id
     })
 
-    if (data) departmentsStore.addApplicant(data);
+    if (data) departmentsStore.addApplicant(data.candidate);
     status.value = 'Тест был успешно отправлен';
-    user.value.balance--;
+    user.value.balance -= data.testList.length;
 
   } catch (e) {
     console.log(e)
@@ -147,7 +147,8 @@ const clickSubmit = async () => {
     <div class="selects__container">
       <div class="list-container">
         <div class="list">
-          <div class="select" :class="selectedTest.oxfordTest && 'selected'" @click="() => selectTest('oxfordTest')">Базовый тест</div>
+          <div class="select" :class="selectedTest.oxford && 'selected'" @click="selectTest('oxford')">Базовый тест</div>
+          <div class="select" :class="selectedTest.questionnaire && 'selected'" @click="selectTest('questionnaire')">Опросник</div>
         </div>
         <div class="error" v-show="inputErrors.selected">{{ inputErrors.selected }}</div>
       </div>

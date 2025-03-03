@@ -3,32 +3,37 @@ import {reactive, toRefs, watch, ref} from 'vue';
 import {useRoute} from 'vue-router';
 import axios from "axios";
 
-import Preview from "../components/Test/Preview.vue";
-import TestForm from "../components/Test/TestForm.vue";
 import Passed from "../components/Test/Passed.vue";
 import TestFailed from "../components/Test/TestFailed.vue";
+import TestList from "../components/Test/TestList.vue";
+import TestFormBase from "../components/Test/TestFormBase.vue";
+import TestFormQuestionnaire from "../components/Test/TestFormQuestionnaire.vue";
 
-const testStatus = ref(0);
 const pending = ref(false);
 const status = ref('');
-const candidate = reactive({
-  name: '',
-});
-
 let questions = ref(null);
+
+let tests = ref(null);
+const testStatus = ref('select');
 
 const route = useRoute();
 
 const getTestInfo = async () => {
   try {
-    const test = await axios.post(`/api/tests/${route.params.link}`, {
-      name: 'oxford'
-    })
+    const test = await axios.post(`/api/tests/${route.params.link}`)
 
-    if (test.data.test.failed) return testStatus.value = 'failed';
-    if (test.data.test.ended) return testStatus.value = 2;
+    if (test.data.test.some((acc) => acc.failed)) return testStatus.value = 'failed';
+    if (test.data.test.every((acc) => acc.ended)) return testStatus.value = 2;
 
-    const createdTime = new Date(test.data.test.createdAt);
+    tests.value = test.data;
+
+    for (let i in test.data.test) {
+      if (test.data.test[i].started && !test.data.test[i].ended) {
+        testStatus.value = test.data.test[i].name;
+      }
+    }
+
+    const createdTime = new Date(test.data.test[0].createdAt);
     const currentTime = new Date();
     const diffTime = (currentTime - createdTime) / (1000 * 60 * 60);
 
@@ -41,54 +46,76 @@ const getTestInfo = async () => {
     for (let index in test.data.questions) {
       let current = test.data.questions[index];
 
-      obj[current.name.split('base-test-question-')[1]] = {
-        text: current.text,
-        id: current.name.split('base-test-question-')[1],
+      obj[index] = {}
+
+      for (let i in current) {
+          let question = current[i];
+
+          if (index === 'oxford') {
+            obj[index][question.name.split('base-test-question-')[1]] = {
+              text: question.text,
+              id: question.name.split('base-test-question-')[1],
+            }
+          }
+
+        if (index === 'questionnaire') {
+          obj[index][question.name.split('questionnaire-test-question-')[1]] = {
+            text: question.text,
+            id: question.name.split('questionnaire-test-question-')[1],
+          }
+        }
       }
     }
 
     questions.value = obj;
 
-    // console.log(questions)
+    console.log(obj)
 
-    if (test.data.test?.started) testStatus.value = 1;
-
-
+    // if (test.data.test?.started) testStatus.value = 1;
 
   } catch (e) {
-    console.log('123')
+    console.log(e)
     testStatus.value = 'failed';
   };
 }
 
 getTestInfo();
 
-const startTest = async () => {
-  testStatus.value = 1;
+const startTest = async (name) => {
+  if (tests.value.test.find((arg) => arg.name === name).ended) return;
+
+  testStatus.value = name;
 
   try {
     axios.post(`/api/tests/start/${route.params.link}`, {
-      name: 'oxford'
+      name: name
     })
 
-    testStatus.value = 1;
+    testStatus.value = name;
   } catch (e) {
     console.log(e)
   };
 }
 
-const endTest = async (result) => {
-
-  console.log(result)
-  testStatus.value = 2;
+const endTest = async (name, result) => {
 
   try {
     axios.post(`/api/tests/end/${route.params.link}`, {
-      name: 'oxford',
+      name: name,
       result: result
     })
 
-    testStatus.value = 2;
+    tests.value.test.find((arg) => arg.name === name).ended = true;
+
+    if (tests.value.test.every((arg) => arg.ended)) {
+      console.log('все')
+
+      return testStatus.value = 2;
+    }
+
+    testStatus.value = 'select';
+
+    ;
   } catch (e) {
     console.log(e)
   };
@@ -98,8 +125,9 @@ const endTest = async (result) => {
 
 <template>
   <TestFailed v-if="testStatus === 'failed'"/>
-  <Preview v-if="!testStatus" @startTest="startTest"/>
-  <TestForm v-if="testStatus === 1" @endTest="endTest" :pending="pending" :questions="questions"/>
+  <TestList v-if="testStatus === 'select' && tests" :tests="tests" :testStatus="testStatus" @startTest="startTest" />
+  <TestFormBase v-if="testStatus === 'oxford'" @endTest="endTest" :pending="pending" :questions="questions.oxford"/>
+  <TestFormQuestionnaire v-if="testStatus === 'questionnaire'" @endTest="endTest" :pending="pending" :questions="questions.questionnaire"/>
   <Passed v-if="testStatus === 2"/>
 </template>
 

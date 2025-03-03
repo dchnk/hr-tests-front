@@ -297,7 +297,7 @@ const updateUserInfo = async () => {
     padding: 26px 12px 36px;
   }
 
-  .heading {
+  >.heading {
     font-family: Manrope;
     font-size: 18px;
     font-weight: 700;

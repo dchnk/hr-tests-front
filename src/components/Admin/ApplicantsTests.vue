@@ -16,7 +16,7 @@ const {applicant} = defineProps(['applicant']);
 .applicants__tests {
   margin-top: 37px;
 
-  .heading{
+  >.heading{
     font-family: Manrope;
     font-size: 18px;
     font-weight: 700;
