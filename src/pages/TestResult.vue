@@ -503,7 +503,7 @@ getTestInfo();
     max-height: max-content;
     color: #122130;
     max-width: 380px;
-    width: 100%;
+    flex-shrink: 0;
     padding: 13px 20px;
     background-color: #F4F5F7;
     border-radius: 10px;
