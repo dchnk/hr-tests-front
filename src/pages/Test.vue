@@ -6,14 +6,15 @@ import axios from "axios";
 import Passed from "../components/Test/Passed.vue";
 import TestFailed from "../components/Test/TestFailed.vue";
 import TestList from "../components/Test/TestList.vue";
-import TestBase from "../components/Test/TestBase.vue";
+import TestFormBase from "../components/Test/TestFormBase.vue";
+import TestFormQuestionnaire from "../components/Test/TestFormQuestionnaire.vue";
 
-const testStatus = ref('select');
 const pending = ref(false);
 const status = ref('');
-let tests = ref(null);
-
 let questions = ref(null);
+
+let tests = ref(null);
+const testStatus = ref('select');
 
 const route = useRoute();
 
@@ -26,7 +27,13 @@ const getTestInfo = async () => {
 
     tests.value = test.data;
 
-    const createdTime = new Date(test.data.test.createdAt);
+    for (let i in test.data.test) {
+      if (test.data.test[i].started && !test.data.test[i].ended) {
+        testStatus.value = test.data.test[i].name;
+      }
+    }
+
+    const createdTime = new Date(test.data.test[0].createdAt);
     const currentTime = new Date();
     const diffTime = (currentTime - createdTime) / (1000 * 60 * 60);
 
@@ -36,21 +43,38 @@ const getTestInfo = async () => {
 
     let obj = {};
 
-    for (let index in test.data.questions.oxford) {
-      let current = test.data.questions.oxford[index];
+    for (let index in test.data.questions) {
+      let current = test.data.questions[index];
 
-      obj[current.name.split('base-test-question-')[1]] = {
-        text: current.text,
-        id: current.name.split('base-test-question-')[1],
+      obj[index] = {}
+
+      for (let i in current) {
+          let question = current[i];
+
+          if (index === 'oxford') {
+            obj[index][question.name.split('base-test-question-')[1]] = {
+              text: question.text,
+              id: question.name.split('base-test-question-')[1],
+            }
+          }
+
+        if (index === 'questionnaire') {
+          obj[index][question.name.split('questionnaire-test-question-')[1]] = {
+            text: question.text,
+            id: question.name.split('questionnaire-test-question-')[1],
+          }
+        }
       }
     }
 
     questions.value = obj;
 
-    if (test.data.test?.started) testStatus.value = 1;
+    console.log(obj)
+
+    // if (test.data.test?.started) testStatus.value = 1;
 
   } catch (e) {
-    console.log('123')
+    console.log(e)
     testStatus.value = 'failed';
   };
 }
@@ -58,9 +82,9 @@ const getTestInfo = async () => {
 getTestInfo();
 
 const startTest = async (name) => {
-  testStatus.value = name;
+  if (tests.value.test.find((arg) => arg.name === name).ended) return;
 
-  if (tests.value.some(acc => acc.started)) return;
+  testStatus.value = name;
 
   try {
     axios.post(`/api/tests/start/${route.params.link}`, {
@@ -75,16 +99,23 @@ const startTest = async (name) => {
 
 const endTest = async (name, result) => {
 
-  console.log(result)
-  testStatus.value = 2;
-
   try {
     axios.post(`/api/tests/end/${route.params.link}`, {
-      name: 'oxford',
+      name: name,
       result: result
     })
 
-    testStatus.value = 2;
+    tests.value.test.find((arg) => arg.name === name).ended = true;
+
+    if (tests.value.test.every((arg) => arg.ended)) {
+      console.log('все')
+
+      return testStatus.value = 2;
+    }
+
+    testStatus.value = 'select';
+
+    ;
   } catch (e) {
     console.log(e)
   };
@@ -94,8 +125,9 @@ const endTest = async (name, result) => {
 
 <template>
   <TestFailed v-if="testStatus === 'failed'"/>
-  <TestList v-if="testStatus === 'select'" :tests="tests" @startTest="startTest" />
-  <TestBase v-if="testStatus === 'oxford'" :test = />
+  <TestList v-if="testStatus === 'select' && tests" :tests="tests" :testStatus="testStatus" @startTest="startTest" />
+  <TestFormBase v-if="testStatus === 'oxford'" @endTest="endTest" :pending="pending" :questions="questions.oxford"/>
+  <TestFormQuestionnaire v-if="testStatus === 'questionnaire'" @endTest="endTest" :pending="pending" :questions="questions.questionnaire"/>
   <Passed v-if="testStatus === 2"/>
 </template>
 

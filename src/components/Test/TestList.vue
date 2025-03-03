@@ -4,15 +4,15 @@ import {watchEffect} from "vue";
 
 const emit = defineEmits(['startTest'])
 
-const {tests} = defineProps(['tests'])
+const {tests, testStatus} = defineProps(['tests', 'testStatus'])
+const testList = {};
 
-watchEffect(
-  () => {
-    if ( tests )
-    console.log(tests)
-  }
-)
-
+for (const test of tests.test) {
+  testList[test.name] = {
+    test,
+    questions: tests.questions[test.name]
+  };
+}
 
 
 </script>
@@ -28,23 +28,28 @@ watchEffect(
         Тесты, которые вам предложили пройти
       </div>
       <div class="test-list flex-wrap">
-        <div class="test-container" v-if="tests?.some((acc) => acc.name === 'oxford')">
+        <div class="test-container" v-if="testList.oxford">
           <div class="test-name">Базовый тест</div>
           <div class="test-text questions-count">Вопросов в тесте: 225</div>
           <div class="test-text time-to-pass">Время прохождения: ~30 минут</div>
-          <div class="start-test mt-4" @click="emit('startTest', 'oxford')">
-            Начать тестирование
+          <div class="start-test mt-4"
+               :class="testList.oxford.test.ended && ' ended'"
+               @click="emit('startTest', 'oxford')"
+          >
+            {{ testList.oxford.test.ended ? 'Завершен' : 'Начать тестирование' }}
           </div>
         </div>
-        <div class="test-container" v-if="tests?.some((acc) => acc.name === 'questionnaire')">
+        <div class="test-container" v-if="testList.questionnaire">
           <div class="test-name">Опросник</div>
           <div class="test-text questions-count">Вопросов в тесте: 20</div>
           <div class="test-text time-to-pass">Время прохождения: ~10 минут</div>
-          <div class="start-test mt-4" @click="emit('startTest', 'questionnaire')">
+          <div class="start-test mt-4"
+               :class="testList.questionnaire.test.ended && ' ended'"
+               @click="emit('startTest', 'questionnaire')">
             Начать тестирование
           </div>
         </div>
-        <div class="test-container" v-if="tests?.some((acc) => acc.name === 'iq')">
+        <div class="test-container" v-if="tests.test?.some((acc) => acc.name === 'iq')">
           <div class="test-name">Тест IQ</div>
           <div class="test-text questions-count">Вопросов в тесте: 40</div>
           <div class="test-text time-to-pass">Время прохождения: ~30 минут</div>
@@ -224,6 +229,12 @@ watchEffect(
           @media screen and (max-width: 820px) {
             font-size: 14px;
             line-height: 21.6px;
+          }
+
+          &.ended {
+            background-color: #1f813b;
+            opacity: .2;
+            cursor: not-allowed;
           }
         }
       }

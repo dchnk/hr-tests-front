@@ -4,6 +4,7 @@ import {reactive, toRefs, watch, ref, computed} from 'vue';
 
 const emit = defineEmits(['endTest'])
 const {pending, questions} = defineProps(['pending', 'questions']);
+
 const questionsLength = Object.keys(questions).length;
 
 let answered = reactive({});
@@ -20,7 +21,7 @@ const selectAnswer = (answer) => {
     current.value++;
   } else {
     if (Object.keys(answered).length === questionsLength) {
-      emit('endTest', answered)
+      emit('endTest', 'oxford', answered)
     }
   }
 }

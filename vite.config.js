@@ -9,8 +9,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        // target: 'http://hr-tests.ru:5500',
-        target: 'http://localhost:5500',
+        target: 'http://hr-tests.ru:5500',
+         // target: 'http://localhost:5500',
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, ''),
