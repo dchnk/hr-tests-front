@@ -1,6 +1,6 @@
 <script setup>
 
-import {watchEffect} from "vue";
+import axios from "axios";
 
 const emit = defineEmits(['startTest'])
 
@@ -49,7 +49,7 @@ for (const test of tests.test) {
             Начать тестирование
           </div>
         </div>
-        <div class="test-container" v-if="tests.test?.some((acc) => acc.name === 'iq')">
+        <div class="test-container" v-if="testList.oxford">
           <div class="test-name">Тест IQ</div>
           <div class="test-text questions-count">Вопросов в тесте: 40</div>
           <div class="test-text time-to-pass">Время прохождения: ~30 минут</div>

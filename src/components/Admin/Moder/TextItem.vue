@@ -13,7 +13,7 @@ const answers = reactive({
   no: null,
 })
 
-const question = text.name.split('question-')[1];
+const question = text.name.split('base-test-question-')[1];
 
 if (question) {
   answers.yes = questions[question].answers.yes;
