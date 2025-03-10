@@ -6,6 +6,7 @@ import {reactive, ref} from "vue";
 import axios from "axios";
 import {useRoute} from "vue-router";
 import TestResultItemOxford from "../components/Admin/TestResultItemOxford.vue";
+import TestResultItemIq from "../components/Admin/TestResultItemIq.vue";
 
 const test = ref(null);
 const tests = reactive({});
@@ -26,14 +27,11 @@ const getTestInfo = async () => {
 
     for (let text in texts.data) {
       if (texts.data[text].type === 'questionnaire-test-question') {
-
-
          questionnaire.push({
           id: texts.data[text].name.split("questionnaire-test-question-")[1],
           question: texts.data[text].text,
           description: texts.data[text].description,
         })
-
       }
 
       if (texts.data[text].type === 'oxford-test-syndromes') {
@@ -54,6 +52,7 @@ const getTestInfo = async () => {
 
     prepareTest(testInfo.data.test.find(arg => arg.name === 'oxford'))
     prepareTest(testInfo.data.test.find(arg => arg.name === 'questionnaire'))
+    prepareTest(testInfo.data.test.find(arg => arg.name === 'iq'))
 
   } catch (e) {
     console.log(e)
@@ -67,6 +66,10 @@ const prepareTest = (testInfo) => {
   let currentTest = testInfo;
 
   if (testInfo.name === 'questionnaire') {
+    return tests[currentTest.name] = currentTest;
+  }
+
+  if (testInfo.name === 'iq') {
     return tests[currentTest.name] = currentTest;
   }
 
@@ -458,6 +461,7 @@ getTestInfo();
       <div class="container">
         <TestResultItemOxford v-if="tests.oxford" :test="tests.oxford" />
         <TestResultItemQuestionnaire v-if="tests.questionnaire" :test="tests.questionnaire" :questions="questionnaire"/>
+        <TestResultItemIq v-if="tests.iq" :test="tests.iq" />
       </div>
     </div>
 

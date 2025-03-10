@@ -30,7 +30,7 @@ const nextAnswer = () => {
       current.value++;
     } else {
       if (Object.keys(answeredEnded).length === questionsLength) {
-        emit('endTest', 'iq', answered)
+        emit('endTest', 'iq', answeredEnded)
       }
     }
 
@@ -48,7 +48,7 @@ const nextAnswer = () => {
     current.value++;
   } else {
     if (Object.keys(answeredEnded).length === questionsLength) {
-      emit('endTest', 'iq', answered)
+      emit('endTest', 'iq', answeredEnded)
     }
   }
 }
