@@ -8,6 +8,7 @@ import TestFailed from "../components/Test/TestFailed.vue";
 import TestList from "../components/Test/TestList.vue";
 import TestFormBase from "../components/Test/TestFormBase.vue";
 import TestFormQuestionnaire from "../components/Test/TestFormQuestionnaire.vue";
+import TestIQ from "../components/Test/TestIQ.vue";
 
 const pending = ref(false);
 const status = ref('');
@@ -49,14 +50,22 @@ const getTestInfo = async () => {
       obj[index] = {}
 
       for (let i in current) {
-          let question = current[i];
+        let question = current[i];
 
-          if (index === 'oxford') {
-            obj[index][question.name.split('base-test-question-')[1]] = {
-              text: question.text,
-              id: question.name.split('base-test-question-')[1],
-            }
+        if (index === 'oxford') {
+          obj[index][question.name.split('base-test-question-')[1]] = {
+            text: question.text,
+            id: question.name.split('base-test-question-')[1],
           }
+        }
+
+        if (index === 'iq') {
+          obj[index][question.name.split('iq-test-question-')[1]] = {
+            text: question.text,
+            description: question.description,
+            id: question.name.split('iq-test-question-')[1],
+          }
+        }
 
         if (index === 'questionnaire') {
           obj[index][question.name.split('questionnaire-test-question-')[1]] = {
@@ -76,7 +85,8 @@ const getTestInfo = async () => {
   } catch (e) {
     console.log(e)
     testStatus.value = 'failed';
-  };
+  }
+  ;
 }
 
 getTestInfo();
@@ -94,7 +104,8 @@ const startTest = async (name) => {
     testStatus.value = name;
   } catch (e) {
     console.log(e)
-  };
+  }
+  ;
 }
 
 const endTest = async (name, result) => {
@@ -108,7 +119,6 @@ const endTest = async (name, result) => {
     tests.value.test.find((arg) => arg.name === name).ended = true;
 
     if (tests.value.test.every((arg) => arg.ended)) {
-      console.log('все')
 
       return testStatus.value = 2;
     }
@@ -118,16 +128,19 @@ const endTest = async (name, result) => {
     ;
   } catch (e) {
     console.log(e)
-  };
+  }
+  ;
 }
 
 </script>
 
 <template>
   <TestFailed v-if="testStatus === 'failed'"/>
-  <TestList v-if="testStatus === 'select' && tests" :tests="tests" :testStatus="testStatus" @startTest="startTest" />
+  <TestList v-if="testStatus === 'select' && tests" :tests="tests" :testStatus="testStatus" @startTest="startTest"/>
   <TestFormBase v-if="testStatus === 'oxford'" @endTest="endTest" :pending="pending" :questions="questions.oxford"/>
-  <TestFormQuestionnaire v-if="testStatus === 'questionnaire'" @endTest="endTest" :pending="pending" :questions="questions.questionnaire"/>
+  <TestIQ v-if="testStatus === 'iq'" @endTest="endTest" :pending="pending" :questions="questions.iq"/>
+  <TestFormQuestionnaire v-if="testStatus === 'questionnaire'" @endTest="endTest" :pending="pending"
+                         :questions="questions.questionnaire"/>
   <Passed v-if="testStatus === 2"/>
 </template>
 

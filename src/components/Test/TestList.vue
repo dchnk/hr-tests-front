@@ -46,15 +46,17 @@ for (const test of tests.test) {
           <div class="start-test mt-4"
                :class="testList.questionnaire.test.ended && ' ended'"
                @click="emit('startTest', 'questionnaire')">
-            Начать тестирование
+            {{ testList.questionnaire.test.ended ? 'Завершен' : 'Начать тестирование' }}
           </div>
         </div>
-        <div class="test-container" v-if="testList.oxford">
+        <div class="test-container" v-if="testList.iq">
           <div class="test-name">Тест IQ</div>
           <div class="test-text questions-count">Вопросов в тесте: 40</div>
-          <div class="test-text time-to-pass">Время прохождения: ~30 минут</div>
-          <div class="start-test mt-4" @click="emit('startTest', 'iq')">
-            Начать тестирование
+          <div class="test-text time-to-pass">Макс. время прохождения: <span class="text-red">30 минут </span></div>
+          <div class="start-test mt-4"
+               :class="testList.iq.test.ended && ' ended'"
+               @click="emit('startTest', 'iq')">
+            {{ testList.iq.test.ended ? 'Завершен' : 'Начать тестирование' }}
           </div>
         </div>
       </div>
