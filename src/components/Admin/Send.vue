@@ -29,7 +29,11 @@ const inputValues = reactive({
 const selectedTest = reactive({});
 
 const selectTest = (name) => {
-  if (selectedTest[name]) return delete selectedTest[name];
+  if (selectedTest[name]) {
+    delete selectedTest[name];
+    validate('selected');
+    return;
+  }
 
   selectedTest[name] = name;
 
@@ -76,17 +80,15 @@ const validate = (inputName) => {
       break;
 
     case'selected':
-      for (let test in selectedTest) {
-        if (!selectedTest[test]) {
-          inputErrors.selected = 'Необходимо выбрать тест.';
-          invalid.value = true;
-        }
-        else {
-          inputErrors.selected = '';
-          checkForm();
-        }
-        break;
+      if (Object.keys(selectedTest).length === 0) {
+        inputErrors.selected = 'Необходимо выбрать тест.';
+        invalid.value = true;
+      } else {
+        inputErrors.selected = '';
+        checkForm();
       }
+
+      break;
   }
 }
 
@@ -320,7 +322,6 @@ const clickSubmit = async () => {
     transition: all .3s ease-in-out;
 
     .status {
-
       min-height: 50%;
       padding: 15px 30px;
       margin: auto;
@@ -415,7 +416,6 @@ const clickSubmit = async () => {
         margin-right: 12px;
         border-radius: 50%;
         background-color: #FFFFFF;
-
 
 
         .icon {
