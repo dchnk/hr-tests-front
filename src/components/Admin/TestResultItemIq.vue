@@ -133,8 +133,6 @@ prepareTest()
 </script>
 
 <template>
-
-
   <div class="test-item-questionnaire" :class="isOpen && 'open'">
     <div class="heading" @click="handleOpenToggle">
       <div class="name" :class="isOpen && 'open'">Тест IQ</div>
@@ -167,7 +165,57 @@ prepareTest()
         <div>
           Итоговый результат: {{ iqResult }}
         </div>
-
+      </div>
+      <div class="results-description flex">
+        <div class="__heading mb-1">Описание результатов:</div>
+        <div class="__item">
+          <div class="__score-value">
+            Балл: < 70 :
+          </div>
+          <div class="__score-description">
+             - очень низкий
+          </div>
+        </div>
+        <div class="__item">
+          <div class="__score-value">
+            Балл: < 70 :
+          </div>
+          <div class="__score-description">
+            - очень низкий
+          </div>
+        </div>
+        <div class="__item">
+          <div class="__score-value">
+            Балл: < 70 :
+          </div>
+          <div class="__score-description">
+            - очень низкий
+          </div>
+        </div>
+        <div class="__item">
+          <div class="__score-value">
+            Балл: < 70 :
+          </div>
+          <div class="__score-description">
+            - очень низкий
+          </div>
+        </div>
+        <div class="__item">
+          <div class="__score-value">
+            Балл: < 70 :
+          </div>
+          <div class="__score-description">
+            - очень низкий
+          </div>
+        </div>
+        <div class="__item">
+          <div class="__score-value">
+            Балл: < 70 :
+          </div>
+          <div class="__score-description">
+            - очень низкий
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -511,6 +559,12 @@ prepareTest()
 
 
       }
+    }
+  }
+
+  .results-description {
+    &__item{
+
     }
   }
 
