@@ -128,6 +128,18 @@ const iqResult = computed(() => {
   }
 })
 
+const resultDescription = computed(() => {
+  console.log(iqResult.value)
+
+  if(iqResult.value < 70) return 'Очень низкий'
+  if(iqResult.value >= 70 && iqResult.value <= 80) return 'Низкий'
+  if(iqResult.value > 80 && iqResult.value <= 90) return 'Очень низкий'
+  if(iqResult.value > 90 && iqResult.value <= 110) return 'Средний'
+  if(iqResult.value > 110 && iqResult.value <= 125) return 'Высше среднего'
+  if(iqResult.value > 125 && iqResult.value <= 140) return 'Очень низкий'
+  if(iqResult.value > 140) return 'Очень высокий'
+})
+
 prepareTest()
 
 </script>
@@ -163,58 +175,38 @@ prepareTest()
         </div>
         Всего верных ответов: {{ rightAnswers }} из 40
         <div>
-          Итоговый результат: {{ iqResult }}
+          Итоговый результат: {{ iqResult }} ({{ resultDescription }})
         </div>
       </div>
-      <div class="results-description flex">
-        <div class="__heading mb-1">Описание результатов:</div>
+      <div class="results-description">
+        <div class="__heading">Описание результатов:</div>
         <div class="__item">
-          <div class="__score-value">
-            Балл: < 70 :
-          </div>
-          <div class="__score-description">
-             - очень низкий
-          </div>
+          <div class="__score-value">Балл: < 70</div>
+          <div class="__score-description">Очень низкий</div>
         </div>
         <div class="__item">
-          <div class="__score-value">
-            Балл: < 70 :
-          </div>
-          <div class="__score-description">
-            - очень низкий
-          </div>
+          <div class="__score-value">Балл: 70 - 80</div>
+          <div class="__score-description">Низкий</div>
         </div>
         <div class="__item">
-          <div class="__score-value">
-            Балл: < 70 :
-          </div>
-          <div class="__score-description">
-            - очень низкий
-          </div>
+          <div class="__score-value">Балл: 81 - 90</div>
+          <div class="__score-description">Ниже среднего</div>
         </div>
         <div class="__item">
-          <div class="__score-value">
-            Балл: < 70 :
-          </div>
-          <div class="__score-description">
-            - очень низкий
-          </div>
+          <div class="__score-value">Балл: 91 - 110</div>
+          <div class="__score-description">Средний</div>
         </div>
         <div class="__item">
-          <div class="__score-value">
-            Балл: < 70 :
-          </div>
-          <div class="__score-description">
-            - очень низкий
-          </div>
+          <div class="__score-value">Балл: 111 - 125</div>
+          <div class="__score-description">Выше среднего</div>
         </div>
         <div class="__item">
-          <div class="__score-value">
-            Балл: < 70 :
-          </div>
-          <div class="__score-description">
-            - очень низкий
-          </div>
+          <div class="__score-value">Балл: 126 - 140</div>
+          <div class="__score-description">Высокий</div>
+        </div>
+        <div class="__item">
+          <div class="__score-value">Балл: > 141</div>
+          <div class="__score-description">Очень высокий</div>
         </div>
       </div>
     </div>
@@ -497,7 +489,7 @@ prepareTest()
 
     .results__heading {
       text-align: start;
-      font-size: 20px;
+      font-size: 22px;
       font-weight: 700;
       line-height: 24px;
       color: #122130;
@@ -563,8 +555,28 @@ prepareTest()
   }
 
   .results-description {
-    &__item{
 
+    .__heading{
+      margin-bottom: 1em;
+      font-size: 20px;
+    }
+
+    .__item{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #E6E6E6;
+      max-width: 400px;
+      margin-bottom: 0.5em;
+
+      .__score-value {
+        font-size: 14px;
+        font-weight: 600;
+        margin-right: 1em;
+      }
+      .__score-description {
+        font-size: 16px;
+      }
     }
   }
 
