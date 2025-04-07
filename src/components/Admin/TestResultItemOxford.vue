@@ -103,43 +103,43 @@ function handleOpenToggle() {
 
         <div class="columns">
           <div class="column" @click="increaseHeight">
-            <div class="text">A ({{ test.types.a.percent }})</div>
+            <div class="text">У ({{ test.types.a.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">B ({{ test.types.b.percent }})</div>
+            <div class="text">С ({{ test.types.b.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.b.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">C ({{ test.types.c.percent }})</div>
+            <div class="text">Н ({{ test.types.c.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.c.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">D ({{ test.types.d.percent }})</div>
+            <div class="text">Т ({{ test.types.d.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.d.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">E ({{ test.types.e.percent }})</div>
+            <div class="text">А ({{ test.types.e.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.e.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">F ({{ test.types.f.percent }})</div>
+            <div class="text">Р ({{ test.types.f.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.f.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">G ({{ test.types.g.percent }})</div>
+            <div class="text">П ({{ test.types.g.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.g.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">H ({{ test.types.h.percent }})</div>
+            <div class="text">К ({{ test.types.h.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.h.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">I ({{ test.types.i.percent }})</div>
+            <div class="text">О ({{ test.types.i.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.i.level}%` }"/>
           </div>
           <div class="column">
-            <div class="text">J ({{ test.types.j.percent }})</div>
+            <div class="text">Щ ({{ test.types.j.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.j.level}%` }"/>
           </div>
         </div>
@@ -164,7 +164,7 @@ function handleOpenToggle() {
         <div class="characteristic-list">
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">A - Cтабильность</div>
+              <div class="characteristic__name">Точка У - Устойчивость/непредсказуемость</div>
               <div class="characteristic__score" :class="test.types.a.rait">
                 {{ `Балл: ${test.types.a.percent} (${test.types.a.raitName})` }}
               </div>
@@ -173,7 +173,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">B - Cчастье и подавленность</div>
+              <div class="characteristic__name">Точка С - Счастье/подавленность</div>
               <div class="characteristic__score" :class="test.types.b.rait">
                 {{ `Балл: ${test.types.b.percent} (${test.types.b.raitName})` }}
               </div>
@@ -182,7 +182,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">C - Cпокойствие и нервозность</div>
+              <div class="characteristic__name">Точка Н - Спокойствие/нервозность </div>
               <div class="characteristic__score" :class="test.types.c.rait">
                 {{ `Балл: ${test.types.c.percent} (${test.types.c.raitName})` }}
               </div>
@@ -191,7 +191,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">D - Уверенность в себе</div>
+              <div class="characteristic__name">Точка Т - Твердость характера/сомнение</div>
               <div class="characteristic__score" :class="test.types.d.rait">
                 {{ `Балл: ${test.types.d.percent} (${test.types.d.raitName})` }}
               </div>
@@ -200,7 +200,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">E - Активность</div>
+              <div class="characteristic__name">Точка А - Активность</div>
               <div class="characteristic__score" :class="test.types.e.rait">
                 {{ `Балл: ${test.types.e.percent} (${test.types.e.raitName})` }}
               </div>
@@ -209,7 +209,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">F - Способность</div>
+              <div class="characteristic__name">Точка Р - Настойчивость/робость</div>
               <div class="characteristic__score" :class="test.types.f.rait">
                 {{ `Балл: ${test.types.f.percent} (${test.types.f.raitName})` }}
               </div>
@@ -218,7 +218,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">G - Ответственность</div>
+              <div class="characteristic__name">Точка П - Объективность/предубежденность</div>
               <div class="characteristic__score" :class="test.types.g.rait">
                 {{ `Балл: ${test.types.g.percent} (${test.types.g.raitName})` }}
               </div>
@@ -227,7 +227,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">H - Критичность, объективность</div>
+              <div class="characteristic__name">Точка К - Адекватность оценки/критичность</div>
               <div class="characteristic__score" :class="test.types.h.rait">
                 {{ `Балл: ${test.types.h.percent} (${test.types.h.raitName})` }}
               </div>
@@ -236,7 +236,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">I - Открытость, замкнутость</div>
+              <div class="characteristic__name">Точка О - Открытость</div>
               <div class="characteristic__score" :class="test.types.i.rait">
                 {{ `Балл: ${test.types.i.percent} (${test.types.i.raitName})` }}
               </div>
@@ -245,7 +245,7 @@ function handleOpenToggle() {
           </div>
           <div class="characteristic">
             <div class="characteristic__group">
-              <div class="characteristic__name">J - Уровень общения</div>
+              <div class="characteristic__name">Точка Щ - Общение</div>
               <div class="characteristic__score" :class="test.types.j.rait">
                 {{ `Балл: ${test.types.j.percent} (${test.types.j.raitName})` }}
               </div>
