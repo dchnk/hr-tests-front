@@ -203,7 +203,7 @@ const increaseUserBalance = async (balance) => {
           </div>
         </div>
         <div class="edit increase" @click="() => increaseUserBalance(10)">
-          Добавить 50
+          Добавить 10
         </div>
         <div class="edit increase" @click="() => increaseUserBalance(50)">
           Добавить 50
