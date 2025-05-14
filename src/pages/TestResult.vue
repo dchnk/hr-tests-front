@@ -514,16 +514,16 @@ const generatePDF = async () => {
         pdf-orientation="portrait"
       >
         <template #pdf-content>
-          <div class="pdf-content-container no-break">
-            <div class="heading-pdf">Результаты тестирования</div>
-            <TestResultItemOxford v-if="tests.oxford" :test="tests.oxford" :opened="true"/>
-            <div class="page-break" v-if="tests.questionnaire" />
+          <div class="heading-pdf">Результаты тестирования</div>
+          <div class="pdf-content-container" v-if="tests.oxford">
+            <TestResultItemOxford :test="tests.oxford" :opened="true"/>
           </div>
-          <div class="pdf-content-container" style="margin-top: 20px" v-if="tests.questionnaire">
+          <div class="page-break" v-if="tests.questionnaire && tests.oxford" />
+          <div class="pdf-content-container" v-if="tests.questionnaire">
             <TestResultItemQuestionnaire v-if="tests.questionnaire" :test="tests.questionnaire" :questions="questionnaire" :opened="true"/>
           </div>
-          <div class="pdf-content-container no-break keep-together" v-if="tests.iq">
-            <TestResultItemIq class="no-break keep-together" v-if="tests.iq" :test="tests.iq" :opened="true"/>
+          <div class="pdf-content-container" v-if="tests.iq">
+            <TestResultItemIq v-if="tests.iq" :test="tests.iq" :opened="true"/>
           </div>
         </template>
       </vue3-html2pdf>
@@ -570,6 +570,7 @@ const generatePDF = async () => {
 }
 
 .heading-pdf {
+  padding: 20px;
   margin-bottom: 1em;
   font-size: 28px;
   font-weight: 700;
