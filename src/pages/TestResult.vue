@@ -7,9 +7,12 @@ import axios from "axios";
 import {useRoute} from "vue-router";
 import TestResultItemOxford from "../components/Admin/TestResultItemOxford.vue";
 import TestResultItemIq from "../components/Admin/TestResultItemIq.vue";
+import Vue3Html2pdf from 'vue3-html2pdf';
 
 const test = ref(null);
 const tests = reactive({});
+
+const isLoading = ref(false);
 
 const characteristics = {};
 const syndromes = {};
@@ -19,6 +22,9 @@ const questionnaire = [];
 const route = useRoute();
 
 const getTestInfo = async () => {
+
+  isLoading.value = true;
+
   try {
     const testInfo = await axios.post(`/api/tests/${route.params.id}`)
 
@@ -53,6 +59,8 @@ const getTestInfo = async () => {
     prepareTest(testInfo.data.test.find(arg => arg.name === 'oxford'))
     prepareTest(testInfo.data.test.find(arg => arg.name === 'questionnaire'))
     prepareTest(testInfo.data.test.find(arg => arg.name === 'iq'))
+
+    isLoading.value = false;
 
   } catch (e) {
     console.log(e)
@@ -441,12 +449,41 @@ const prepareTest = (testInfo) => {
 getTestInfo();
 
 
+const html2pdfRef = ref(null);
+
+
+const generatePDF = async () => {
+
+  if (!isLoading) return;
+
+  html2pdfRef.value?.generatePdf({
+    margin: 20,
+    html2canvas: {
+      scale: 2, // Улучшение качества
+      logging: false,
+    },
+    jsPDF: {
+      unit: 'mm',
+      format: 'a4',
+      orientation: 'portrait',
+
+    }
+  });
+}
 </script>
 
 <template>
   <Header/>
   <main class="main">
-    <div class="heading">Результаты тестирования</div>
+    <div class="heading-container">
+      <div class="heading">Результаты тестирования</div>
+      <div v-if="!isLoading" class="pointer" @click="generatePDF">
+        <svg viewBox="0 0 19 22" class="download-svg"  fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M17 11.5V5.8C17 4.11984 17 3.27976 16.673 2.63803C16.3854 2.07354 15.9265 1.6146 15.362 1.32698C14.7202 1 13.8802 1 12.2 1H5.8C4.11984 1 3.27976 1 2.63803 1.32698C2.07354 1.6146 1.6146 2.07354 1.32698 2.63803C1 3.27976 1 4.11984 1 5.8V16.2C1 17.8802 1 18.7202 1.32698 19.362C1.6146 19.9265 2.07354 20.3854 2.63803 20.673C3.27976 21 4.1198 21 5.79986 21H9.5M12 18L15 21M15 21L18 18M15 21V15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        Скачать PDF
+      </div>
+    </div>
     <div class="main__container">
       <div class="profile">
         <router-link class="admin" to="/admin">
@@ -463,12 +500,84 @@ getTestInfo();
         <TestResultItemQuestionnaire v-if="tests.questionnaire" :test="tests.questionnaire" :questions="questionnaire"/>
         <TestResultItemIq v-if="tests.iq" :test="tests.iq" />
       </div>
-    </div>
 
+      <vue3-html2pdf
+        ref="html2pdfRef"
+        :show-layout="false"
+        :float-layout="true"
+        :enable-download="false"
+        :preview-modal="true"
+        :paginate-elements-by-height="1200"
+        :manual-pagination="true"
+        filename="document"
+        :pdf-quality="2"
+        pdf-orientation="portrait"
+      >
+        <template #pdf-content>
+          <div class="pdf-content-container no-break">
+            <div class="heading-pdf">Результаты тестирования</div>
+            <TestResultItemOxford v-if="tests.oxford" :test="tests.oxford" :opened="true"/>
+            <div class="page-break" v-if="tests.questionnaire" />
+          </div>
+          <div class="pdf-content-container" style="margin-top: 20px" v-if="tests.questionnaire">
+            <TestResultItemQuestionnaire v-if="tests.questionnaire" :test="tests.questionnaire" :questions="questionnaire" :opened="true"/>
+          </div>
+          <div class="pdf-content-container no-break keep-together" v-if="tests.iq">
+            <TestResultItemIq class="no-break keep-together" v-if="tests.iq" :test="tests.iq" :opened="true"/>
+          </div>
+        </template>
+      </vue3-html2pdf>
+    </div>
   </main>
 </template>
 
 <style lang="scss" scoped>
+
+.heading-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 72px;
+
+  @media screen and (max-width: 1200px) {
+    margin-top: 1em;
+  }
+}
+
+.download-svg {
+  height: 14px;
+  width: 14px;
+}
+
+.no-break {
+  break-inside: avoid !important;
+  page-break-inside: avoid !important;
+  -webkit-region-break-inside: avoid !important;
+  display: flow-root !important; /* Критически важно */
+}
+
+.page-break {
+  break-before: always;
+  page-break-before: always;
+  height: 0;
+}
+
+.pdf-content-container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 40px); /* Фиксируем минимальную высоту */
+}
+
+.heading-pdf {
+  margin-bottom: 1em;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.6px;
+  text-align: left;
+  color: #122130;
+}
+
 .main {
   max-width: 1180px;
   width: 100%;
@@ -488,16 +597,11 @@ getTestInfo();
   }
 
   .heading {
-    margin-top: 72px;
     font-size: 28px;
     font-weight: 700;
     line-height: 33.6px;
     text-align: left;
     color: #122130;
-
-    @media screen and (max-width: 1200px) {
-      margin-top: 1em;
-    }
   }
 
   .profile {
@@ -590,4 +694,22 @@ getTestInfo();
     }
   }
 }
+
+
+
+.pointer {
+  cursor: pointer;
+}
+
+.heading-download {
+  margin-bottom: 1em;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 33.6px;
+  text-align: left;
+  color: #122130;
+}
+
+
+
 </style>

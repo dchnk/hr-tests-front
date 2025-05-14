@@ -1,12 +1,14 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed, ref, watchEffect} from "vue";
 import {iqTestQuestions} from "../../vendor/iq-test.js";
 
-const {test, questions} = defineProps(['test', 'questions']);
+const {test, questions, opened} = defineProps(['test', 'questions', 'opened']);
 
 const isOpen = ref(false);
 
-console.log(test)
+watchEffect(() => {
+  if (opened) isOpen.value = true;
+})
 
 const started = computed((data) => {
   const started = test?.started;
@@ -148,7 +150,7 @@ prepareTest()
   <div class="test-item-questionnaire" :class="isOpen && 'open'">
     <div class="heading" @click="handleOpenToggle">
       <div class="name" :class="isOpen && 'open'">Тест IQ</div>
-      <div class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
+      <div v-if="!opened" class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
           <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>

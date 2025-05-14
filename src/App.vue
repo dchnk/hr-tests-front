@@ -31,4 +31,9 @@ html {
     background-color: #FFFFFF;
   }
 }
+
+.keep-together {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
 </style>

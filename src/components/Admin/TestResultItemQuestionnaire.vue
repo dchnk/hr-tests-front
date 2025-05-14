@@ -1,11 +1,13 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed, ref, watchEffect} from "vue";
 
-const {test, questions} = defineProps(['test', 'questions']);
+const {test, questions, opened} = defineProps(['test', 'questions', 'opened']);
 
 const isOpen = ref(false);
 
-console.log(test)
+watchEffect(() => {
+  if (opened) isOpen.value = true;
+})
 
 const started = computed((data) => {
   const started = test?.started;
@@ -68,12 +70,10 @@ function handleOpenToggle() {
 </script>
 
 <template>
-
-
-  <div class="test-item-questionnaire" :class="isOpen && 'open'">
+  <div class="test-item-questionnaire keep-together" :class="isOpen && 'open'">
     <div class="heading" @click="handleOpenToggle">
       <div class="name" :class="isOpen && 'open'">Опросник</div>
-      <div class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
+      <div v-if="!opened" class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
           <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -100,7 +100,7 @@ function handleOpenToggle() {
         </div>
 
         <div class="results-list">
-          <div class="result-item" v-for="(question, index) in questions" :key="index">
+          <div class="result-item keep-together" v-for="(question, index) in questions" :key="index">
             <div class="result__question">Вопрос {{ question.id }}: {{ question.question }}</div>
             <div class="result__answer">Ответ: {{ test.result[question.id] }}</div>
             <div class="result__description">
@@ -115,6 +115,7 @@ function handleOpenToggle() {
 </template>
 
 <style lang="scss" scoped>
+
 .test-item-questionnaire {
   display: flex;
   flex-direction: column;
@@ -124,6 +125,7 @@ function handleOpenToggle() {
     display: none;
     flex-direction: column;
     margin: 24px 24px 44px;
+
 
     @media screen and (max-width: 900px) {
       margin: 24px 24px 32px;
@@ -400,7 +402,7 @@ function handleOpenToggle() {
     .results-list {
 
       .result-item {
-        margin-bottom: 2em;
+        margin: 1em 0;
         padding: 2em;
         background-color: #F4F5F7;
         border-radius: 10px;

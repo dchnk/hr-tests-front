@@ -1,9 +1,15 @@
 <script setup>
-import {computed, ref} from "vue";
+import {computed, ref, watchEffect} from "vue";
 
-const {test} = defineProps(['test']);
+const {test, opened} = defineProps(['test', 'opened']);
 
 const isOpen = ref(false);
+
+watchEffect(() => {
+  if (opened) isOpen.value = true;
+
+  console.log(test)
+})
 
 const mainMotivationHeading = computed(() => {
   if (!test.motivation.main) return;
@@ -76,12 +82,10 @@ function handleOpenToggle() {
 </script>
 
 <template>
-
-
   <div class="test-item" :class="isOpen && 'open'">
     <div class="heading" @click="handleOpenToggle">
       <div class="name" :class="isOpen && 'open'">Базовый тест</div>
-      <div class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
+      <div v-if="!opened" class="btn arrow" :class="isOpen && 'open'" @click.stop="handleOpenToggle">
         <svg xmlns="http://www.w3.org/2000/svg" width="10" height="7" viewBox="0 0 10 7" fill="none">
           <path d="M9 1.5L5 5.5L1 1.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -102,7 +106,7 @@ function handleOpenToggle() {
         <div class="line-100-minus"/>
 
         <div class="columns">
-          <div class="column" @click="increaseHeight">
+          <div class="column">
             <div class="text">У ({{ test.types.a.percent }})</div>
             <div class="diagram" :style="{ height: `${test.types.a.level}%` }"/>
           </div>
@@ -254,22 +258,22 @@ function handleOpenToggle() {
           </div>
         </div>
       </div>
-      <div class="syndromes">
+      <div class="syndromes ">
         <div class="syndromes__heading">
           Синдромы
         </div>
         <div class="syndrome-list">
-          <div class="syndrome" v-for="syndrome in test.syndromes">
+          <div class="syndrome keep-together" v-for="syndrome in test.syndromes">
             {{ syndrome.text }}
           </div>
         </div>
       </div>
-      <div class="characteristics" v-if="test.motivation.main">
+      <div class="characteristics no-page-break" v-if="test.motivation.main">
         <div class="characteristics__heading">
           {{ mainMotivationHeading }}
         </div>
-        <div class="characteristic-list">
-          <div class="characteristic" v-for="motivation in test.motivation.main">
+        <div class="characteristic-list no-page-break">
+          <div class="characteristic no-page-break" v-for="motivation in test.motivation.main">
             <div class="characteristic__group">
               <div class="characteristic__name">{{ motivation.name }}</div>
               <div class="characteristic__score high">{{ `Балл: ${motivation.value}` }}</div>
@@ -288,13 +292,13 @@ function handleOpenToggle() {
         типов мотивации набирают одинаковое количество баллов. В таком случае считается, что все эти типы мотивации
         являются ведущими.
       </div>
-      <div class="characteristics" v-if="test.motivation.secondary.length > 0">
+      <div class="characteristics no-page-break" v-if="test.motivation.secondary.length > 0">
         <div class="characteristics__heading">
           {{ secondaryMotivationHeading }}
         </div>
         <div class="characteristic-list" >
           <div class="characteristic-list">
-            <div class="characteristic" v-for="motivation in test.motivation.secondary">
+            <div class="characteristic no-page-break" v-for="motivation in test.motivation.secondary">
               <div class="characteristic__group">
                 <div class="characteristic__name">{{ motivation.name }}</div>
                 <div class="characteristic__score middle">{{ `Балл: ${motivation.value}` }}</div>
@@ -309,6 +313,11 @@ function handleOpenToggle() {
 </template>
 
 <style lang="scss" scoped>
+.no-page-break {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
 .test-item {
   display: flex;
   flex-direction: column;
@@ -363,6 +372,8 @@ function handleOpenToggle() {
         width: 10%;
         max-width: 44px;
         height: 100%;
+        page-break-inside: avoid;
+        break-inside: avoid;
 
         .diagram {
           background-color: #7987FF;
@@ -397,13 +408,15 @@ function handleOpenToggle() {
         font-weight: 700;
         line-height: 24px;
         color: #122130;
-        margin-bottom: 1em;
+        margin: 1em 0;
       }
 
       .characteristic-list {
 
         .characteristic {
-          margin-bottom: 2em;
+          margin: 1em 0;
+          page-break-inside: avoid;
+          break-inside: avoid;
 
           &:last-child {
             margin-bottom: 0;
@@ -461,7 +474,7 @@ function handleOpenToggle() {
     }
 
     .syndromes {
-      margin: 2em auto;
+      margin: 2em 0;
 
       @media screen and (max-width: 1200px) {
         font-size: 14px;
@@ -952,7 +965,5 @@ function handleOpenToggle() {
       display: flex;
     }
   }
-
-
 }
 </style>
