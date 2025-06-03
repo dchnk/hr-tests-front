@@ -104,6 +104,10 @@ function handleOpenToggle() {
         <div class="line-50"/>
         <div class="line-50-minus"/>
         <div class="line-100-minus"/>
+        <div class="line-veryLow"/>
+        <div class="line-low"/>
+        <div class="line-middle"/>
+        <div class="line-high"/>
 
         <div class="columns">
           <div class="column">
@@ -622,6 +626,46 @@ function handleOpenToggle() {
         width: 95%;
         margin: auto 0;
         background-color: #E6E6E6;
+      }
+
+      .line-high {
+        position: absolute;
+        height: 35%;
+        top: 0;
+        width: 95%;
+        margin: auto 0;
+        background-color: #0BC03E;
+        opacity: .1;
+      }
+
+      .line-middle {
+        position: absolute;
+        height: 15%;
+        top: 35%;
+        width: 95%;
+        margin: auto 0;
+        background-color: #C9AC12;
+        opacity: .1;
+      }
+
+      .line-low {
+        position: absolute;
+        height: 9.5%;
+        top: 50%;
+        width: 95%;
+        margin: auto 0;
+        background-color: #c96412;
+        opacity: .2;
+      }
+
+      .line-veryLow {
+        position: absolute;
+        height: 40.5%;
+        top: 59.5%;
+        width: 95%;
+        margin: auto 0;
+        background-color: #D01408;
+        opacity: .2;
       }
 
       .line-50 {
