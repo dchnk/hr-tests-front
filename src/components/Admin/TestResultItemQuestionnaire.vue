@@ -1,5 +1,6 @@
 <script setup>
 import {computed, ref, watchEffect} from "vue";
+import RatingAnswer from "./RatingAnswer.vue";
 
 const {test, questions, opened} = defineProps(['test', 'questions', 'opened']);
 
@@ -34,6 +35,21 @@ const started = computed((data) => {
   const minutes = pad(date.getMinutes()); // Используем getMinutes() для локальных минут
 
   return `${day}.${month}.${year} ${hours}:${minutes}`;
+});
+
+const ratingList = ref(test.rating ? test.rating : {});
+
+const rating = computed(() => {
+  let currentRating = 0;
+  for (let i = 1; i < 21 ; i++) {
+    if (ratingList.value?.[i]) {
+      currentRating += ratingList.value[i];
+    } else {
+      currentRating += 1;
+    }
+  }
+
+  return currentRating / 20;
 });
 
 const ended = computed((data) => {
@@ -92,6 +108,10 @@ function handleOpenToggle() {
             <div class="item-name">Завершение</div>
             <div class="value">{{ test?.ended && ended || "-" }}</div>
           </div>
+          <div class="item">
+            <div class="item-name">Средняя оценка: </div>
+            <div class="value">{{ rating }} из 10</div>
+          </div>
         </div>
       </div>
       <div class="results">
@@ -106,6 +126,7 @@ function handleOpenToggle() {
             <div class="result__description">
               Комментарий к ответу: {{ question.description }}
             </div>
+            <RatingAnswer v-model="ratingList" :rating="test.rating?.[index + 1] || 1" :rating-length="10" :questionKey="index + 1"/>
           </div>
         </div>
 
